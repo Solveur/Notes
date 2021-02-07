@@ -29,6 +29,7 @@ namespace Notes
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUser));
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox_ShowPassword = new System.Windows.Forms.CheckBox();
             this.textBox_login = new System.Windows.Forms.TextBox();
@@ -109,6 +110,7 @@ namespace Notes
             this.Controls.Add(this.textBox_login);
             this.Controls.Add(this.checkBox_ShowPassword);
             this.Controls.Add(this.checkBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddUser";
             this.Text = "AddUser";
             this.ResumeLayout(false);

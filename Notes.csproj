@@ -105,6 +105,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -124,6 +125,21 @@
       <Project>{78d40f47-7726-4465-be84-cc12850f2e26}</Project>
       <Name>NotesLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resourses\Add_User_icon-icons.com_55971.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resourses\Change_User_icon-icons.com_55946.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resourses\Login.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resourses\notepad.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resourses\Remove_User_icon-icons.com_55828.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,6 +5,7 @@ namespace NotesLib
 {
     public partial class Note : UserControl
 	{
+		public new string Text = "";
 		public RichTextBox RTB_Note = new RichTextBox();
 		public string login = "";
 		public int rowid = 0;
@@ -45,5 +46,10 @@ namespace NotesLib
 			lbl_Header.Click += SelectNote;
 			lbl_Content.Click += SelectNote;
 		}
+
+		public Note()
+        {
+			InitializeComponent();
+        }
 	}
 }

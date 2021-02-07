@@ -29,6 +29,7 @@ namespace Notes
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteUser));
             this.comboBox_login = new System.Windows.Forms.ComboBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button_Apply = new System.Windows.Forms.Button();
@@ -80,6 +81,7 @@ namespace Notes
             this.Controls.Add(this.button_Apply);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.comboBox_login);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DeleteUser";
             this.Text = "DeleteUser";
             this.ResumeLayout(false);
