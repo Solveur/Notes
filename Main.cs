@@ -4,9 +4,9 @@ using System.Data.SQLite;
 using System.Windows.Forms;
 using NotesLib;
 
-namespace Курсач
+namespace Notes
 {
-	public partial class Form_Main : Form
+	public partial class Main : Form
 	{
 
 		public string connectionString = "Data Source =  Notes.db; Version = 3";    //DB variables
@@ -23,7 +23,7 @@ namespace Курсач
 
 
 		public static string masterPassword = "1234";   //Master password for creating admin accounts
-		public Form_Main()
+		public Main()
 		{
 			InitializeComponent();
 			if (selectedNote == null)                   //Hide textBox
@@ -74,7 +74,7 @@ namespace Курсач
 			Note note = new Note(SelectNote);       //Create new Note
 			note.dateOfCreation = DateTime.Now;     //Add date of creation
 			notes.Add(note);                        //Add Note to the List 
-			flowLayoutPanel1.Controls.Add(note);    //Add Note to the user interface
+			flowLayoutPanel.Controls.Add(note);    //Add Note to the user interface
 		}
 
 		private void Button_DeleteNote_Click(object sender, EventArgs e)
@@ -113,7 +113,7 @@ namespace Курсач
 				try
 				{
 					notes.Remove(selectedNote);                     //Delete note from RAM
-					flowLayoutPanel1.Controls.Remove(selectedNote); //
+					flowLayoutPanel.Controls.Remove(selectedNote); //
 					SelectNote(notes[0], e);                        //
 				}
 				catch
@@ -220,7 +220,7 @@ namespace Курсач
 			DB_ReadAllNotes(login);
 			foreach (var note in notes)
 			{
-				flowLayoutPanel1.Controls.Add(note);
+				flowLayoutPanel.Controls.Add(note);
 			}
 			label_User.Text = login;
 		}
