@@ -29,6 +29,7 @@ namespace Notes
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MasterPasswordConfirm));
             this.textBox_MasterPassword = new System.Windows.Forms.TextBox();
             this.button_Apply = new System.Windows.Forms.Button();
             this.button_Deny = new System.Windows.Forms.Button();
@@ -36,37 +37,44 @@ namespace Notes
             // 
             // textBox_MasterPassword
             // 
-            this.textBox_MasterPassword.Location = new System.Drawing.Point(96, 116);
+            this.textBox_MasterPassword.Location = new System.Drawing.Point(12, 12);
             this.textBox_MasterPassword.Name = "textBox_MasterPassword";
-            this.textBox_MasterPassword.Size = new System.Drawing.Size(100, 20);
+            this.textBox_MasterPassword.PasswordChar = '●';
+            this.textBox_MasterPassword.Size = new System.Drawing.Size(158, 20);
             this.textBox_MasterPassword.TabIndex = 0;
             // 
             // button_Apply
             // 
-            this.button_Apply.Location = new System.Drawing.Point(713, 415);
+            this.button_Apply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Apply.Location = new System.Drawing.Point(95, 48);
             this.button_Apply.Name = "button_Apply";
             this.button_Apply.Size = new System.Drawing.Size(75, 23);
             this.button_Apply.TabIndex = 1;
             this.button_Apply.Text = "Apply";
             this.button_Apply.UseVisualStyleBackColor = true;
+            this.button_Apply.Click += new System.EventHandler(this.Button_Apply_Click);
             // 
             // button_Deny
             // 
-            this.button_Deny.Location = new System.Drawing.Point(632, 415);
+            this.button_Deny.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Deny.Location = new System.Drawing.Point(12, 48);
             this.button_Deny.Name = "button_Deny";
             this.button_Deny.Size = new System.Drawing.Size(75, 23);
             this.button_Deny.TabIndex = 2;
             this.button_Deny.Text = "Deny";
             this.button_Deny.UseVisualStyleBackColor = true;
+            this.button_Deny.Click += new System.EventHandler(this.Button_Deny_Click);
             // 
             // MasterPasswordConfirm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(182, 83);
             this.Controls.Add(this.button_Deny);
             this.Controls.Add(this.button_Apply);
             this.Controls.Add(this.textBox_MasterPassword);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MasterPasswordConfirm";
             this.Text = "MasterPasswordConfirm";
             this.ResumeLayout(false);

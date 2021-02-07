@@ -23,7 +23,7 @@ namespace Notes
 			}
 		}
 
-		private void Button_Close_Click(object sender, EventArgs e)
+		private void Button_Deny_Click(object sender, EventArgs e)
 		{
 			Close();
 		}
