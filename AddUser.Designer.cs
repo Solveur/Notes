@@ -61,6 +61,7 @@ namespace Notes
             this.checkBox_ShowPassword.TabIndex = 1;
             this.checkBox_ShowPassword.Text = "Show password";
             this.checkBox_ShowPassword.UseVisualStyleBackColor = true;
+            this.checkBox_ShowPassword.CheckedChanged += new System.EventHandler(this.CheckBox_ShowPassword_CheckedChanged);
             // 
             // textBox_login
             // 

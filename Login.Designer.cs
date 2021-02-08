@@ -52,6 +52,7 @@ namespace Notes
             // 
             this.textBox_password.Location = new System.Drawing.Point(12, 39);
             this.textBox_password.Name = "textBox_password";
+            this.textBox_password.PasswordChar = '●';
             this.textBox_password.Size = new System.Drawing.Size(121, 20);
             this.textBox_password.TabIndex = 1;
             // 
@@ -64,6 +65,7 @@ namespace Notes
             this.checkBox_ShowPassword.TabIndex = 2;
             this.checkBox_ShowPassword.Text = "Show password";
             this.checkBox_ShowPassword.UseVisualStyleBackColor = true;
+            this.checkBox_ShowPassword.CheckedChanged += new System.EventHandler(this.CheckBox_ShowPassword_CheckedChanged);
             // 
             // button_AddUser
             // 
@@ -130,6 +132,7 @@ namespace Notes
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
             this.Text = "Login";
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

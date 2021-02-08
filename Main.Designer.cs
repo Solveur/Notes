@@ -31,16 +31,16 @@ namespace Notes
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button_AddUser = new System.Windows.Forms.Button();
-            this.button_RemoveUser = new System.Windows.Forms.Button();
-            this.button_ChangeUser = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button_DeleteNote = new System.Windows.Forms.Button();
-            this.label_User = new System.Windows.Forms.Label();
             this.richTextBox_NoteText = new System.Windows.Forms.RichTextBox();
+            this.label_User = new System.Windows.Forms.Label();
+            this.button_DeleteNote = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button_ChangeUser = new System.Windows.Forms.Button();
+            this.button_RemoveUser = new System.Windows.Forms.Button();
+            this.button_AddUser = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button_AddNote = new System.Windows.Forms.Button();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.button_AddNote = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -67,74 +67,6 @@ namespace Notes
             this.panel1.Size = new System.Drawing.Size(403, 342);
             this.panel1.TabIndex = 7;
             // 
-            // button_AddUser
-            // 
-            this.button_AddUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_AddUser.BackgroundImage = global::Notes.Properties.Resources.Add_User_icon_icons_com_55971;
-            this.button_AddUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button_AddUser.Location = new System.Drawing.Point(199, 3);
-            this.button_AddUser.Name = "button_AddUser";
-            this.button_AddUser.Size = new System.Drawing.Size(50, 50);
-            this.button_AddUser.TabIndex = 3;
-            this.button_AddUser.UseVisualStyleBackColor = true;
-            this.button_AddUser.Click += new System.EventHandler(this.Button_AddUser_Click);
-            // 
-            // button_RemoveUser
-            // 
-            this.button_RemoveUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_RemoveUser.BackgroundImage = global::Notes.Properties.Resources.Remove_User_icon_icons_com_55828;
-            this.button_RemoveUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button_RemoveUser.Location = new System.Drawing.Point(255, 3);
-            this.button_RemoveUser.Name = "button_RemoveUser";
-            this.button_RemoveUser.Size = new System.Drawing.Size(50, 50);
-            this.button_RemoveUser.TabIndex = 4;
-            this.button_RemoveUser.UseVisualStyleBackColor = true;
-            this.button_RemoveUser.Click += new System.EventHandler(this.Button_RemoveUser_Click);
-            // 
-            // button_ChangeUser
-            // 
-            this.button_ChangeUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ChangeUser.BackgroundImage = global::Notes.Properties.Resources.Change_User_icon_icons_com_55946;
-            this.button_ChangeUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button_ChangeUser.Location = new System.Drawing.Point(143, 3);
-            this.button_ChangeUser.Name = "button_ChangeUser";
-            this.button_ChangeUser.Size = new System.Drawing.Size(50, 50);
-            this.button_ChangeUser.TabIndex = 6;
-            this.button_ChangeUser.UseVisualStyleBackColor = true;
-            this.button_ChangeUser.Click += new System.EventHandler(this.Button_ChangeUser_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label1.Location = new System.Drawing.Point(10, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "User: ";
-            // 
-            // button_DeleteNote
-            // 
-            this.button_DeleteNote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_DeleteNote.BackgroundImage = global::Notes.Properties.Resources.dustbin_120823;
-            this.button_DeleteNote.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button_DeleteNote.Location = new System.Drawing.Point(341, 3);
-            this.button_DeleteNote.Name = "button_DeleteNote";
-            this.button_DeleteNote.Size = new System.Drawing.Size(50, 50);
-            this.button_DeleteNote.TabIndex = 5;
-            this.button_DeleteNote.UseVisualStyleBackColor = true;
-            this.button_DeleteNote.Click += new System.EventHandler(this.Button_DeleteNote_Click);
-            // 
-            // label_User
-            // 
-            this.label_User.AutoSize = true;
-            this.label_User.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label_User.Location = new System.Drawing.Point(51, 9);
-            this.label_User.Name = "label_User";
-            this.label_User.Size = new System.Drawing.Size(0, 13);
-            this.label_User.TabIndex = 2;
-            // 
             // richTextBox_NoteText
             // 
             this.richTextBox_NoteText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -149,6 +81,74 @@ namespace Notes
             this.richTextBox_NoteText.Text = "";
             this.richTextBox_NoteText.TextChanged += new System.EventHandler(this.RichTextBox_NoteText_TextChanged);
             // 
+            // label_User
+            // 
+            this.label_User.AutoSize = true;
+            this.label_User.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label_User.Location = new System.Drawing.Point(51, 9);
+            this.label_User.Name = "label_User";
+            this.label_User.Size = new System.Drawing.Size(0, 13);
+            this.label_User.TabIndex = 2;
+            // 
+            // button_DeleteNote
+            // 
+            this.button_DeleteNote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_DeleteNote.BackgroundImage = global::Notes.Properties.Resources.dustbin_120823;
+            this.button_DeleteNote.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_DeleteNote.Location = new System.Drawing.Point(341, 3);
+            this.button_DeleteNote.Name = "button_DeleteNote";
+            this.button_DeleteNote.Size = new System.Drawing.Size(50, 50);
+            this.button_DeleteNote.TabIndex = 5;
+            this.button_DeleteNote.UseVisualStyleBackColor = true;
+            this.button_DeleteNote.Click += new System.EventHandler(this.Button_DeleteNote_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label1.Location = new System.Drawing.Point(10, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "User: ";
+            // 
+            // button_ChangeUser
+            // 
+            this.button_ChangeUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_ChangeUser.BackgroundImage = global::Notes.Properties.Resources.Change_User_icon_icons_com_55946;
+            this.button_ChangeUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_ChangeUser.Location = new System.Drawing.Point(143, 3);
+            this.button_ChangeUser.Name = "button_ChangeUser";
+            this.button_ChangeUser.Size = new System.Drawing.Size(50, 50);
+            this.button_ChangeUser.TabIndex = 6;
+            this.button_ChangeUser.UseVisualStyleBackColor = true;
+            this.button_ChangeUser.Click += new System.EventHandler(this.Button_ChangeUser_Click);
+            // 
+            // button_RemoveUser
+            // 
+            this.button_RemoveUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_RemoveUser.BackgroundImage = global::Notes.Properties.Resources.Remove_User_icon_icons_com_55828;
+            this.button_RemoveUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_RemoveUser.Location = new System.Drawing.Point(255, 3);
+            this.button_RemoveUser.Name = "button_RemoveUser";
+            this.button_RemoveUser.Size = new System.Drawing.Size(50, 50);
+            this.button_RemoveUser.TabIndex = 4;
+            this.button_RemoveUser.UseVisualStyleBackColor = true;
+            this.button_RemoveUser.Click += new System.EventHandler(this.Button_RemoveUser_Click);
+            // 
+            // button_AddUser
+            // 
+            this.button_AddUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_AddUser.BackgroundImage = global::Notes.Properties.Resources.Add_User_icon_icons_com_55971;
+            this.button_AddUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_AddUser.Location = new System.Drawing.Point(199, 3);
+            this.button_AddUser.Name = "button_AddUser";
+            this.button_AddUser.Size = new System.Drawing.Size(50, 50);
+            this.button_AddUser.TabIndex = 3;
+            this.button_AddUser.UseVisualStyleBackColor = true;
+            this.button_AddUser.Click += new System.EventHandler(this.Button_AddUser_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.flowLayoutPanel);
@@ -162,16 +162,6 @@ namespace Notes
             this.panel2.Size = new System.Drawing.Size(170, 342);
             this.panel2.TabIndex = 7;
             // 
-            // button_AddNote
-            // 
-            this.button_AddNote.Location = new System.Drawing.Point(121, 3);
-            this.button_AddNote.Name = "button_AddNote";
-            this.button_AddNote.Size = new System.Drawing.Size(45, 25);
-            this.button_AddNote.TabIndex = 1;
-            this.button_AddNote.Text = "+Note";
-            this.button_AddNote.UseVisualStyleBackColor = true;
-            this.button_AddNote.Click += new System.EventHandler(this.Button_AddNote_Click);
-            // 
             // flowLayoutPanel
             // 
             this.flowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -181,9 +171,19 @@ namespace Notes
             this.flowLayoutPanel.Location = new System.Drawing.Point(0, 31);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(170, 311);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(170, 653);
             this.flowLayoutPanel.TabIndex = 0;
             this.flowLayoutPanel.WrapContents = false;
+            // 
+            // button_AddNote
+            // 
+            this.button_AddNote.Location = new System.Drawing.Point(121, 3);
+            this.button_AddNote.Name = "button_AddNote";
+            this.button_AddNote.Size = new System.Drawing.Size(45, 25);
+            this.button_AddNote.TabIndex = 1;
+            this.button_AddNote.Text = "+Note";
+            this.button_AddNote.UseVisualStyleBackColor = true;
+            this.button_AddNote.Click += new System.EventHandler(this.Button_AddNote_Click);
             // 
             // splitContainer
             // 
@@ -220,6 +220,9 @@ namespace Notes
             this.MinimumSize = new System.Drawing.Size(590, 381);
             this.Name = "Main";
             this.Text = "Notes";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Main_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_Main_FormClosed);
+            this.Load += new System.EventHandler(this.Form_Main_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

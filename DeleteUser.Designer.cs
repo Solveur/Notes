@@ -87,6 +87,8 @@ namespace Notes
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DeleteUser";
             this.Text = "DeleteUser";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DeleteUser_FormClosed);
+            this.Load += new System.EventHandler(this.DeleteUser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
