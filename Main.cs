@@ -9,7 +9,6 @@ namespace Notes
 {
 	public partial class Main : Form
 	{
-
 		public string connectionString = "Data Source =  Notes.db; Version = 3";    //DB variables
 		public List<Note> notes = new List<Note>();                                 //
 		public List<Note> deletedNotes = new List<Note>();                          //
@@ -43,6 +42,7 @@ namespace Notes
 
 		public void SelectNote(object sender, EventArgs e)
 		{
+			//TODO: Polymorphism
 			if (sender is Note note)                                        //If click on Note background
 			{                                                               //		
 				if (selectedNote != null)                                   //
@@ -74,10 +74,11 @@ namespace Notes
 		{
 			Note note = new Note(SelectNote)
 			{
-				dateOfCreation = DateTime.Now     //Add date of creation
-			};       //Create new Note
+				
+				dateOfCreation = DateTime.Now		//Add date of creation
+			};										//Create new Note
 			notes.Add(note);                        //Add Note to the List 
-			flowLayoutPanel.Controls.Add(note);    //Add Note to the user interface
+			flowLayoutPanel.Controls.Add(note);		//Add Note to the user interface
 		}
 
 		private void Button_DeleteNote_Click(object sender, EventArgs e)
@@ -132,11 +133,13 @@ namespace Notes
 
 		private void RichTextBox_NoteText_TextChanged(object sender, EventArgs e)
 		{
+			//TODO: RTF save
 			try
 			{
-				selectedNote.Text = richTextBox_NoteText.Text;  //Copy text from TextBox to Note's internal memory
-				selectedNote.SetHeader(richTextBox_NoteText);   //
-				selectedNote.SetContent(richTextBox_NoteText);  //
+				selectedNote.Text = richTextBox_NoteText.Text;  //Copy text from TextBox to Note's internal memory//selectedNote.Text = richTextBox_NoteText.Text;  //Copy text from TextBox to Note's internal memory
+				//selectedNote.RTB_Note = richTextBox_NoteText;  //Copy text from TextBox to Note's internal memory//selectedNote.Text = richTextBox_NoteText.Text;  //Copy text from TextBox to Note's internal memory
+				//selectedNote.SetHeader(richTextBox_NoteText);   //
+				//selectedNote.SetContent(richTextBox_NoteText);  //
 			}
 			catch { }
 		}
@@ -172,17 +175,18 @@ namespace Notes
 
 		public async void DB_ReadAllNotesAsync(string login)   //Read all notes from DB
 		{
-			SQLiteConnection con = new SQLiteConnection(connectionString);  //Open DB connection
-			con.Open();                                                     //
+			// TODO: Async read
+			//await Task.Run(() =>
+			//{
+				SQLiteConnection con = new SQLiteConnection(connectionString);  //Open DB connection
+				con.Open();                                                     //
 
-			using (SQLiteCommand fmd = con.CreateCommand())
-			{
-				try
+				using (SQLiteCommand fmd = con.CreateCommand())
 				{
-					fmd.CommandText = $"SELECT note, rowid, dateOfCreate FROM Notes WHERE login = '{login}'";
-					SQLiteDataReader r = fmd.ExecuteReader();
-					await Task.Run(() =>
+					try
 					{
+						fmd.CommandText = $"SELECT note, rowid, dateOfCreate FROM Notes WHERE login = '{login}'";
+						SQLiteDataReader r = fmd.ExecuteReader();
 						while (r.Read())
 						{
 							Note note = new Note(SelectNote)
@@ -192,26 +196,29 @@ namespace Notes
 								dateOfCreation = Convert.ToDateTime(r["dateOfCreate"])
 							};
 							richTextBox_NoteText.Text = note.Text;
-							note.SetHeader(richTextBox_NoteText);
-							note.SetContent(richTextBox_NoteText);
 							notes.Add(note);
 						}
 						r.Close();
 						richTextBox_NoteText.Text = "";
 						fmd.ExecuteNonQuery();
-					});
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show(ex.ToString());
+					}
 				}
-				catch (Exception ex)
-				{
-					MessageBox.Show(ex.ToString());
-				}
-			}
-			con.Close();
+				con.Close();
+			//});
 		}
 
 		private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			DB_AddAllNotes(login);
+		}
+
+		private void Form_Main_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			Application.Exit();
 		}
 
 		private void Form_Main_Load(object sender, EventArgs e)
@@ -222,11 +229,6 @@ namespace Notes
 				flowLayoutPanel.Controls.Add(note);
 			}
 			label_User.Text = login;
-		}
-
-		private void Form_Main_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			Application.Exit();
 		}
 
 		private void Button_AddUser_Click(object sender, EventArgs e)
@@ -254,5 +256,5 @@ namespace Notes
 			Visible = false;
 			log.Show();
 		}
-	}
+    }
 }
