@@ -256,5 +256,5 @@ namespace Notes
 			Visible = false;
 			log.Show();
 		}
-    }
+	}
 }
