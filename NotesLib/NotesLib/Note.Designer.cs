@@ -57,6 +57,7 @@
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.lbl_Content);
             this.Controls.Add(this.lbl_Header);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Name = "Note";
             this.Size = new System.Drawing.Size(136, 45);
             this.ResumeLayout(false);

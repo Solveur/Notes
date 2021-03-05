@@ -63,9 +63,9 @@ namespace Notes.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Add_User_icon_icons_com_55971 {
+        internal static System.Drawing.Bitmap AddUser {
             get {
-                object obj = ResourceManager.GetObject("Add_User_icon-icons.com_55971", resourceCulture);
+                object obj = ResourceManager.GetObject("AddUser", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Notes.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Change_User_icon_icons_com_55946 {
+        internal static System.Drawing.Bitmap ChangeUser {
             get {
-                object obj = ResourceManager.GetObject("Change_User_icon-icons.com_55946", resourceCulture);
+                object obj = ResourceManager.GetObject("ChangeUser", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace Notes.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dustbin_120823 {
+        internal static System.Drawing.Bitmap DeleteUser {
             get {
-                object obj = ResourceManager.GetObject("dustbin_120823", resourceCulture);
+                object obj = ResourceManager.GetObject("DeleteUser", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,29 +93,9 @@ namespace Notes.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Login {
+        internal static System.Drawing.Bitmap TrashBin {
             get {
-                object obj = ResourceManager.GetObject("Login", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap notepad {
-            get {
-                object obj = ResourceManager.GetObject("notepad", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Remove_User_icon_icons_com_55828 {
-            get {
-                object obj = ResourceManager.GetObject("Remove_User_icon-icons.com_55828", resourceCulture);
+                object obj = ResourceManager.GetObject("TrashBin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

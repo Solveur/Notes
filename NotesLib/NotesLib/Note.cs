@@ -3,53 +3,71 @@ using System.Windows.Forms;
 
 namespace NotesLib
 {
-    public partial class Note : UserControl
+	public partial class Note : UserControl
 	{
-		public new string Text = "";
-		public RichTextBox RTB_Note = new RichTextBox();
-		public string login = "";
+		public string login { get; set; }
 		public int rowid = 0;
 		public DateTime dateOfCreation = new DateTime();
-
-		public void SetHeader(RichTextBox rtb)
+		private RichTextBox _RTB_Note = new RichTextBox();
+		public RichTextBox RTB_Note
 		{
-			try
+			get { return _RTB_Note; }
+			set
 			{
-				if (rtb.Lines.Length != 0)
-					lbl_Header.Text = rtb.Lines[0];
-				else
+				_RTB_Note = value;
+				Text = _RTB_Note.Text;
+			}
+		}
+		public string RTF
+		{
+			get
+            {
+				Text = RTB_Note.Text;
+				return RTB_Note.Rtf;
+            }
+
+			set
+            {
+                RichTextBox temp = new RichTextBox
+                {
+                    Rtf = value
+                };
+                RTB_Note = temp;
+				Text = RTB_Note.Text;
+            }
+		}
+
+		private string _Text;
+		new public string Text
+		{
+			get { return _Text; }
+			set
+			{
+				_Text = value;
+				try
 				{
-					lbl_Header.Text = "Empty note";
-					lbl_Content.Text = "";
+					if (_RTB_Note.Lines.Length > 1)
+						lbl_Content.Text = _RTB_Note.Lines[1];
 				}
-			}
-			catch { }
-		}
+				catch { }
 
-		public void SetContent(RichTextBox rtb)
-		{
-			try
-			{
-				if(rtb.Lines.Length > 1)
-					lbl_Content.Text = rtb.Lines[1];
+				try
+				{
+					if (_RTB_Note.Lines.Length != 0)
+						lbl_Header.Text = _RTB_Note.Lines[0];
+					else
+					{
+						lbl_Header.Text = "Empty note";
+						lbl_Content.Text = "";
+					}
+				}
+				catch { }
 			}
-			catch
-			{
-
-			}
-		}
-
-		public Note(EventHandler SelectNote)
-		{
-			InitializeComponent();
-			Click += SelectNote;
-			lbl_Header.Click += SelectNote;
-			lbl_Content.Click += SelectNote;
 		}
 
 		public Note()
-        {
+		{
 			InitializeComponent();
-        }
+		}
 	}
 }
