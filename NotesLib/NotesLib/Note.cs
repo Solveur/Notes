@@ -21,20 +21,20 @@ namespace NotesLib
 		public string RTF
 		{
 			get
-            {
+			{
 				Text = RTB_Note.Text;
 				return RTB_Note.Rtf;
-            }
+			}
 
 			set
-            {
-                RichTextBox temp = new RichTextBox
-                {
-                    Rtf = value
-                };
-                RTB_Note = temp;
+			{
+				RichTextBox temp = new RichTextBox
+				{
+					Rtf = value
+				};
+				RTB_Note = temp;
 				Text = RTB_Note.Text;
-            }
+			}
 		}
 
 		private string _Text;
