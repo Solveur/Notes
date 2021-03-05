@@ -14,9 +14,9 @@ namespace Notes
 		public List<Note> deletedNotes = new List<Note>();                          //
 
 		public Note selectedNote = null;    //Current note
-
-		Login log = new Login();                //Login variables
-		DeleteUser delete = new DeleteUser();   //
+  
+		DeleteUser formDelete = new DeleteUser();   //Login variables
+		// TODO: Change user select
 		public string login { get; set; }       //
 		public string password { get; set; }    //
 		public int rights { get; set; }         //
@@ -44,39 +44,39 @@ namespace Notes
 		{
 			//TODO: Polymorphism
 			if (sender is Note note)                                        //If click on Note background
-			{                                                               //		
-				if (selectedNote != null)                                   //
-				{                                                           //
-					selectedNote.BorderStyle = BorderStyle.FixedSingle;     //
-				}                                                           //
-				selectedNote = note;                                        //
-				selectedNote.BorderStyle = BorderStyle.Fixed3D;             //
-				richTextBox_NoteText.Visible = true;                        //
-				richTextBox_NoteText.Text = note.Text;                      //
-				richTextBox_NoteText.Focus();                               //
-			}                                                               //
+			{
+				if (selectedNote != null)
+				{
+					selectedNote.BorderStyle = BorderStyle.FixedSingle;
+				}
+				selectedNote = note;
+				selectedNote.BorderStyle = BorderStyle.Fixed3D;
+				richTextBox_NoteText.Visible = true;
+				richTextBox_NoteText.Rtf = note.RTF;
+				richTextBox_NoteText.Focus();
+			}
 
 			else if (sender is Label label)                                 //If click on Label
-			{                                                               //
-				if (selectedNote != null)                                   //
-				{                                                           //
-					selectedNote.BorderStyle = BorderStyle.FixedSingle;     //
-				}                                                           //
-				selectedNote = label.Parent as Note;                        //
-				selectedNote.BorderStyle = BorderStyle.Fixed3D;             //
-				richTextBox_NoteText.Visible = true;                        //
-				richTextBox_NoteText.Text = (label.Parent as Note).Text;    //
-				richTextBox_NoteText.Focus();                               //
+			{                                                              
+				if (selectedNote != null)                                  
+				{                                                          
+					selectedNote.BorderStyle = BorderStyle.FixedSingle;    
+				}                                                          
+				selectedNote = label.Parent as Note;                       
+				selectedNote.BorderStyle = BorderStyle.Fixed3D;            
+				richTextBox_NoteText.Visible = true;                       
+				richTextBox_NoteText.Rtf = (label.Parent as Note).RTF;    
+				richTextBox_NoteText.Focus();                              
 			}
 		}
 
 		private void Button_AddNote_Click(object sender, EventArgs e)
 		{
-			Note note = new Note(SelectNote)
+			Note note = new Note()
 			{
-				
 				dateOfCreation = DateTime.Now		//Add date of creation
-			};										//Create new Note
+			};                                      //Create new Note
+			note.Click += new EventHandler(SelectNote);
 			notes.Add(note);                        //Add Note to the List 
 			flowLayoutPanel.Controls.Add(note);		//Add Note to the user interface
 		}
@@ -134,14 +134,12 @@ namespace Notes
 		private void RichTextBox_NoteText_TextChanged(object sender, EventArgs e)
 		{
 			//TODO: RTF save
-			try
+			if (selectedNote != null)
 			{
-				selectedNote.Text = richTextBox_NoteText.Text;  //Copy text from TextBox to Note's internal memory//selectedNote.Text = richTextBox_NoteText.Text;  //Copy text from TextBox to Note's internal memory
-				//selectedNote.RTB_Note = richTextBox_NoteText;  //Copy text from TextBox to Note's internal memory//selectedNote.Text = richTextBox_NoteText.Text;  //Copy text from TextBox to Note's internal memory
-				//selectedNote.SetHeader(richTextBox_NoteText);   //
-				//selectedNote.SetContent(richTextBox_NoteText);  //
+				selectedNote.RTF = richTextBox_NoteText.Rtf;
 			}
-			catch { }
+			//selectedNote.SetHeader(richTextBox_NoteText);
+			//selectedNote.SetContent(richTextBox_NoteText);
 		}
 
 		public void DB_AddAllNotes(string login)    //Add all notes to DB
@@ -157,13 +155,13 @@ namespace Notes
 					{
 						if (note.rowid == 0)                                                                                                                    //If Note does'n exist, create
 						{                                                                                                                                       //
-							fmd.CommandText = $"INSERT INTO Notes(login, note, dateOfCreate) VALUES('{login}', '{note.Text}', '{note.dateOfCreation:yyyy-MM-dd hh:mm:ss}')";    //
+							fmd.CommandText = $"INSERT INTO Notes(login, note, dateOfCreate) VALUES('{login}', '{note.RTF}', '{note.dateOfCreation:yyyy-MM-dd hh:mm:ss}')";    //
 							fmd.ExecuteNonQuery();                                                                                                              //
 						}                                                                                                                                       //
 
 						else                                                                                            //If Note exist, update
 						{                                                                                               //
-							fmd.CommandText = $"UPDATE Notes SET note = '{note.Text}' WHERE rowid = '{note.rowid}'";    //
+							fmd.CommandText = $"UPDATE Notes SET note = '{note.RTF}' WHERE rowid = '{note.rowid}'";    //
 							fmd.ExecuteNonQuery();                                                                      //
 						}                                                                                               //
 					}
@@ -172,43 +170,70 @@ namespace Notes
 			}
 			con.Close();
 		}
-
-		public async void DB_ReadAllNotesAsync(string login)   //Read all notes from DB
+		public void DB_ReadAllNotes(string login)   //Read all notes from DB
 		{
-			// TODO: Async read
-			//await Task.Run(() =>
-			//{
-				SQLiteConnection con = new SQLiteConnection(connectionString);  //Open DB connection
-				con.Open();                                                     //
+			SQLiteConnection con = new SQLiteConnection(connectionString);  //Open DB connection
+			con.Open();                                                     //
 
-				using (SQLiteCommand fmd = con.CreateCommand())
+			using (SQLiteCommand fmd = con.CreateCommand())
+			{
+				try
 				{
-					try
+					fmd.CommandText = $"SELECT note, rowid, dateOfCreate FROM Notes WHERE login = '{login}'";
+					SQLiteDataReader r = fmd.ExecuteReader();
+
+					while (r.Read())
 					{
-						fmd.CommandText = $"SELECT note, rowid, dateOfCreate FROM Notes WHERE login = '{login}'";
-						SQLiteDataReader r = fmd.ExecuteReader();
-						while (r.Read())
+						Note note = new Note()
 						{
-							Note note = new Note(SelectNote)
-							{
-								Text = r["note"].ToString(),
-								rowid = Convert.ToInt32(r["rowid"]),
-								dateOfCreation = Convert.ToDateTime(r["dateOfCreate"])
-							};
-							richTextBox_NoteText.Text = note.Text;
-							notes.Add(note);
-						}
-						r.Close();
-						richTextBox_NoteText.Text = "";
-						fmd.ExecuteNonQuery();
+							RTF = r["note"].ToString(),
+							rowid = Convert.ToInt32(r["rowid"]),
+							dateOfCreation = Convert.ToDateTime(r["dateOfCreate"])
+						};
+						richTextBox_NoteText.Rtf = note.RTF;
+						notes.Add(note);
 					}
-					catch (Exception ex)
-					{
-						MessageBox.Show(ex.ToString());
-					}
+					r.Close();
+					richTextBox_NoteText.Text = "";
+					fmd.ExecuteNonQuery();
 				}
-				con.Close();
-			//});
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.ToString());
+				}
+			}
+			con.Close();
+		}
+
+		public async Task DB_ReadAllNotesAsync(string login)   //Read all notes from DB
+		{
+			await Task.Run(() => DB_ReadAllNotesAsync(login));
+		}
+
+		async void LoadAsync()
+		{
+			await DB_ReadAllNotesAsync(login);
+
+			foreach (var note in notes)
+			{
+				flowLayoutPanel.Controls.Add(note);
+			}
+			label_User.Text = login;
+		}
+
+		private void Button_RemoveUser_Click(object sender, EventArgs e)
+		{
+			if (rights == 1)
+			{
+				formDelete.ShowDialog();
+				if (formDelete.login == login)
+				{
+					Hide();
+					richTextBox_NoteText.Text = "";
+					label_User.Text = "";
+				}
+			}
+			else MessageBox.Show("Error! You don't have permission to do this", "OK", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 		private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -223,10 +248,12 @@ namespace Notes
 
 		private void Form_Main_Load(object sender, EventArgs e)
 		{
-			DB_ReadAllNotesAsync(login);
+			DB_ReadAllNotes(login);
+
 			foreach (var note in notes)
 			{
 				flowLayoutPanel.Controls.Add(note);
+				note.Click += SelectNote;
 			}
 			label_User.Text = login;
 		}
@@ -235,26 +262,6 @@ namespace Notes
 		{
 			AddUser add = new AddUser(rights);
 			add.ShowDialog();
-		}
-
-		private void Button_RemoveUser_Click(object sender, EventArgs e)
-		{
-			if (rights == 1)
-			{
-				delete.ShowDialog();
-				if (delete.login == login)
-				{
-					Hide();
-					log.ShowDialog();
-				}
-			}
-			else MessageBox.Show("Error! You don't have permission to do this", "OK", MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
-
-		private void Button_ChangeUser_Click(object sender, EventArgs e)
-		{
-			Visible = false;
-			log.Show();
 		}
 	}
 }

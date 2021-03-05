@@ -5,19 +5,37 @@ namespace NotesLib
 {
 	public partial class Note : UserControl
 	{
-        public string login { get; set; }
+		public string login { get; set; }
 		public int rowid = 0;
 		public DateTime dateOfCreation = new DateTime();
 		private RichTextBox _RTB_Note = new RichTextBox();
-        public RichTextBox RTB_Note
-        {
-            get { return _RTB_Note; }
-            set
+		public RichTextBox RTB_Note
+		{
+			get { return _RTB_Note; }
+			set
+			{
+				_RTB_Note = value;
+				Text = _RTB_Note.Text;
+			}
+		}
+		public string RTF
+		{
+			get
             {
-                _RTB_Note = value;
-                Text = _RTB_Note.Text;
+				Text = RTB_Note.Text;
+				return RTB_Note.Rtf;
             }
-        }
+
+			set
+            {
+                RichTextBox temp = new RichTextBox
+                {
+                    Rtf = value
+                };
+                RTB_Note = temp;
+				Text = RTB_Note.Text;
+            }
+		}
 
 		private string _Text;
 		new public string Text
@@ -26,7 +44,6 @@ namespace NotesLib
 			set
 			{
 				_Text = value;
-				_RTB_Note.Text = value;
 				try
 				{
 					if (_RTB_Note.Lines.Length > 1)
@@ -48,29 +65,9 @@ namespace NotesLib
 			}
 		}
 
-		private EventHandler _SelectNote;
-        public EventHandler SelectNote
-        {
-            get
-            {
-				return _SelectNote;
-            }
-            set
-            {
-				_SelectNote = value;
-            }
-        }
-
-
-        public Note(EventHandler SelectNote)
-        {
-            InitializeComponent();
-            Click += SelectNote;
-        }
-
-        public Note()
-        {
-            InitializeComponent();
-        }
-    }
+		public Note()
+		{
+			InitializeComponent();
+		}
+	}
 }
