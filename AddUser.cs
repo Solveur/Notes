@@ -8,10 +8,10 @@ namespace Notes
 	{
 		public string login;
 		public string password;
-		public int rights;
+		public User.Rights rights;
 		public string masterPassword { get; set; }
 
-		public AddUser(int rights)
+		public AddUser(User.Rights rights)
 		{
 			InitializeComponent();
 			this.rights = rights;
