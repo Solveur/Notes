@@ -41,12 +41,18 @@ namespace Notes
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.button_AddNote = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showUsersControlPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -62,7 +68,7 @@ namespace Notes
             this.panel1.Margin = new System.Windows.Forms.Padding(1);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(2);
-            this.panel1.Size = new System.Drawing.Size(454, 342);
+            this.panel1.Size = new System.Drawing.Size(454, 343);
             this.panel1.TabIndex = 7;
             // 
             // comboBox_User
@@ -72,14 +78,14 @@ namespace Notes
             this.comboBox_User.Name = "comboBox_User";
             this.comboBox_User.Size = new System.Drawing.Size(121, 21);
             this.comboBox_User.TabIndex = 7;
-            this.comboBox_User.SelectionChangeCommitted += new System.EventHandler(this.comboBox_User_SelectionChangeCommitted);
+            this.comboBox_User.SelectionChangeCommitted += new System.EventHandler(this.СomboBox_User_SelectionChangeCommitted);
             // 
             // richTextBox_NoteText
             // 
             this.richTextBox_NoteText.BackColor = System.Drawing.Color.Gainsboro;
             this.richTextBox_NoteText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox_NoteText.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.richTextBox_NoteText.Location = new System.Drawing.Point(2, 59);
+            this.richTextBox_NoteText.Location = new System.Drawing.Point(2, 60);
             this.richTextBox_NoteText.Name = "richTextBox_NoteText";
             this.richTextBox_NoteText.Size = new System.Drawing.Size(450, 281);
             this.richTextBox_NoteText.TabIndex = 0;
@@ -143,7 +149,7 @@ namespace Notes
             this.panel2.MaximumSize = new System.Drawing.Size(170, 0);
             this.panel2.MinimumSize = new System.Drawing.Size(170, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(170, 342);
+            this.panel2.Size = new System.Drawing.Size(170, 343);
             this.panel2.TabIndex = 7;
             // 
             // flowLayoutPanel
@@ -151,7 +157,7 @@ namespace Notes
             this.flowLayoutPanel.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
             this.flowLayoutPanel.AutoScroll = true;
             this.flowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 31);
+            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 32);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
             this.flowLayoutPanel.Size = new System.Drawing.Size(170, 311);
@@ -172,7 +178,7 @@ namespace Notes
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer.IsSplitterFixed = true;
-            this.splitContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer.Location = new System.Drawing.Point(0, 24);
             this.splitContainer.Margin = new System.Windows.Forms.Padding(0);
             this.splitContainer.MinimumSize = new System.Drawing.Size(474, 342);
             this.splitContainer.Name = "splitContainer";
@@ -187,17 +193,56 @@ namespace Notes
             this.splitContainer.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.splitContainer.Panel2.Controls.Add(this.panel1);
             this.splitContainer.Panel2MinSize = 300;
-            this.splitContainer.Size = new System.Drawing.Size(625, 342);
+            this.splitContainer.Size = new System.Drawing.Size(625, 343);
             this.splitContainer.SplitterDistance = 170;
             this.splitContainer.SplitterWidth = 1;
             this.splitContainer.TabIndex = 0;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.usersToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(625, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // usersToolStripMenuItem
+            // 
+            this.usersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addUserToolStripMenuItem,
+            this.removeUserToolStripMenuItem,
+            this.showUsersControlPanelToolStripMenuItem});
+            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.usersToolStripMenuItem.Text = "Users";
+            // 
+            // addUserToolStripMenuItem
+            // 
+            this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
+            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.addUserToolStripMenuItem.Text = "Add user";
+            // 
+            // removeUserToolStripMenuItem
+            // 
+            this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
+            this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.removeUserToolStripMenuItem.Text = "Remove user";
+            // 
+            // showUsersControlPanelToolStripMenuItem
+            // 
+            this.showUsersControlPanelToolStripMenuItem.Name = "showUsersControlPanelToolStripMenuItem";
+            this.showUsersControlPanelToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.showUsersControlPanelToolStripMenuItem.Text = "Show users control panel";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 342);
+            this.ClientSize = new System.Drawing.Size(625, 367);
             this.Controls.Add(this.splitContainer);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(590, 381);
             this.Name = "Main";
@@ -212,7 +257,10 @@ namespace Notes
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
@@ -228,7 +276,12 @@ namespace Notes
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
 		private System.Windows.Forms.Button button_AddNote;
 		private System.Windows.Forms.SplitContainer splitContainer;
-        private System.Windows.Forms.ComboBox comboBox_User;
+		private System.Windows.Forms.ComboBox comboBox_User;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addUserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeUserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showUsersControlPanelToolStripMenuItem;
     }
 }
 
