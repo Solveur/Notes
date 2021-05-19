@@ -1,26 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Windows.Forms;
-using static Notes.User;
-
-namespace Notes
+﻿namespace Notes
 {
     public static class Extentions
     {
-        public static Rights ToRights(this object input)
+        /* Examlpe
+        public static <Type of return value> <Extension method name>(this <Type of element that exteds> input)
         {
-            switch(Convert.ToInt32(input))
-            {
-                case 0: 
-                    return Rights.GuestRigths;
-                case 1:
-                    return Rights.UserRights;
-                case 2:
-                    return Rights.SpectatorRights;
-                case 3:
-                    return Rights.AdminRights;
-                default: throw new Exception("Can't convert");
-            }
+            <Method code>
         }
+        */
     }
 }

@@ -16,12 +16,7 @@ namespace Notes
 
 		//TODO: Change user select
 		public List<User> users = new List<User>();
-		public User currentUser = new User()
-		{
-			rights = User.Rights.GuestRigths
-		};
-
-		private DeleteUser formDelete = new DeleteUser();
+		public User currentUser = new User();
 
 		public static string masterPassword = "1234";
 
@@ -36,7 +31,6 @@ namespace Notes
 			{
 				richTextBox_NoteText.Visible = false;
 			}
-			comboBox_User.Text = "Guest";
 		}
 
 		public void SelectNote(object sender, EventArgs e)
@@ -72,51 +66,50 @@ namespace Notes
 		{
 			Note note = new Note()
 			{
-				dateOfCreation = DateTime.Now       //Add date of creation
-			};                                      //Create new Note
+				dateOfCreation = DateTime.Now
+			};
 			note.Click += new EventHandler(SelectNote);
-			notes.Add(note);                        //Add Note to the List
-			flowLayoutPanel.Controls.Add(note);     //Add Note to the user interface
+			notes.Add(note);
+			flowLayoutPanel.Controls.Add(note);
 		}
 
 		private void Button_DeleteNote_Click(object sender, EventArgs e)
 		{
-			if (notes.Count > 0)
+			if (notes.Count <= 0)
+				return;
+			if (MessageBox.Show("Do you want to delete this note?", "Deleting confirmation", MessageBoxButtons.OKCancel) != DialogResult.OK)
+				return;
+			SQLiteConnection con;
+			con = new SQLiteConnection(connectionString);
+			con.Open();
+
+			using (SQLiteCommand command = con.CreateCommand())
 			{
-				if (MessageBox.Show("Do you want to delete this note?", "Deleting confirmation", MessageBoxButtons.OKCancel) == DialogResult.OK)
+				try
 				{
-					SQLiteConnection con;
-					con = new SQLiteConnection(connectionString);
-					con.Open();
-
-					using (SQLiteCommand fmd = con.CreateCommand())
-					{
-						try
-						{
-							fmd.CommandText = $"DELETE from Notes WHERE rowid = '{selectedNote.rowid}'";
-							fmd.ExecuteNonQuery();
-						}
-						catch (Exception ex)
-						{
-							MessageBox.Show(ex.ToString());
-						}
-					}
-					con.Close();
-
-					deletedNotes.Add(selectedNote);
-
-					try
-					{
-						notes.Remove(selectedNote);
-						flowLayoutPanel.Controls.Remove(selectedNote);
-						SelectNote(notes[0], e);
-					}
-					catch
-					{
-						richTextBox_NoteText.Visible = false;
-					}
+					command.CommandText = $"DELETE from Notes WHERE rowid = '{selectedNote.rowid}'";
+					command.ExecuteNonQuery();
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.ToString());
 				}
 			}
+			con.Close();
+
+			deletedNotes.Add(selectedNote);
+
+			try
+			{
+				notes.Remove(selectedNote);
+				flowLayoutPanel.Controls.Remove(selectedNote);
+				SelectNote(notes[0], e);
+			}
+			catch
+			{
+				richTextBox_NoteText.Visible = false;
+			}
+
 		}
 
 		private void RichTextBox_NoteText_TextChanged(object sender, EventArgs e)
@@ -127,12 +120,12 @@ namespace Notes
 			}
 		}
 
-		public void WriteNotes(List<Note> notes)
+		public void SaveNotes(List<Note> notes)
 		{
 			SQLiteConnection con = new SQLiteConnection(connectionString);
 			con.Open();
 
-			using (SQLiteCommand fmd = con.CreateCommand())
+			using (SQLiteCommand command = con.CreateCommand())
 			{
 				try
 				{
@@ -140,13 +133,13 @@ namespace Notes
 					{
 						if (note.rowid == 0)
 						{
-							fmd.CommandText = $"INSERT INTO Notes(login, note, dateOfCreate) VALUES('{note.login}', '{note.RTF}', '{note.dateOfCreation:yyyy-MM-dd hh:mm:ss}')";
-							fmd.ExecuteNonQuery();
+							command.CommandText = $"INSERT INTO Notes(login, note, dateOfCreate) VALUES('{note.login}', '{note.RTF}', '{note.dateOfCreation:yyyy-MM-dd hh:mm:ss}')";
+							command.ExecuteNonQuery();
 						}
 						else
 						{
-							fmd.CommandText = $"UPDATE Notes SET note = '{note.RTF}' WHERE rowid = '{note.rowid}'";
-							fmd.ExecuteNonQuery();
+							command.CommandText = $"UPDATE Notes SET note = '{note.RTF}' WHERE rowid = '{note.rowid}'";
+							command.ExecuteNonQuery();
 						}
 					}
 				}
@@ -161,17 +154,18 @@ namespace Notes
 			con.Open();
 			List<Note> notes = new List<Note>();
 
-			using (SQLiteCommand fmd = con.CreateCommand())
+			using (SQLiteCommand command = con.CreateCommand())
 			{
 				try
 				{
-					fmd.CommandText = $"SELECT note, rowid, dateOfCreate FROM Notes";
-					SQLiteDataReader r = fmd.ExecuteReader();
+					command.CommandText = $"SELECT login, note, rowid, dateOfCreate FROM Notes";
+					SQLiteDataReader r = command.ExecuteReader();
 
 					while (r.Read())
 					{
 						Note note = new Note()
 						{
+							login = r["login"].ToString(),
 							RTF = r["note"].ToString(),
 							rowid = Convert.ToInt32(r["rowid"]),
 							dateOfCreation = Convert.ToDateTime(r["dateOfCreate"])
@@ -181,7 +175,7 @@ namespace Notes
 					}
 					r.Close();
 					richTextBox_NoteText.Text = "";
-					fmd.ExecuteNonQuery();
+					command.ExecuteNonQuery();
 				}
 				catch (Exception ex)
 				{
@@ -198,17 +192,18 @@ namespace Notes
 			con.Open();
 			List<Note> notes = new List<Note>();
 
-			using (SQLiteCommand fmd = con.CreateCommand())
+			using (SQLiteCommand command = con.CreateCommand())
 			{
 				try
 				{
-					fmd.CommandText = $"SELECT note, rowid, dateOfCreate FROM Notes WHERE login = '{user.login}'";
-					SQLiteDataReader r = fmd.ExecuteReader();
+					command.CommandText = $"SELECT login, note, rowid, dateOfCreate FROM Notes WHERE login = '{user.login}'";
+					SQLiteDataReader r = command.ExecuteReader();
 
 					while (r.Read())
 					{
 						Note note = new Note()
 						{
+							login = r["login"].ToString(),
 							RTF = r["note"].ToString(),
 							rowid = Convert.ToInt32(r["rowid"]),
 							dateOfCreation = Convert.ToDateTime(r["dateOfCreate"])
@@ -218,7 +213,7 @@ namespace Notes
 					}
 					r.Close();
 					richTextBox_NoteText.Text = "";
-					fmd.ExecuteNonQuery();
+					command.ExecuteNonQuery();
 				}
 				catch (Exception ex)
 				{
@@ -229,26 +224,29 @@ namespace Notes
 			return notes;
 		}
 
+		private void Button_AddUser_Click(object sender, EventArgs e)
+		{
+			using (AddUser addUser = new AddUser())
+			{
+				addUser.ShowDialog();
+			};
+		}
+
 		private void Button_RemoveUser_Click(object sender, EventArgs e)
 		{
-			if (currentUser.rights == User.Rights.AdminRights)
+			using (DeleteUser deleteUser = new DeleteUser())
 			{
-				using (formDelete)
-				{
-					if (formDelete.login == currentUser.login)
-					{
-						Hide();
-						richTextBox_NoteText.Text = "";
-						comboBox_User.Text = "";
-					}
-				}
+				if (deleteUser.login != currentUser.login)
+					return;
+				Hide();
+				richTextBox_NoteText.Text = "";
+				comboBox_User.Text = "";
 			}
-			else MessageBox.Show("Error! You don't have permission to do this", "OK", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 		private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			WriteNotes(notes);
+			SaveNotes(notes);
 		}
 
 		private void Form_Main_FormClosed(object sender, FormClosedEventArgs e)
@@ -267,12 +265,6 @@ namespace Notes
 			}*/
 		}
 
-		private void Button_AddUser_Click(object sender, EventArgs e)
-		{
-			AddUser add = new AddUser(currentUser.rights);
-			add.ShowDialog();
-		}
-
 		private List<User> GetUsers()
 		{
 			SQLiteConnection con = new SQLiteConnection(connectionString);
@@ -282,7 +274,7 @@ namespace Notes
 			{
 				try
 				{
-					command.CommandText = $"SELECT login, rights FROM Users";
+					command.CommandText = $"SELECT login FROM Users";
 					SQLiteDataReader r = command.ExecuteReader();
 
 					while (r.Read())
@@ -290,8 +282,6 @@ namespace Notes
 						User newUser = new User()
 						{
 							login = r["login"].ToString(),
-							rights = r["rights"].ToRights(),
-							password = r["password"].ToString()
 						};
 						users.Add(newUser);
 					}
@@ -322,8 +312,8 @@ namespace Notes
 				return;
 			flowLayoutPanel.Controls.Clear();
 			currentUser = (sender as ComboBox).SelectedItem as User;
-			List<Note> notes = GetNotesForUser(currentUser);
-			foreach (Note note in notes)
+			List<Note> notesForUser = GetNotesForUser(currentUser);
+			foreach (Note note in notesForUser)
 			{
 				flowLayoutPanel.Controls.Add(note);
 			}
@@ -333,31 +323,11 @@ namespace Notes
 	public class User
 	{
 		public string login { get; set; }
-		public string password { get; set; }
-		public Rights rights;
-
-		public enum Rights
-		{
-			AdminRights = 3,
-			SpectatorRights = 2,
-			UserRights = 1,
-			GuestRigths = 0
-		}
+		public List<Note> notes = new List<Note>();
 
 		public User()
 		{
 
-		}
-
-		public User(string login)
-		{
-			this.login = login;
-		}
-
-		public User(string login, Rights rights)
-		{
-			this.login = login;
-			this.rights = rights;
 		}
 	}
 }
