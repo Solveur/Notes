@@ -192,7 +192,7 @@ namespace Notes
 			con.Close();
 		}
 
-		List<Note> GetNotesForUser(User user)
+		private List<Note> GetNotesForUser(User user)
 		{
 			SQLiteConnection con = new SQLiteConnection(connectionString);
 			con.Open();
@@ -230,7 +230,7 @@ namespace Notes
 			return notes;
 		}
 
-		List<Note> GetAllNotes()
+		private List<Note> GetAllNotes()
 		{
 			SQLiteConnection con = new SQLiteConnection(connectionString);
 			con.Open();
@@ -321,12 +321,11 @@ namespace Notes
 
 		void DeleteUser()
 		{
-			using (DeleteUser deleteUser = new DeleteUser())
+			using (DeleteUser_Form deleteUser = new DeleteUser_Form())
 			{
 				deleteUser.ShowDialog();
-				if (deleteUser.login != currentUser.login)
+				if (deleteUser.user != currentUser)
 					return;
-				Hide();
 				richTextBox_NoteText.Text = "";
 				comboBox_User.Text = "";
 			}

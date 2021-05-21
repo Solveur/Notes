@@ -1,7 +1,7 @@
 ﻿
 namespace Notes
 {
-    partial class DeleteUser
+    partial class DeleteUser_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace Notes
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteUser));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteUser_Form));
             this.comboBox_login = new System.Windows.Forms.ComboBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button_Apply = new System.Windows.Forms.Button();
@@ -74,7 +74,7 @@ namespace Notes
             this.button_Deny.UseVisualStyleBackColor = true;
             this.button_Deny.Click += new System.EventHandler(this.Button_Deny_Click);
             // 
-            // DeleteUser
+            // DeleteUser_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -85,10 +85,9 @@ namespace Notes
             this.Controls.Add(this.comboBox_login);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "DeleteUser";
+            this.Name = "DeleteUser_Form";
             this.Text = "DeleteUser";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DeleteUser_FormClosed);
-            this.Load += new System.EventHandler(this.DeleteUser_Load);
+            this.Load += new System.EventHandler(this.DeleteUser_Form_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
