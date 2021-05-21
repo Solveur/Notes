@@ -71,18 +71,29 @@
     <Compile Include="Forms\AddUser.Designer.cs">
       <DependentUpon>AddUser.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Forms\DeleteUser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DeleteUser.Designer.cs">
       <DependentUpon>DeleteUser.cs</DependentUpon>
     </Compile>
+=======
+    <Compile Include="Forms\DeleteUser_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeleteUser_Form.Designer.cs">
+      <DependentUpon>DeleteUser_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extentions.cs" />
+>>>>>>> e1882d4d465c337a5bc5f7362597554fdbfa2eac
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,23 +106,27 @@
     <Compile Include="MasterPasswordConfirm.Designer.cs">
       <DependentUpon>MasterPasswordConfirm.cs</DependentUpon>
     </Compile>
+=======
+>>>>>>> e1882d4d465c337a5bc5f7362597554fdbfa2eac
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AddUser.resx">
       <DependentUpon>AddUser.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Include="Forms\DeleteUser.resx">
       <DependentUpon>DeleteUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Forms\DeleteUser_Form.resx">
+      <DependentUpon>DeleteUser_Form.cs</DependentUpon>
+>>>>>>> e1882d4d465c337a5bc5f7362597554fdbfa2eac
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MasterPasswordConfirm.resx">
-      <DependentUpon>MasterPasswordConfirm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -142,21 +157,6 @@
       <Project>{78d40f47-7726-4465-be84-cc12850f2e26}</Project>
       <Name>NotesLib</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\Resourses\Add_User_icon-icons.com_55971.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\Resourses\Change_User_icon-icons.com_55946.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\Resourses\Login.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\Resourses\notepad.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\Resourses\Remove_User_icon-icons.com_55828.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resourses\AddUser.ico" />

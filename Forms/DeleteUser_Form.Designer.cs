@@ -1,7 +1,7 @@
 ﻿
 namespace Notes
 {
-    partial class MasterPasswordConfirm
+    partial class DeleteUser_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -29,54 +29,65 @@ namespace Notes
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MasterPasswordConfirm));
-            this.textBox_MasterPassword = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteUser_Form));
+            this.comboBox_login = new System.Windows.Forms.ComboBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button_Apply = new System.Windows.Forms.Button();
             this.button_Deny = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox_MasterPassword
+            // comboBox_login
             // 
-            this.textBox_MasterPassword.Location = new System.Drawing.Point(12, 12);
-            this.textBox_MasterPassword.Name = "textBox_MasterPassword";
-            this.textBox_MasterPassword.PasswordChar = '●';
-            this.textBox_MasterPassword.Size = new System.Drawing.Size(158, 20);
-            this.textBox_MasterPassword.TabIndex = 0;
+            this.comboBox_login.FormattingEnabled = true;
+            this.comboBox_login.Location = new System.Drawing.Point(12, 12);
+            this.comboBox_login.Name = "comboBox_login";
+            this.comboBox_login.Size = new System.Drawing.Size(168, 21);
+            this.comboBox_login.TabIndex = 0;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 39);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(168, 17);
+            this.checkBox1.TabIndex = 1;
+            this.checkBox1.Text = "I\'m sure I want delete this user";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // button_Apply
             // 
-            this.button_Apply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Apply.Location = new System.Drawing.Point(95, 48);
+            this.button_Apply.Location = new System.Drawing.Point(105, 62);
             this.button_Apply.Name = "button_Apply";
             this.button_Apply.Size = new System.Drawing.Size(75, 23);
-            this.button_Apply.TabIndex = 1;
+            this.button_Apply.TabIndex = 2;
             this.button_Apply.Text = "Apply";
             this.button_Apply.UseVisualStyleBackColor = true;
             this.button_Apply.Click += new System.EventHandler(this.Button_Apply_Click);
             // 
             // button_Deny
             // 
-            this.button_Deny.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Deny.Location = new System.Drawing.Point(12, 48);
+            this.button_Deny.Location = new System.Drawing.Point(12, 62);
             this.button_Deny.Name = "button_Deny";
             this.button_Deny.Size = new System.Drawing.Size(75, 23);
-            this.button_Deny.TabIndex = 2;
+            this.button_Deny.TabIndex = 3;
             this.button_Deny.Text = "Deny";
             this.button_Deny.UseVisualStyleBackColor = true;
             this.button_Deny.Click += new System.EventHandler(this.Button_Deny_Click);
             // 
-            // MasterPasswordConfirm
+            // DeleteUser_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(182, 83);
+            this.ClientSize = new System.Drawing.Size(192, 97);
             this.Controls.Add(this.button_Deny);
             this.Controls.Add(this.button_Apply);
-            this.Controls.Add(this.textBox_MasterPassword);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.comboBox_login);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MasterPasswordConfirm";
-            this.Text = "MasterPasswordConfirm";
+            this.Name = "DeleteUser_Form";
+            this.Text = "DeleteUser";
+            this.Load += new System.EventHandler(this.DeleteUser_Form_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -84,7 +95,8 @@ namespace Notes
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox_MasterPassword;
+        private System.Windows.Forms.ComboBox comboBox_login;
+        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button_Apply;
         private System.Windows.Forms.Button button_Deny;
     }
