@@ -34,8 +34,6 @@ namespace Notes
             this.button_Apply = new System.Windows.Forms.Button();
             this.button_Deny = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox_Rights = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox_login
@@ -48,7 +46,7 @@ namespace Notes
             // button_Apply
             // 
             this.button_Apply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Apply.Location = new System.Drawing.Point(175, 79);
+            this.button_Apply.Location = new System.Drawing.Point(110, 48);
             this.button_Apply.Name = "button_Apply";
             this.button_Apply.Size = new System.Drawing.Size(75, 23);
             this.button_Apply.TabIndex = 5;
@@ -59,7 +57,7 @@ namespace Notes
             // button_Deny
             // 
             this.button_Deny.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Deny.Location = new System.Drawing.Point(94, 79);
+            this.button_Deny.Location = new System.Drawing.Point(12, 48);
             this.button_Deny.Name = "button_Deny";
             this.button_Deny.Size = new System.Drawing.Size(75, 23);
             this.button_Deny.TabIndex = 6;
@@ -76,30 +74,11 @@ namespace Notes
             this.label1.TabIndex = 7;
             this.label1.Text = "Login";
             // 
-            // comboBox_Rights
-            // 
-            this.comboBox_Rights.FormattingEnabled = true;
-            this.comboBox_Rights.Location = new System.Drawing.Point(12, 38);
-            this.comboBox_Rights.Name = "comboBox_Rights";
-            this.comboBox_Rights.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_Rights.TabIndex = 10;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(139, 41);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Rights";
-            // 
             // AddUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(262, 114);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox_Rights);
+            this.ClientSize = new System.Drawing.Size(197, 83);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_Deny);
             this.Controls.Add(this.button_Apply);
@@ -118,7 +97,5 @@ namespace Notes
         private System.Windows.Forms.Button button_Apply;
         private System.Windows.Forms.Button button_Deny;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox_Rights;
-        private System.Windows.Forms.Label label4;
     }
 }

@@ -6,7 +6,7 @@ namespace Notes
 {
 	public partial class AddUser : Form
 	{
-		public string login;
+		public User newUser = new User();
 
 		public AddUser()
 		{
@@ -15,26 +15,17 @@ namespace Notes
 
 		private void Button_Apply_Click(object sender, EventArgs e)
 		{
-			if (new MasterPasswordConfirm().ShowDialog() == DialogResult.OK)
-			{
-				login = textBox_login.Text;
-				AddUserToDB(login);
-			}
-			else
-			{
-				MessageBox.Show("Master password doesn't match");
-				return;
-			}
+			newUser.login = textBox_login.Text;
+			AddUserToDB(newUser);
 			ClearForm();
 		}
 
 		private void Button_Deny_Click(object sender, EventArgs e)
 		{
-			ClearForm();
 			Close();
 		}
 
-		void AddUserToDB(string login)
+		void AddUserToDB(User user)
 		{
 			string connectionString = "Data Source =  Notes.db; Version = 3";
 			SQLiteConnection con;
@@ -45,8 +36,7 @@ namespace Notes
 			{
 				try
 				{
-					fmd.CommandText = $"INSERT INTO users (login) VALUES ('{login}')";
-
+					fmd.CommandText = $"INSERT INTO users (login) VALUES ('{user.login}')";
 					fmd.ExecuteNonQuery();
 					MessageBox.Show("NEW USER ADDED SUCCESSFULLY TO SQLITE DB!", "SUCCES!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					DialogResult = DialogResult.OK;
@@ -54,16 +44,14 @@ namespace Notes
 				}
 				catch (Exception ex)
 				{
-					MessageBox.Show("SQLITE SELECT ERROR : " + ex.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show("SQLITE SELECT ERROR: " + ex.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
 		}
 
 		void ClearForm()
 		{
-			login = "";
 			textBox_login.Text = "";
-			comboBox_Rights.SelectedItem = null;
 		}
 	}
 }
