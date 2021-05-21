@@ -71,14 +71,6 @@
     <Compile Include="Forms\AddUser.Designer.cs">
       <DependentUpon>AddUser.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="Forms\DeleteUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DeleteUser.Designer.cs">
-      <DependentUpon>DeleteUser.cs</DependentUpon>
-    </Compile>
-=======
     <Compile Include="Forms\DeleteUser_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,43 +78,20 @@
       <DependentUpon>DeleteUser_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Extentions.cs" />
->>>>>>> e1882d4d465c337a5bc5f7362597554fdbfa2eac
+
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="Forms\Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MasterPasswordConfirm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MasterPasswordConfirm.Designer.cs">
-      <DependentUpon>MasterPasswordConfirm.cs</DependentUpon>
-    </Compile>
-=======
->>>>>>> e1882d4d465c337a5bc5f7362597554fdbfa2eac
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AddUser.resx">
       <DependentUpon>AddUser.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
-    <EmbeddedResource Include="Forms\DeleteUser.resx">
-      <DependentUpon>DeleteUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
-=======
     <EmbeddedResource Include="Forms\DeleteUser_Form.resx">
       <DependentUpon>DeleteUser_Form.cs</DependentUpon>
->>>>>>> e1882d4d465c337a5bc5f7362597554fdbfa2eac
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
