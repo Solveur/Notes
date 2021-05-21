@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.SQLite;
 using System.Windows.Forms;
 
@@ -7,7 +6,7 @@ namespace Notes
 {
 	public partial class AddUser : Form
 	{
-		User user = new User();
+		public User newUser = new User();
 
 		public AddUser()
 		{
@@ -16,8 +15,9 @@ namespace Notes
 
 		private void Button_Apply_Click(object sender, EventArgs e)
 		{
-			user.login = textBox_login.Text;
-			AddUserToDB(user);
+			newUser.login = textBox_login.Text;
+			AddUserToDB(newUser);
+			ClearForm();
 		}
 
 		private void Button_Deny_Click(object sender, EventArgs e)
@@ -30,17 +30,28 @@ namespace Notes
 			string connectionString = "Data Source =  Notes.db; Version = 3";
 			SQLiteConnection con;
 			con = new SQLiteConnection(connectionString);
-			if(con.State != ConnectionState.Open)
+			if(con.State == System.Data.ConnectionState.Closed)
 				con.Open();
 			using (SQLiteCommand fmd = con.CreateCommand())
 			{
-				fmd.CommandText = $"INSERT INTO users (login, password, rights) VALUES ('{user.login}')";
-				fmd.ExecuteNonQuery();
-				MessageBox.Show("NEW USER ADDED SUCCESSFULLY TO SQLITE DB!", "SUCCES!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				DialogResult = DialogResult.OK;
-				Close();
-				return;
+				try
+				{
+					fmd.CommandText = $"INSERT INTO users (login) VALUES ('{user.login}')";
+					fmd.ExecuteNonQuery();
+					MessageBox.Show("NEW USER ADDED SUCCESSFULLY TO SQLITE DB!", "SUCCES!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					DialogResult = DialogResult.OK;
+					Close();
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("SQLITE SELECT ERROR: " + ex.Message, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
 			}
+		}
+
+		void ClearForm()
+		{
+			textBox_login.Text = "";
 		}
 	}
 }
