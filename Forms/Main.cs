@@ -16,6 +16,7 @@ namespace Notes
 		//TODO: Change user select
 		public List<User> users = new List<User>();
 		public User currentUser = new User();
+		//some change
 
 
 		public Main()
