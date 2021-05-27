@@ -27,7 +27,7 @@ namespace NotesLib
 
 		private void pictureBox_MouseLeave(object sender, EventArgs e)
 		{
-			((PictureBox)sender).BackColor = Color.FromName("Control");
+			((PictureBox)sender).BackColor = Color.Transparent;
 		}
 
 		private void pictureBox_Click(object sender, EventArgs e)

@@ -52,7 +52,7 @@ namespace NotesLib
 			if (Text.Equals(Placeholder))
 			{
 				Text = string.Empty;
-				ForeColor = Color.FromName("WindowText");
+				ForeColor = Color.FromName("ControlLight");
 			}
 		}
 	}

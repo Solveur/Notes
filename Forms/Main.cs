@@ -3,6 +3,7 @@ using NotesLib;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Notes
@@ -25,6 +26,7 @@ namespace Notes
 			users = GetUsers();
 			UpdateComboBox();
 			SetTooltips();
+			MakeMenStrip();
 			if (selectedNote == null)
 			{
 				richTextBox_NoteText.Visible = false;
@@ -38,10 +40,12 @@ namespace Notes
 			{
 				if (selectedNote != null)
 				{
-					selectedNote.BorderStyle = BorderStyle.FixedSingle;
+					//selectedNote.BorderStyle = BorderStyle.FixedSingle;
+					selectedNote.BackColor = Color.Transparent;
 				}
 				selectedNote = note;
-				selectedNote.BorderStyle = BorderStyle.Fixed3D;
+				//selectedNote.BorderStyle = BorderStyle.Fixed3D;
+				selectedNote.BackColor = Color.FromArgb(224, 114, 76);
 				richTextBox_NoteText.Visible = true;
 				richTextBox_NoteText.Rtf = note.RTF;
 				richTextBox_NoteText.Focus();
@@ -50,10 +54,12 @@ namespace Notes
 			{
 				if (selectedNote != null)
 				{
-					selectedNote.BorderStyle = BorderStyle.FixedSingle;
+					//selectedNote.BorderStyle = BorderStyle.FixedSingle;
+					selectedNote.BackColor = Color.Transparent;
 				}
 				selectedNote = label.Parent as Note;
-				selectedNote.BorderStyle = BorderStyle.Fixed3D;
+				//selectedNote.BorderStyle = BorderStyle.Fixed3D;
+				selectedNote.BackColor = Color.FromArgb(223, 74, 22);
 				richTextBox_NoteText.Visible = true;
 				richTextBox_NoteText.Rtf = (label.Parent as Note).RTF;
 				richTextBox_NoteText.Focus();
@@ -345,6 +351,80 @@ namespace Notes
 			using (UsersList_Form usersList = new UsersList_Form())
 			{
 				usersList.ShowDialog();
+			}
+		}
+
+		private void buttonExit_Click(object sender, EventArgs e)
+		{
+			Application.Exit();
+		}
+
+		void MakeMenStrip()
+        {
+			menuStrip.MouseDown += new MouseEventHandler((o, e) =>
+			{
+				Capture = false;
+				Message message = Message.Create(base.Handle, 0xA1, new IntPtr(2), IntPtr.Zero);
+				WndProc(ref message);
+			});
+			menuStrip.Renderer = new ToolStripProfessionalRenderer(new MenuStripRenderer());
+		}
+
+		internal class MenuStripRenderer : ProfessionalColorTable
+        {
+			public MenuStripRenderer()
+            {
+
+            }
+
+            public override Color MenuItemSelected
+            {
+				get { return Color.FromArgb(223, 74, 22); }
+			}
+
+            public override Color MenuBorder
+			{
+				get { return Color.FromArgb(52, 52, 52); }
+			}
+
+            public override Color MenuItemBorder
+            {
+				get { return Color.FromArgb(52, 52, 52); }
+            }
+
+            public override Color MenuItemSelectedGradientBegin
+			{
+				get { return Color.FromArgb(223, 74, 22); }
+			}
+
+            public override Color MenuItemSelectedGradientEnd
+			{
+				get { return Color.FromArgb(223, 74, 22); }
+			}
+
+            public override Color MenuItemPressedGradientBegin
+			{
+				get { return Color.FromArgb(223, 74, 22); }
+			}
+
+            public override Color MenuItemPressedGradientEnd
+			{
+				get { return Color.FromArgb(223, 74, 22); }
+			}
+
+            public override Color ToolStripDropDownBackground
+			{
+				get { return Color.FromArgb(52, 52, 52); }
+			}
+
+            public override Color ImageMarginGradientBegin
+			{
+				get { return Color.FromArgb(52, 52, 52); }
+			}
+
+			public override Color ImageMarginGradientEnd
+			{
+				get { return Color.FromArgb(52, 52, 52); }
 			}
 		}
 	}

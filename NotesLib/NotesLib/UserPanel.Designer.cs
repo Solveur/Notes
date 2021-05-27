@@ -41,22 +41,26 @@ namespace NotesLib
             // labelUserLogin
             // 
             this.labelUserLogin.AutoSize = true;
-            this.labelUserLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelUserLogin.Location = new System.Drawing.Point(63, 8);
+            this.labelUserLogin.BackColor = System.Drawing.Color.Transparent;
+            this.labelUserLogin.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelUserLogin.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.labelUserLogin.Location = new System.Drawing.Point(63, 4);
             this.labelUserLogin.Margin = new System.Windows.Forms.Padding(3);
             this.labelUserLogin.Name = "labelUserLogin";
-            this.labelUserLogin.Size = new System.Drawing.Size(83, 20);
+            this.labelUserLogin.Size = new System.Drawing.Size(92, 22);
             this.labelUserLogin.TabIndex = 1;
             this.labelUserLogin.Text = "Username";
             // 
             // buttonSelectUser
             // 
             this.buttonSelectUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonSelectUser.BackColor = System.Drawing.Color.Transparent;
             this.buttonSelectUser.FlatAppearance.BorderSize = 0;
             this.buttonSelectUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.buttonSelectUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.buttonSelectUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(74)))), ((int)(((byte)(22)))));
             this.buttonSelectUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSelectUser.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSelectUser.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.buttonSelectUser.Location = new System.Drawing.Point(209, 31);
             this.buttonSelectUser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
             this.buttonSelectUser.Name = "buttonSelectUser";
@@ -68,11 +72,13 @@ namespace NotesLib
             // buttonEditUser
             // 
             this.buttonEditUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonEditUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonEditUser.BackColor = System.Drawing.Color.Transparent;
             this.buttonEditUser.FlatAppearance.BorderSize = 0;
             this.buttonEditUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.buttonEditUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.buttonEditUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(74)))), ((int)(((byte)(22)))));
             this.buttonEditUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEditUser.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonEditUser.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.buttonEditUser.Location = new System.Drawing.Point(209, 4);
             this.buttonEditUser.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.buttonEditUser.Name = "buttonEditUser";
@@ -99,11 +105,13 @@ namespace NotesLib
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.ForeColor = System.Drawing.Color.Gray;
-            this.textBoxDescription.Location = new System.Drawing.Point(63, 34);
+            this.textBoxDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(73)))), ((int)(((byte)(73)))));
+            this.textBoxDescription.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxDescription.ForeColor = System.Drawing.Color.DarkGray;
+            this.textBoxDescription.Location = new System.Drawing.Point(63, 31);
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Placeholder = "Description";
-            this.textBoxDescription.Size = new System.Drawing.Size(140, 20);
+            this.textBoxDescription.Size = new System.Drawing.Size(140, 23);
             this.textBoxDescription.TabIndex = 5;
             this.textBoxDescription.Text = "Short description";
             // 

@@ -1,6 +1,7 @@
 ﻿using NotesLib.Properties;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,12 +13,12 @@ namespace NotesLib
 	{
 		public ButtonAddUser()
         {
-            BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            BackColor = Color.Transparent;
             BackgroundImage = Resources.PlusSign;
             BackgroundImageLayout = ImageLayout.Zoom;
             FlatAppearance.BorderSize = 0;
-            FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            FlatAppearance.MouseDownBackColor = Color.FromArgb(224, 114, 76);
+            FlatAppearance.MouseOverBackColor = Color.FromArgb(223, 74, 22);
             FlatStyle = FlatStyle.Flat;
             Name = "buttonAddUser";
             Size = new System.Drawing.Size(273, 58);

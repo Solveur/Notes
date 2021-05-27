@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace NotesLib
@@ -70,5 +71,31 @@ namespace NotesLib
 		{
 			InitializeComponent();
 		}
-	}
+
+		Color tempColorClick;
+		Color tempColorMove;
+
+		private void Note_MouseEnter(object sender, EventArgs e)
+        {
+			tempColorMove = BackColor;
+			BackColor = Color.FromArgb(223, 74, 22);
+        }
+
+        private void Note_MouseLeave(object sender, EventArgs e)
+        {
+			BackColor = tempColorMove;
+        }
+
+        private void Note_MouseDown(object sender, MouseEventArgs e)
+        {
+			tempColorClick = BackColor;
+			tempColorMove = BackColor;
+			BackColor = Color.FromArgb(224, 114, 76);
+		}
+
+        private void Note_MouseUp(object sender, MouseEventArgs e)
+        {
+			BackColor = tempColorClick;
+		}
+    }
 }

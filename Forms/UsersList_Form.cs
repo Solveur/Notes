@@ -28,5 +28,10 @@ namespace Notes.Forms
 			AddUserPanel newUser = new AddUserPanel();
 			usersFlowPanel.Controls.Add(newUser);
 		}
-	}
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+			Close();
+        }
+    }
 }
