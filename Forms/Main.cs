@@ -1,4 +1,5 @@
-﻿using NotesLib;
+﻿using Notes.Forms;
+using NotesLib;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -184,7 +185,7 @@ namespace Notes
 						}
 					}
 				}
-				catch (Exception ex) 
+				catch (Exception ex)
 				{
 					MessageBox.Show(ex.ToString());
 				}
@@ -338,16 +339,13 @@ namespace Notes
 			comboBox_User.DisplayMember = "login";
 			comboBox_User.SelectedItem = null;
 		}
-	}
 
-	public class User
-	{
-		public string login { get; set; }
-		public List<Note> notes = new List<Note>();
-
-		public User()
+		private void showUsersControlPanelToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-
+			using (UsersList_Form usersList = new UsersList_Form())
+			{
+				usersList.ShowDialog();
+			}
 		}
 	}
 }

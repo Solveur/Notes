@@ -18,6 +18,7 @@ namespace NotesLib
 				Text = _RTB_Note.Text;
 			}
 		}
+
 		public string RTF
 		{
 			get
