@@ -43,6 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddUserPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AddUserPanel.Designer.cs">
+      <DependentUpon>AddUserPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonAddUser.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Note.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -58,7 +67,7 @@
     <Compile Include="TextBoxWithPlaceholder.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="User.cs" />
+    <Compile Include="Classes\User.cs" />
     <Compile Include="UserPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -68,6 +77,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddUserPanel.resx">
+      <DependentUpon>AddUserPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Note.resx">
       <DependentUpon>Note.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -81,7 +93,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\no-image.png" />
+    <None Include="Resources\NoImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlusSign.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

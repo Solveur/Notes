@@ -32,7 +32,7 @@ namespace Notes
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUser));
             this.textBox_login = new System.Windows.Forms.TextBox();
             this.button_Apply = new System.Windows.Forms.Button();
-            this.button_Deny = new System.Windows.Forms.Button();
+            this.button_Cancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -46,24 +46,34 @@ namespace Notes
             // button_Apply
             // 
             this.button_Apply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Apply.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button_Apply.FlatAppearance.BorderSize = 0;
+            this.button_Apply.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.button_Apply.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button_Apply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Apply.Location = new System.Drawing.Point(110, 48);
             this.button_Apply.Name = "button_Apply";
             this.button_Apply.Size = new System.Drawing.Size(75, 23);
             this.button_Apply.TabIndex = 5;
             this.button_Apply.Text = "Apply";
-            this.button_Apply.UseVisualStyleBackColor = true;
+            this.button_Apply.UseVisualStyleBackColor = false;
             this.button_Apply.Click += new System.EventHandler(this.Button_Apply_Click);
             // 
-            // button_Deny
+            // button_Cancel
             // 
-            this.button_Deny.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Deny.Location = new System.Drawing.Point(12, 48);
-            this.button_Deny.Name = "button_Deny";
-            this.button_Deny.Size = new System.Drawing.Size(75, 23);
-            this.button_Deny.TabIndex = 6;
-            this.button_Deny.Text = "Deny";
-            this.button_Deny.UseVisualStyleBackColor = true;
-            this.button_Deny.Click += new System.EventHandler(this.Button_Deny_Click);
+            this.button_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Cancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button_Cancel.FlatAppearance.BorderSize = 0;
+            this.button_Cancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.button_Cancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.button_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Cancel.Location = new System.Drawing.Point(12, 48);
+            this.button_Cancel.Name = "button_Cancel";
+            this.button_Cancel.Size = new System.Drawing.Size(75, 23);
+            this.button_Cancel.TabIndex = 6;
+            this.button_Cancel.Text = "Cancel";
+            this.button_Cancel.UseVisualStyleBackColor = false;
+            this.button_Cancel.Click += new System.EventHandler(this.Button_Deny_Click);
             // 
             // label1
             // 
@@ -80,7 +90,7 @@ namespace Notes
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(197, 83);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button_Deny);
+            this.Controls.Add(this.button_Cancel);
             this.Controls.Add(this.button_Apply);
             this.Controls.Add(this.textBox_login);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -95,7 +105,7 @@ namespace Notes
         #endregion
         private System.Windows.Forms.TextBox textBox_login;
         private System.Windows.Forms.Button button_Apply;
-        private System.Windows.Forms.Button button_Deny;
+        private System.Windows.Forms.Button button_Cancel;
         private System.Windows.Forms.Label label1;
     }
 }

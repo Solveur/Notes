@@ -73,6 +73,7 @@ namespace Notes
             // 
             // comboBox_User
             // 
+            this.comboBox_User.BackColor = System.Drawing.SystemColors.Window;
             this.comboBox_User.FormattingEnabled = true;
             this.comboBox_User.Location = new System.Drawing.Point(50, 7);
             this.comboBox_User.Name = "comboBox_User";
@@ -303,6 +304,6 @@ namespace Notes
 		private System.Windows.Forms.ToolStripMenuItem addUserToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem removeUserToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showUsersControlPanelToolStripMenuItem;
-	}
+    }
 }
 

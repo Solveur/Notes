@@ -56,6 +56,11 @@ namespace Notes
             // 
             // button_Apply
             // 
+            this.button_Apply.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button_Apply.FlatAppearance.BorderSize = 0;
+            this.button_Apply.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.button_Apply.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button_Apply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Apply.Location = new System.Drawing.Point(105, 62);
             this.button_Apply.Name = "button_Apply";
             this.button_Apply.Size = new System.Drawing.Size(75, 23);
@@ -66,6 +71,11 @@ namespace Notes
             // 
             // button_Deny
             // 
+            this.button_Deny.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button_Deny.FlatAppearance.BorderSize = 0;
+            this.button_Deny.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.button_Deny.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button_Deny.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Deny.Location = new System.Drawing.Point(12, 62);
             this.button_Deny.Name = "button_Deny";
             this.button_Deny.Size = new System.Drawing.Size(75, 23);

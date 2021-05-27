@@ -6,7 +6,6 @@ namespace NotesLib
 {
 	public class TextBoxWithPlaceholder : TextBox
 	{
-		private Color foreColorTemp;
 		private string _Placeholder { get; set; }
 		public string Placeholder
 		{
@@ -21,6 +20,11 @@ namespace NotesLib
 				Text = value;
 			}
 		}
+
+		public TextBoxWithPlaceholder()
+        {
+			ForeColor = Color.Gray;
+        }
 
 		protected override void OnCreateControl()
 		{
@@ -37,7 +41,6 @@ namespace NotesLib
 			if (Text.Equals(string.Empty))
 			{
 				Text = Placeholder;
-				foreColorTemp = ForeColor;
 				ForeColor = Color.Gray;
 			}
 		}
@@ -49,7 +52,7 @@ namespace NotesLib
 			if (Text.Equals(Placeholder))
 			{
 				Text = string.Empty;
-				ForeColor = foreColorTemp;
+				ForeColor = Color.FromName("WindowText");
 			}
 		}
 	}
