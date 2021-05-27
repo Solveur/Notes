@@ -49,7 +49,7 @@
     <Compile Include="AddUserPanel.Designer.cs">
       <DependentUpon>AddUserPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ButtonAddUser.cs">
+    <Compile Include="Classes\ButtonAddUser.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Note.cs">
@@ -64,7 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TextBoxWithPlaceholder.cs">
+    <Compile Include="Classes\TextBoxWithPlaceholder.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\User.cs" />
