@@ -12,8 +12,6 @@ namespace NotesLib
 {
     public partial class AddUserPanel : UserControl
     {
-        public string login { get; set; } = string.Empty;
-        string description { get; set; } = string.Empty;
 		Image image { get; set; }
         public AddUserPanel()
         {
@@ -38,7 +36,6 @@ namespace NotesLib
 				if (fileDialog.ShowDialog() != DialogResult.OK)
 					return;
 				((PictureBox)sender).Image = Image.FromFile(fileDialog.FileName);
-				image = Image.FromFile(fileDialog.FileName);
 			}
 		}
 
@@ -48,7 +45,7 @@ namespace NotesLib
 			{
 				login = textBoxLogin.Text,
 				description = textBoxDescription.Text,
-				image = image
+				image = pictureBoxUserAvatar.Image
 			};
 			UserPanel userPanel = new UserPanel()
 			{
@@ -67,5 +64,25 @@ namespace NotesLib
 			Parent.Controls.SetChildIndex(Parent.Controls[Parent.Controls.Count - 1], 0);
 			Dispose();
 		}
-	}
+
+        private void buttonCancel_MouseEnter(object sender, EventArgs e)
+        {
+			((Button)sender).ForeColor = Color.FromName("WindowText");
+        }
+
+        private void buttonCancel_MouseLeave(object sender, EventArgs e)
+		{
+			((Button)sender).ForeColor = Color.FromName("ControlLight");
+		}
+
+        private void buttonApply_MouseEnter(object sender, EventArgs e)
+		{
+			((Button)sender).ForeColor = Color.FromName("WindowText");
+		}
+
+        private void buttonApply_MouseLeave(object sender, EventArgs e)
+		{
+			((Button)sender).ForeColor = Color.FromName("ControlLight");
+		}
+    }
 }

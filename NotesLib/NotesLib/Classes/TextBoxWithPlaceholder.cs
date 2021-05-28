@@ -6,41 +6,22 @@ namespace NotesLib
 {
 	public class TextBoxWithPlaceholder : TextBox
 	{
-		private string _Placeholder { get; set; }
-		public string Placeholder
-		{
-			get
-			{
-				return _Placeholder;
-			}
-
-			set
-			{
-				_Placeholder = value;
-				Text = value;
-			}
-		}
+		public string Placeholder { get; set; }
 
 		public TextBoxWithPlaceholder()
-        {
-			ForeColor = Color.Gray;
-        }
-
-		protected override void OnCreateControl()
 		{
-			base.OnCreateControl();
+			ForeColor = Color.Gray;
 
-			if (!DesignMode)
-				Text = Placeholder;
+			Text = Placeholder;
 		}
 
 		protected override void OnLostFocus(EventArgs e)
 		{
 			base.OnLostFocus(e);
 
-			if (Text.Equals(string.Empty))
+			if(Text.Equals(string.Empty))
 			{
-				Text = Placeholder;
+                Text = Placeholder;
 				ForeColor = Color.Gray;
 			}
 		}
@@ -49,7 +30,7 @@ namespace NotesLib
 		{
 			base.OnGotFocus(e);
 
-			if (Text.Equals(Placeholder))
+			if(Text.Equals(Placeholder))
 			{
 				Text = string.Empty;
 				ForeColor = Color.FromName("ControlLight");

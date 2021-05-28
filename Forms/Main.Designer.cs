@@ -31,8 +31,12 @@ namespace Notes
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panelNote = new System.Windows.Forms.Panel();
+            this.comboBox_User = new System.Windows.Forms.ComboBox();
             this.richTextBox_NoteText = new System.Windows.Forms.RichTextBox();
             this.button_DeleteNote = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button_DeleteUser = new System.Windows.Forms.Button();
+            this.button_AddUser = new System.Windows.Forms.Button();
             this.panelNotesList = new System.Windows.Forms.Panel();
             this.notesFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.button_AddNote = new System.Windows.Forms.Button();
@@ -45,10 +49,6 @@ namespace Notes
             this.buttonExit = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button_AddUser = new System.Windows.Forms.Button();
-            this.button_DeleteUser = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox_User = new System.Windows.Forms.ComboBox();
             this.panelNote.SuspendLayout();
             this.panelNotesList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -61,19 +61,28 @@ namespace Notes
             // panelNote
             // 
             this.panelNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+            this.panelNote.Controls.Add(this.button_AddUser);
+            this.panelNote.Controls.Add(this.button_DeleteUser);
+            this.panelNote.Controls.Add(this.button_DeleteNote);
             this.panelNote.Controls.Add(this.comboBox_User);
             this.panelNote.Controls.Add(this.richTextBox_NoteText);
-            this.panelNote.Controls.Add(this.button_DeleteNote);
             this.panelNote.Controls.Add(this.label1);
-            this.panelNote.Controls.Add(this.button_DeleteUser);
-            this.panelNote.Controls.Add(this.button_AddUser);
             this.panelNote.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelNote.Location = new System.Drawing.Point(0, 0);
-            this.panelNote.Margin = new System.Windows.Forms.Padding(1);
+            this.panelNote.Margin = new System.Windows.Forms.Padding(0);
             this.panelNote.Name = "panelNote";
-            this.panelNote.Padding = new System.Windows.Forms.Padding(2);
             this.panelNote.Size = new System.Drawing.Size(454, 357);
             this.panelNote.TabIndex = 7;
+            // 
+            // comboBox_User
+            // 
+            this.comboBox_User.BackColor = System.Drawing.SystemColors.Window;
+            this.comboBox_User.FormattingEnabled = true;
+            this.comboBox_User.Location = new System.Drawing.Point(50, 7);
+            this.comboBox_User.Name = "comboBox_User";
+            this.comboBox_User.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_User.TabIndex = 7;
+            this.comboBox_User.SelectionChangeCommitted += new System.EventHandler(this.СomboBox_User_SelectionChangeCommitted);
             // 
             // richTextBox_NoteText
             // 
@@ -82,9 +91,10 @@ namespace Notes
             this.richTextBox_NoteText.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.richTextBox_NoteText.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBox_NoteText.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.richTextBox_NoteText.Location = new System.Drawing.Point(2, 61);
+            this.richTextBox_NoteText.Location = new System.Drawing.Point(0, 68);
+            this.richTextBox_NoteText.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox_NoteText.Name = "richTextBox_NoteText";
-            this.richTextBox_NoteText.Size = new System.Drawing.Size(450, 294);
+            this.richTextBox_NoteText.Size = new System.Drawing.Size(454, 289);
             this.richTextBox_NoteText.TabIndex = 0;
             this.richTextBox_NoteText.Text = "";
             this.richTextBox_NoteText.TextChanged += new System.EventHandler(this.RichTextBox_NoteText_TextChanged);
@@ -99,12 +109,58 @@ namespace Notes
             this.button_DeleteNote.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.button_DeleteNote.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.button_DeleteNote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_DeleteNote.Location = new System.Drawing.Point(399, 5);
+            this.button_DeleteNote.Location = new System.Drawing.Point(399, 3);
             this.button_DeleteNote.Name = "button_DeleteNote";
             this.button_DeleteNote.Size = new System.Drawing.Size(50, 50);
             this.button_DeleteNote.TabIndex = 5;
             this.button_DeleteNote.UseVisualStyleBackColor = false;
             this.button_DeleteNote.Click += new System.EventHandler(this.Button_DeleteNote_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label1.Font = new System.Drawing.Font("Cambria", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(14, 11);
+            this.label1.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 12);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "User:";
+            // 
+            // button_DeleteUser
+            // 
+            this.button_DeleteUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_DeleteUser.BackColor = System.Drawing.Color.Transparent;
+            this.button_DeleteUser.BackgroundImage = global::Notes.Properties.Resources.DeleteUser;
+            this.button_DeleteUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button_DeleteUser.FlatAppearance.BorderSize = 0;
+            this.button_DeleteUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.button_DeleteUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.button_DeleteUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_DeleteUser.Location = new System.Drawing.Point(330, 7);
+            this.button_DeleteUser.Name = "button_DeleteUser";
+            this.button_DeleteUser.Size = new System.Drawing.Size(50, 50);
+            this.button_DeleteUser.TabIndex = 4;
+            this.button_DeleteUser.UseVisualStyleBackColor = false;
+            this.button_DeleteUser.Click += new System.EventHandler(this.Button_DeleteUser_Click);
+            // 
+            // button_AddUser
+            // 
+            this.button_AddUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_AddUser.BackColor = System.Drawing.Color.Transparent;
+            this.button_AddUser.BackgroundImage = global::Notes.Properties.Resources.AddUser;
+            this.button_AddUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button_AddUser.FlatAppearance.BorderSize = 0;
+            this.button_AddUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.button_AddUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.button_AddUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_AddUser.Location = new System.Drawing.Point(274, 7);
+            this.button_AddUser.Name = "button_AddUser";
+            this.button_AddUser.Size = new System.Drawing.Size(50, 50);
+            this.button_AddUser.TabIndex = 3;
+            this.button_AddUser.UseVisualStyleBackColor = false;
+            this.button_AddUser.Click += new System.EventHandler(this.Button_AddUser_Click);
             // 
             // panelNotesList
             // 
@@ -177,10 +233,12 @@ namespace Notes
             // menuStrip
             // 
             this.menuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(73)))), ((int)(((byte)(73)))));
+            this.menuStrip.GripMargin = new System.Windows.Forms.Padding(0);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usersToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(0);
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip.Size = new System.Drawing.Size(625, 24);
             this.menuStrip.TabIndex = 1;
@@ -195,7 +253,8 @@ namespace Notes
             this.showUsersControlPanelToolStripMenuItem});
             this.usersToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
-            this.usersToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.usersToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0);
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(39, 24);
             this.usersToolStripMenuItem.Text = "Users";
             // 
             // addUserToolStripMenuItem
@@ -230,9 +289,10 @@ namespace Notes
             this.buttonExit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(17)))), ((int)(((byte)(35)))));
             this.buttonExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(17)))), ((int)(((byte)(35)))));
             this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExit.Location = new System.Drawing.Point(599, 1);
+            this.buttonExit.Location = new System.Drawing.Point(593, 1);
+            this.buttonExit.Margin = new System.Windows.Forms.Padding(1);
             this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(23, 23);
+            this.buttonExit.Size = new System.Drawing.Size(22, 22);
             this.buttonExit.TabIndex = 2;
             this.buttonExit.UseVisualStyleBackColor = false;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
@@ -244,9 +304,10 @@ namespace Notes
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(570, 1);
+            this.button1.Location = new System.Drawing.Point(547, 1);
+            this.button1.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(23, 23);
+            this.button1.Size = new System.Drawing.Size(22, 22);
             this.button1.TabIndex = 3;
             this.button1.UseVisualStyleBackColor = false;
             // 
@@ -257,67 +318,12 @@ namespace Notes
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(541, 1);
+            this.button2.Location = new System.Drawing.Point(570, 1);
+            this.button2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 1);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(23, 23);
+            this.button2.Size = new System.Drawing.Size(22, 22);
             this.button2.TabIndex = 8;
             this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button_AddUser
-            // 
-            this.button_AddUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_AddUser.BackColor = System.Drawing.Color.Transparent;
-            this.button_AddUser.BackgroundImage = global::Notes.Properties.Resources.AddUser;
-            this.button_AddUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button_AddUser.FlatAppearance.BorderSize = 0;
-            this.button_AddUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.button_AddUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.button_AddUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_AddUser.Location = new System.Drawing.Point(270, 5);
-            this.button_AddUser.Name = "button_AddUser";
-            this.button_AddUser.Size = new System.Drawing.Size(50, 50);
-            this.button_AddUser.TabIndex = 3;
-            this.button_AddUser.UseVisualStyleBackColor = false;
-            this.button_AddUser.Click += new System.EventHandler(this.Button_AddUser_Click);
-            // 
-            // button_DeleteUser
-            // 
-            this.button_DeleteUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_DeleteUser.BackColor = System.Drawing.Color.Transparent;
-            this.button_DeleteUser.BackgroundImage = global::Notes.Properties.Resources.DeleteUser;
-            this.button_DeleteUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button_DeleteUser.FlatAppearance.BorderSize = 0;
-            this.button_DeleteUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.button_DeleteUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.button_DeleteUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_DeleteUser.Location = new System.Drawing.Point(326, 5);
-            this.button_DeleteUser.Name = "button_DeleteUser";
-            this.button_DeleteUser.Size = new System.Drawing.Size(50, 50);
-            this.button_DeleteUser.TabIndex = 4;
-            this.button_DeleteUser.UseVisualStyleBackColor = false;
-            this.button_DeleteUser.Click += new System.EventHandler(this.Button_DeleteUser_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label1.Font = new System.Drawing.Font("Cambria", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(12, 10);
-            this.label1.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "User:";
-            // 
-            // comboBox_User
-            // 
-            this.comboBox_User.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox_User.FormattingEnabled = true;
-            this.comboBox_User.Location = new System.Drawing.Point(50, 7);
-            this.comboBox_User.Name = "comboBox_User";
-            this.comboBox_User.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_User.TabIndex = 7;
-            this.comboBox_User.SelectionChangeCommitted += new System.EventHandler(this.СomboBox_User_SelectionChangeCommitted);
             // 
             // Main
             // 
@@ -325,8 +331,8 @@ namespace Notes
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(48)))), ((int)(((byte)(52)))));
             this.ClientSize = new System.Drawing.Size(625, 381);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.menuStrip);

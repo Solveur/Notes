@@ -106,12 +106,13 @@ namespace NotesLib
             // textBoxDescription
             // 
             this.textBoxDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(73)))), ((int)(((byte)(73)))));
-            this.textBoxDescription.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxDescription.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxDescription.ForeColor = System.Drawing.Color.DarkGray;
-            this.textBoxDescription.Location = new System.Drawing.Point(63, 31);
+            this.textBoxDescription.Location = new System.Drawing.Point(63, 32);
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Placeholder = "Description";
-            this.textBoxDescription.Size = new System.Drawing.Size(140, 23);
+            this.textBoxDescription.Placeholder = "Short description";
+            this.textBoxDescription.Size = new System.Drawing.Size(140, 18);
             this.textBoxDescription.TabIndex = 5;
             this.textBoxDescription.Text = "Short description";
             // 
@@ -119,6 +120,7 @@ namespace NotesLib
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.buttonEditUser);
@@ -141,6 +143,6 @@ namespace NotesLib
         private System.Windows.Forms.Label labelUserLogin;
         private System.Windows.Forms.Button buttonSelectUser;
         private System.Windows.Forms.Button buttonEditUser;
-        private TextBoxWithPlaceholder textBoxDescription;
+        public TextBoxWithPlaceholder textBoxDescription;
     }
 }
