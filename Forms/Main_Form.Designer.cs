@@ -31,10 +31,7 @@ namespace Notes
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
 			this.panelNote = new System.Windows.Forms.Panel();
-			this.button_DeleteNote = new System.Windows.Forms.Button();
-			this.comboBox_User = new System.Windows.Forms.ComboBox();
 			this.richTextBox_NoteText = new System.Windows.Forms.RichTextBox();
-			this.label1 = new System.Windows.Forms.Label();
 			this.panelNotesList = new System.Windows.Forms.Panel();
 			this.notesFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
 			this.button_AddNote = new System.Windows.Forms.Button();
@@ -59,10 +56,7 @@ namespace Notes
 			// panelNote
 			// 
 			this.panelNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
-			this.panelNote.Controls.Add(this.button_DeleteNote);
-			this.panelNote.Controls.Add(this.comboBox_User);
 			this.panelNote.Controls.Add(this.richTextBox_NoteText);
-			this.panelNote.Controls.Add(this.label1);
 			this.panelNote.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelNote.Location = new System.Drawing.Point(0, 0);
 			this.panelNote.Margin = new System.Windows.Forms.Padding(0);
@@ -70,59 +64,20 @@ namespace Notes
 			this.panelNote.Size = new System.Drawing.Size(454, 357);
 			this.panelNote.TabIndex = 7;
 			// 
-			// button_DeleteNote
-			// 
-			this.button_DeleteNote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_DeleteNote.BackColor = System.Drawing.Color.Transparent;
-			this.button_DeleteNote.BackgroundImage = global::Notes.Properties.Resources.TrashBin;
-			this.button_DeleteNote.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-			this.button_DeleteNote.FlatAppearance.BorderSize = 0;
-			this.button_DeleteNote.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-			this.button_DeleteNote.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-			this.button_DeleteNote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button_DeleteNote.Location = new System.Drawing.Point(401, 3);
-			this.button_DeleteNote.Name = "button_DeleteNote";
-			this.button_DeleteNote.Size = new System.Drawing.Size(50, 50);
-			this.button_DeleteNote.TabIndex = 5;
-			this.button_DeleteNote.UseVisualStyleBackColor = false;
-			this.button_DeleteNote.Click += new System.EventHandler(this.Button_DeleteNote_Click);
-			// 
-			// comboBox_User
-			// 
-			this.comboBox_User.BackColor = System.Drawing.SystemColors.Window;
-			this.comboBox_User.FormattingEnabled = true;
-			this.comboBox_User.Location = new System.Drawing.Point(50, 7);
-			this.comboBox_User.Name = "comboBox_User";
-			this.comboBox_User.Size = new System.Drawing.Size(121, 21);
-			this.comboBox_User.TabIndex = 7;
-			this.comboBox_User.SelectionChangeCommitted += new System.EventHandler(this.СomboBox_User_SelectionChangeCommitted);
-			// 
 			// richTextBox_NoteText
 			// 
 			this.richTextBox_NoteText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
 			this.richTextBox_NoteText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.richTextBox_NoteText.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.richTextBox_NoteText.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.richTextBox_NoteText.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.richTextBox_NoteText.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.richTextBox_NoteText.Location = new System.Drawing.Point(0, 60);
+			this.richTextBox_NoteText.Location = new System.Drawing.Point(0, 0);
 			this.richTextBox_NoteText.Margin = new System.Windows.Forms.Padding(0);
 			this.richTextBox_NoteText.Name = "richTextBox_NoteText";
-			this.richTextBox_NoteText.Size = new System.Drawing.Size(454, 297);
+			this.richTextBox_NoteText.Size = new System.Drawing.Size(454, 357);
 			this.richTextBox_NoteText.TabIndex = 0;
 			this.richTextBox_NoteText.Text = "";
 			this.richTextBox_NoteText.TextChanged += new System.EventHandler(this.RichTextBox_NoteText_TextChanged);
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-			this.label1.Font = new System.Drawing.Font("Cambria", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.label1.Location = new System.Drawing.Point(14, 11);
-			this.label1.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(30, 12);
-			this.label1.TabIndex = 1;
-			this.label1.Text = "User:";
 			// 
 			// panelNotesList
 			// 
@@ -312,7 +267,6 @@ namespace Notes
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
 			this.Load += new System.EventHandler(this.Form_Main_Load);
 			this.panelNote.ResumeLayout(false);
-			this.panelNote.PerformLayout();
 			this.panelNotesList.ResumeLayout(false);
 			this.splitContainer.Panel1.ResumeLayout(false);
 			this.splitContainer.Panel2.ResumeLayout(false);
@@ -329,7 +283,6 @@ namespace Notes
 
 		private System.Windows.Forms.Panel panelNote;
 		private System.Windows.Forms.RichTextBox richTextBox_NoteText;
-		private System.Windows.Forms.Button button_DeleteNote;
 		private System.Windows.Forms.Panel panelNotesList;
 		private System.Windows.Forms.FlowLayoutPanel notesFlowPanel;
 		private System.Windows.Forms.Button button_AddNote;
@@ -342,8 +295,6 @@ namespace Notes
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ComboBox comboBox_User;
-        private System.Windows.Forms.Label label1;
 	}
 }
 

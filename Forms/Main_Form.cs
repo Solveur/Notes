@@ -143,7 +143,7 @@ namespace Notes
 		{
 			using(UsersList_Form usersList = new UsersList_Form())
 			{
-				usersList.users = Users;
+				usersList.Users = Users;
 				usersList.UpdateList();
 				usersList.ShowDialog();
 			}
@@ -310,7 +310,6 @@ namespace Notes
 		{
 			//Add tooltips to Form_main buttons
 			ToolTip tip = new ToolTip();
-			tip.SetToolTip(button_DeleteNote, "Delete note");
 			tip.SetToolTip(button_AddNote, "Add note");
 		}
 

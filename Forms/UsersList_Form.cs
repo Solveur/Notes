@@ -16,7 +16,7 @@ namespace Notes.Forms
 		}
 
 		private List<User> _users = new List<User>();
-		public List<User> users
+		public List<User> Users
 		{
 			get
 			{
@@ -40,12 +40,12 @@ namespace Notes.Forms
 
 		public void UpdateList()
 		{
-			users.Clear();
-			foreach(var obj in users_FlowPanel.Controls)
+			Users.Clear();
+			foreach(var User_Panel in users_FlowPanel.Controls)
 			{
-				if(obj.GetType() == new User_Panel().GetType())
+				if(User_Panel.GetType() == new User_Panel().GetType())
 				{
-					users.Add(((User_Panel)obj).User);
+					Users.Add(((User_Panel)User_Panel).User);
 				}
 			}
 		}

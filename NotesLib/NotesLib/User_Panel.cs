@@ -28,23 +28,13 @@ namespace NotesLib
 				else
 					UserAvatar.Image = Properties.Resources.NoImage;
 				labelUserLogin.Text = _user.Login;
-				textBoxDescription.Text = _user.Description;
+				labelDescription.Text = _user.Description;
 			}
 		}
 
 		public User_Panel()
 		{
 			InitializeComponent();
-		}
-
-		private void pictureBox_MouseEnter(object sender, EventArgs e)
-		{
-			((PictureBox)sender).BackColor = Color.DarkGray;
-		}
-
-		private void pictureBox_MouseLeave(object sender, EventArgs e)
-		{
-			((PictureBox)sender).BackColor = Color.Transparent;
 		}
 
 		private void pictureBox_Click(object sender, EventArgs e)
@@ -67,6 +57,11 @@ namespace NotesLib
 				user_Editor.User_Panel = user_Panel;
 				user_Editor.ShowDialog();
 			}
+		}
+
+		private void buttonSelectUser_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

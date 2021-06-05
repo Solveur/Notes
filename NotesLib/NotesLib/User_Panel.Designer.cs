@@ -34,7 +34,7 @@ namespace NotesLib
 			this.buttonSelectUser = new System.Windows.Forms.Button();
 			this.buttonEditUser = new System.Windows.Forms.Button();
 			this.UserAvatar = new System.Windows.Forms.PictureBox();
-			this.textBoxDescription = new NotesLib.TextBoxWithPlaceholder();
+			this.labelDescription = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.UserAvatar)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -68,6 +68,7 @@ namespace NotesLib
 			this.buttonSelectUser.TabIndex = 2;
 			this.buttonSelectUser.Text = "Select";
 			this.buttonSelectUser.UseVisualStyleBackColor = false;
+			this.buttonSelectUser.Click += new System.EventHandler(this.buttonSelectUser_Click);
 			// 
 			// buttonEditUser
 			// 
@@ -100,22 +101,17 @@ namespace NotesLib
 			this.UserAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.UserAvatar.TabIndex = 0;
 			this.UserAvatar.TabStop = false;
-			this.UserAvatar.Click += new System.EventHandler(this.pictureBox_Click);
-			this.UserAvatar.MouseEnter += new System.EventHandler(this.pictureBox_MouseEnter);
-			this.UserAvatar.MouseLeave += new System.EventHandler(this.pictureBox_MouseLeave);
 			// 
-			// textBoxDescription
+			// labelDescription
 			// 
-			this.textBoxDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(73)))), ((int)(((byte)(73)))));
-			this.textBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.textBoxDescription.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.textBoxDescription.ForeColor = System.Drawing.Color.DarkGray;
-			this.textBoxDescription.Location = new System.Drawing.Point(63, 32);
-			this.textBoxDescription.Name = "textBoxDescription";
-			this.textBoxDescription.Placeholder = "Short description";
-			this.textBoxDescription.Size = new System.Drawing.Size(140, 18);
-			this.textBoxDescription.TabIndex = 5;
-			this.textBoxDescription.Text = "Short description";
+			this.labelDescription.AutoSize = true;
+			this.labelDescription.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.labelDescription.ForeColor = System.Drawing.Color.DarkGray;
+			this.labelDescription.Location = new System.Drawing.Point(63, 32);
+			this.labelDescription.Name = "labelDescription";
+			this.labelDescription.Size = new System.Drawing.Size(89, 19);
+			this.labelDescription.TabIndex = 6;
+			this.labelDescription.Text = "Description";
 			// 
 			// User_Panel
 			// 
@@ -123,7 +119,7 @@ namespace NotesLib
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Transparent;
 			this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.Controls.Add(this.textBoxDescription);
+			this.Controls.Add(this.labelDescription);
 			this.Controls.Add(this.buttonEditUser);
 			this.Controls.Add(this.buttonSelectUser);
 			this.Controls.Add(this.labelUserLogin);
@@ -144,6 +140,6 @@ namespace NotesLib
         private System.Windows.Forms.Label labelUserLogin;
         private System.Windows.Forms.Button buttonSelectUser;
         private System.Windows.Forms.Button buttonEditUser;
-        public TextBoxWithPlaceholder textBoxDescription;
-    }
+		private System.Windows.Forms.Label labelDescription;
+	}
 }

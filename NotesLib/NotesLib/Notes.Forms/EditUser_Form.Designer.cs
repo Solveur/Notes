@@ -29,28 +29,14 @@ namespace Notes.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.textBoxDescription = new NotesLib.TextBoxWithPlaceholder();
 			this.pictureBoxUserAvatar = new System.Windows.Forms.PictureBox();
-			this.textBoxLogin = new NotesLib.TextBoxWithPlaceholder();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.buttonApply = new System.Windows.Forms.Button();
 			this.buttonDelete = new System.Windows.Forms.Button();
+			this.textBoxDescription = new NotesLib.TextBoxWithPlaceholder();
+			this.textBoxLogin = new NotesLib.TextBoxWithPlaceholder();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserAvatar)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// textBoxDescription
-			// 
-			this.textBoxDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(73)))), ((int)(((byte)(73)))));
-			this.textBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.textBoxDescription.Font = new System.Drawing.Font("Cambria", 12F);
-			this.textBoxDescription.ForeColor = System.Drawing.Color.Gray;
-			this.textBoxDescription.Location = new System.Drawing.Point(71, 38);
-			this.textBoxDescription.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-			this.textBoxDescription.Name = "textBoxDescription";
-			this.textBoxDescription.Placeholder = "Short description";
-			this.textBoxDescription.Size = new System.Drawing.Size(140, 19);
-			this.textBoxDescription.TabIndex = 8;
-			this.textBoxDescription.Text = "Short description";
 			// 
 			// pictureBoxUserAvatar
 			// 
@@ -62,20 +48,7 @@ namespace Notes.Forms
 			this.pictureBoxUserAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.pictureBoxUserAvatar.TabIndex = 7;
 			this.pictureBoxUserAvatar.TabStop = false;
-			// 
-			// textBoxLogin
-			// 
-			this.textBoxLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(73)))), ((int)(((byte)(73)))));
-			this.textBoxLogin.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.textBoxLogin.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.textBoxLogin.ForeColor = System.Drawing.Color.Gray;
-			this.textBoxLogin.Location = new System.Drawing.Point(71, 9);
-			this.textBoxLogin.Margin = new System.Windows.Forms.Padding(6, 0, 3, 3);
-			this.textBoxLogin.Name = "textBoxLogin";
-			this.textBoxLogin.Placeholder = "Login";
-			this.textBoxLogin.Size = new System.Drawing.Size(140, 23);
-			this.textBoxLogin.TabIndex = 6;
-			this.textBoxLogin.Text = "Login";
+			this.pictureBoxUserAvatar.Click += new System.EventHandler(this.pictureBoxUserAvatar_Click);
 			// 
 			// buttonCancel
 			// 
@@ -87,13 +60,14 @@ namespace Notes.Forms
 			this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.buttonCancel.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.buttonCancel.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.buttonCancel.Location = new System.Drawing.Point(114, 78);
+			this.buttonCancel.Location = new System.Drawing.Point(133, 78);
 			this.buttonCancel.Margin = new System.Windows.Forms.Padding(0);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+			this.buttonCancel.Size = new System.Drawing.Size(51, 23);
 			this.buttonCancel.TabIndex = 9;
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
+			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
 			// 
 			// buttonApply
 			// 
@@ -104,13 +78,14 @@ namespace Notes.Forms
 			this.buttonApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.buttonApply.Font = new System.Drawing.Font("Cambria", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.buttonApply.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.buttonApply.Location = new System.Drawing.Point(189, 78);
+			this.buttonApply.Location = new System.Drawing.Point(184, 78);
 			this.buttonApply.Margin = new System.Windows.Forms.Padding(0);
 			this.buttonApply.Name = "buttonApply";
-			this.buttonApply.Size = new System.Drawing.Size(75, 23);
+			this.buttonApply.Size = new System.Drawing.Size(48, 23);
 			this.buttonApply.TabIndex = 10;
 			this.buttonApply.Text = "Apply";
 			this.buttonApply.UseVisualStyleBackColor = true;
+			this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
 			// 
 			// buttonDelete
 			// 
@@ -124,17 +99,45 @@ namespace Notes.Forms
 			this.buttonDelete.Location = new System.Drawing.Point(9, 78);
 			this.buttonDelete.Margin = new System.Windows.Forms.Padding(0);
 			this.buttonDelete.Name = "buttonDelete";
-			this.buttonDelete.Size = new System.Drawing.Size(62, 23);
+			this.buttonDelete.Size = new System.Drawing.Size(50, 23);
 			this.buttonDelete.TabIndex = 11;
 			this.buttonDelete.Text = "Delete";
 			this.buttonDelete.UseVisualStyleBackColor = false;
+			// 
+			// textBoxDescription
+			// 
+			this.textBoxDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(73)))), ((int)(((byte)(73)))));
+			this.textBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.textBoxDescription.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.textBoxDescription.ForeColor = System.Drawing.SystemColors.ControlLight;
+			this.textBoxDescription.Location = new System.Drawing.Point(71, 42);
+			this.textBoxDescription.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+			this.textBoxDescription.Name = "textBoxDescription";
+			this.textBoxDescription.Placeholder = "Short description";
+			this.textBoxDescription.Size = new System.Drawing.Size(161, 23);
+			this.textBoxDescription.TabIndex = 8;
+			this.textBoxDescription.Text = "Short description";
+			// 
+			// textBoxLogin
+			// 
+			this.textBoxLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(73)))), ((int)(((byte)(73)))));
+			this.textBoxLogin.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.textBoxLogin.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.textBoxLogin.ForeColor = System.Drawing.SystemColors.ControlLight;
+			this.textBoxLogin.Location = new System.Drawing.Point(71, 9);
+			this.textBoxLogin.Margin = new System.Windows.Forms.Padding(6, 0, 3, 3);
+			this.textBoxLogin.Name = "textBoxLogin";
+			this.textBoxLogin.Placeholder = "Login";
+			this.textBoxLogin.Size = new System.Drawing.Size(161, 25);
+			this.textBoxLogin.TabIndex = 6;
+			this.textBoxLogin.Text = "Login";
 			// 
 			// EditUser_Form
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-			this.ClientSize = new System.Drawing.Size(273, 110);
+			this.ClientSize = new System.Drawing.Size(241, 110);
 			this.Controls.Add(this.buttonDelete);
 			this.Controls.Add(this.buttonApply);
 			this.Controls.Add(this.buttonCancel);
@@ -144,6 +147,7 @@ namespace Notes.Forms
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "EditUser_Form";
 			this.Text = "EditUser_Form";
+			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.EditUser_Form_MouseDown);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserAvatar)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
