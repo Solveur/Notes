@@ -1,7 +1,7 @@
 ﻿
 namespace NotesLib
 {
-    partial class AddUserPanel
+    partial class AddUser_Panel
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -105,7 +105,6 @@ namespace NotesLib
             this.textBoxDescription.Placeholder = "Short description";
             this.textBoxDescription.Size = new System.Drawing.Size(140, 19);
             this.textBoxDescription.TabIndex = 5;
-            this.textBoxDescription.Text = "Short description";
             // 
             // textBoxLogin
             // 
@@ -118,7 +117,6 @@ namespace NotesLib
             this.textBoxLogin.Placeholder = "Login";
             this.textBoxLogin.Size = new System.Drawing.Size(140, 23);
             this.textBoxLogin.TabIndex = 0;
-            this.textBoxLogin.Text = "Login";
             // 
             // AddUserPanel
             // 

@@ -11,11 +11,17 @@ namespace NotesLib
 		public TextBoxWithPlaceholder()
 		{
 			ForeColor = Color.Gray;
-
-			Text = Placeholder;
 		}
 
-		protected override void OnLostFocus(EventArgs e)
+        protected override void OnCreateControl()
+        {
+            base.OnCreateControl();
+
+			if (Text.Equals(string.Empty))
+				Text = Placeholder;
+		}
+
+        protected override void OnLostFocus(EventArgs e)
 		{
 			base.OnLostFocus(e);
 

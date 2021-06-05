@@ -7,31 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Notes.Forms;
 
 namespace NotesLib
 {
-	public partial class UserPanel : UserControl
+	public partial class User_Panel : UserControl
 	{
 		private User _user = new User();
-		public User user
+		public User User
 		{
 			get 
 			{
 				return _user;
 			}
-
 			set
 			{
 				_user = value;
-				if (_user.image != null)
-					UserAvatar.Image = _user.image;
+				if (_user.Image != null)
+					UserAvatar.Image = _user.Image;
 				else
 					UserAvatar.Image = Properties.Resources.NoImage;
-				labelUserLogin.Text = _user.login;
-				textBoxDescription.Text = _user.description;
+				labelUserLogin.Text = _user.Login;
+				textBoxDescription.Text = _user.Description;
 			}
 		}
-		public UserPanel()
+
+		public User_Panel()
 		{
 			InitializeComponent();
 		}
@@ -54,7 +55,17 @@ namespace NotesLib
 				if (fileDialog.ShowDialog() != DialogResult.OK)
 					return;
 				((PictureBox)sender).Image = Image.FromFile(fileDialog.FileName);
-				user.image = Image.FromFile(fileDialog.FileName);
+				User.Image = Image.FromFile(fileDialog.FileName);
+			}
+		}
+
+		private void buttonEditUser_Click(object sender, EventArgs e)
+		{
+			User_Panel user_Panel = ((Button)sender).Parent as User_Panel;
+			using(EditUser_Form user_Editor = new EditUser_Form())
+			{
+				user_Editor.User_Panel = user_Panel;
+				user_Editor.ShowDialog();
 			}
 		}
 	}

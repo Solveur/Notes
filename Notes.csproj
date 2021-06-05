@@ -65,24 +65,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\AddUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\AddUser.Designer.cs">
-      <DependentUpon>AddUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\DeleteUser_Form.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DeleteUser_Form.Designer.cs">
-      <DependentUpon>DeleteUser_Form.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Classes\MenuStripRenderer.cs" />
     <Compile Include="Classes\Extentions.cs" />
-    <Compile Include="Forms\Main.cs">
+    <Compile Include="Forms\EditUser_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
+    <Compile Include="Forms\EditUser_Form.Designer.cs">
+      <DependentUpon>EditUser_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Main_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Main_Form.Designer.cs">
+      <DependentUpon>Main_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\UsersList_Form.cs">
       <SubType>Form</SubType>
@@ -92,14 +87,11 @@
     </Compile>
     <Compile Include="Classes\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\AddUser.resx">
-      <DependentUpon>AddUser.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\EditUser_Form.resx">
+      <DependentUpon>EditUser_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DeleteUser_Form.resx">
-      <DependentUpon>DeleteUser_Form.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Main_Form.resx">
+      <DependentUpon>Main_Form.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UsersList_Form.resx">
@@ -149,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resourses\PlusSign.png" />
+    <Content Include="Resourses\XSign.png" />
     <Content Include="Resourses\NoImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

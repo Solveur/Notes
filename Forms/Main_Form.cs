@@ -10,24 +10,24 @@ namespace Notes
 {
 	public partial class Main : Form
 	{
-		public string connectionString = "Data Source =  Notes.db; Version = 3";
+		public string strCon = "Data Source =  Notes.db; Version = 3";
 
-		public List<Note> notes = new List<Note>();
-		public Note selectedNote = null;
+		public List<Note> Notes = new List<Note>();
+		public Note SelectedNote = null;
 
 		//TODO: Change user select
-		public List<User> users = new List<User>();
-		public User currentUser = new User();
+		public List<User> Users = new List<User>();
+		public User CurrentUser = new User();
 
 
 		public Main()
 		{
 			InitializeComponent();
-			users = GetUsers();
-			UpdateComboBox();
+			Users = GetUsers();
 			SetTooltips();
-			MakeMenStrip();
-			if (selectedNote == null)
+			DragWindowByMenuStrip();
+			ColorMenuStrip();
+			if (SelectedNote == null)
 			{
 				richTextBox_NoteText.Visible = false;
 			}
@@ -38,28 +38,28 @@ namespace Notes
 			//TODO: Polymorphism
 			if (sender is Note note)
 			{
-				if (selectedNote != null)
+				if (SelectedNote != null)
 				{
 					//selectedNote.BorderStyle = BorderStyle.FixedSingle;
-					selectedNote.BackColor = Color.Transparent;
+					SelectedNote.BackColor = Color.Transparent;
 				}
-				selectedNote = note;
+				SelectedNote = note;
 				//selectedNote.BorderStyle = BorderStyle.Fixed3D;
-				selectedNote.BackColor = Color.FromArgb(224, 114, 76);
+				SelectedNote.BackColor = Color.FromArgb(224, 114, 76);
 				richTextBox_NoteText.Visible = true;
 				richTextBox_NoteText.Rtf = note.RTF;
 				richTextBox_NoteText.Focus();
 			}
 			else if (sender is Label label)
 			{
-				if (selectedNote != null)
+				if (SelectedNote != null)
 				{
 					//selectedNote.BorderStyle = BorderStyle.FixedSingle;
-					selectedNote.BackColor = Color.Transparent;
+					SelectedNote.BackColor = Color.Transparent;
 				}
-				selectedNote = label.Parent as Note;
+				SelectedNote = label.Parent as Note;
 				//selectedNote.BorderStyle = BorderStyle.Fixed3D;
-				selectedNote.BackColor = Color.FromArgb(223, 74, 22);
+				SelectedNote.BackColor = Color.FromArgb(223, 74, 22);
 				richTextBox_NoteText.Visible = true;
 				richTextBox_NoteText.Rtf = (label.Parent as Note).RTF;
 				richTextBox_NoteText.Focus();
@@ -70,29 +70,29 @@ namespace Notes
 		{
 			Note note = new Note()
 			{
-				login = currentUser.login,
+				login = CurrentUser.Login,
 				dateOfCreation = DateTime.Now
 			};
 			note.Click += new EventHandler(SelectNote);
-			notes.Add(note);
+			Notes.Add(note);
 			notesFlowPanel.Controls.Add(note);
 		}
 
 		private void Button_DeleteNote_Click(object sender, EventArgs e)
 		{
-			if (notes.Count <= 0)
+			if (Notes.Count <= 0)
 				return;
 			if (MessageBox.Show("Do you want to delete this note?", "Deleting confirmation", MessageBoxButtons.OKCancel) != DialogResult.OK)
 				return;
 			SQLiteConnection con;
-			con = new SQLiteConnection(connectionString);
+			con = new SQLiteConnection(strCon);
 			con.Open();
 
 			using (SQLiteCommand command = con.CreateCommand())
 			{
 				try
 				{
-					command.CommandText = $"DELETE from Notes WHERE rowid = '{selectedNote.rowid}'";
+					command.CommandText = $"DELETE from Notes WHERE rowid = '{SelectedNote.rowid}'";
 					command.ExecuteNonQuery();
 				}
 				catch (Exception ex)
@@ -104,9 +104,9 @@ namespace Notes
 
 			try
 			{
-				notes.Remove(selectedNote);
-				notesFlowPanel.Controls.Remove(selectedNote);
-				SelectNote(notes[0], e);
+				Notes.Remove(SelectedNote);
+				notesFlowPanel.Controls.Remove(SelectedNote);
+				SelectNote(Notes[0], e);
 			}
 			catch
 			{
@@ -117,36 +117,46 @@ namespace Notes
 
 		private void RichTextBox_NoteText_TextChanged(object sender, EventArgs e)
 		{
-			if (selectedNote != null)
+			if (SelectedNote != null)
 			{
-				selectedNote.RTF = richTextBox_NoteText.Rtf;
+				SelectedNote.RTF = richTextBox_NoteText.Rtf;
 			}
 		}
 
 		private void СomboBox_User_SelectionChangeCommitted(object sender, EventArgs e)
 		{
 			User newUser = (sender as ComboBox).SelectedItem as User;
-			if (newUser.login == currentUser.login)
+			if (newUser.Login == CurrentUser.Login)
 				return;
 			notesFlowPanel.Controls.Clear();
-			currentUser = newUser;
-			List<Note> notesForUser = GetNotesForUser(currentUser);
+			CurrentUser = newUser;
+			List<Note> notesForUser = GetNotesForUser(CurrentUser);
 			AddNotesToFlowPanel(notesForUser);
-		}
-
-		private void Button_AddUser_Click(object sender, EventArgs e)
-		{
-			AddUser();
-		}
-
-		private void Button_DeleteUser_Click(object sender, EventArgs e)
-		{
-			DeleteUser();
 		}
 
 		private void Form_Main_Load(object sender, EventArgs e)
 		{
-			notes = GetAllNotes();
+			Notes = GetAllNotes();
+		}
+
+		private void showUsersControlPanelToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using(UsersList_Form usersList = new UsersList_Form())
+			{
+				usersList.users = Users;
+				usersList.UpdateList();
+				usersList.ShowDialog();
+			}
+		}
+
+		private void Main_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			Application.Exit();
+		}
+
+		private void Main_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			SaveNotes(Notes);
 		}
 
 		private void AddNotesToFlowPanel(List<Note> notes)
@@ -158,19 +168,9 @@ namespace Notes
 			}
 		}
 
-		private void Main_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			Application.Exit();
-		}
-
-		private void Main_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			SaveNotes(notes);
-		}
-
 		public void SaveNotes(List<Note> notes)
 		{
-			SQLiteConnection con = new SQLiteConnection(connectionString);
+			SQLiteConnection con = new SQLiteConnection(strCon);
 			con.Open();
 
 			using (SQLiteCommand command = con.CreateCommand())
@@ -201,7 +201,7 @@ namespace Notes
 
 		private List<Note> GetNotesForUser(User user)
 		{
-			SQLiteConnection con = new SQLiteConnection(connectionString);
+			SQLiteConnection con = new SQLiteConnection(strCon);
 			con.Open();
 			List<Note> notes = new List<Note>();
 
@@ -209,7 +209,7 @@ namespace Notes
 			{
 				try
 				{
-					command.CommandText = $"SELECT login, note, rowid, dateOfCreate FROM Notes WHERE login = '{user.login}'";
+					command.CommandText = $"SELECT login, note, rowid, dateOfCreate FROM Notes WHERE login = '{user.Login}'";
 					SQLiteDataReader r = command.ExecuteReader();
 
 					while (r.Read())
@@ -239,7 +239,7 @@ namespace Notes
 
 		private List<Note> GetAllNotes()
 		{
-			SQLiteConnection con = new SQLiteConnection(connectionString);
+			SQLiteConnection con = new SQLiteConnection(strCon);
 			con.Open();
 			List<Note> notes = new List<Note>();
 
@@ -277,7 +277,7 @@ namespace Notes
 
 		private List<User> GetUsers()
 		{
-			SQLiteConnection con = new SQLiteConnection(connectionString);
+			SQLiteConnection con = new SQLiteConnection(strCon);
 			con.Open();
 			List<User> users = new List<User>();
 			using (SQLiteCommand command = con.CreateCommand())
@@ -291,7 +291,7 @@ namespace Notes
 					{
 						User newUser = new User()
 						{
-							login = r["login"].ToString(),
+							Login = r["login"].ToString(),
 						};
 						users.Add(newUser);
 					}
@@ -310,122 +310,28 @@ namespace Notes
 		{
 			//Add tooltips to Form_main buttons
 			ToolTip tip = new ToolTip();
-			tip.SetToolTip(button_AddUser, "Add user");
-			tip.SetToolTip(button_DeleteUser, "Delete user");
 			tip.SetToolTip(button_DeleteNote, "Delete note");
 			tip.SetToolTip(button_AddNote, "Add note");
 		}
 
-		void AddUser()
+		void DragWindowByMenuStrip()
 		{
-			using (AddUser addUser = new AddUser())
+			menuStrip.MouseDown += new MouseEventHandler((sender, e) =>
 			{
-				addUser.ShowDialog();
-				users = GetUsers();
-				UpdateComboBox();
-			};
+				Capture = false;
+				Message message = Message.Create(Handle, 0xA1, new IntPtr(2), IntPtr.Zero);
+				WndProc(ref message);
+			});
 		}
 
-		void DeleteUser()
+		void ColorMenuStrip()
 		{
-			using (DeleteUser_Form deleteUser = new DeleteUser_Form())
-			{
-				deleteUser.ShowDialog();
-				if (deleteUser.user != currentUser)
-					return;
-				richTextBox_NoteText.Text = "";
-				comboBox_User.Text = "";
-			}
-		}
-
-		void UpdateComboBox()
-		{
-			comboBox_User.DataSource = null;
-			comboBox_User.DataSource = users;
-			comboBox_User.DisplayMember = "login";
-			comboBox_User.SelectedItem = null;
-		}
-
-		private void showUsersControlPanelToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			using (UsersList_Form usersList = new UsersList_Form())
-			{
-				usersList.ShowDialog();
-			}
+			menuStrip.Renderer = new ToolStripProfessionalRenderer(new MenuStripRenderer());
 		}
 
 		private void buttonExit_Click(object sender, EventArgs e)
 		{
 			Application.Exit();
-		}
-
-		void MakeMenStrip()
-        {
-			menuStrip.MouseDown += new MouseEventHandler((o, e) =>
-			{
-				Capture = false;
-				Message message = Message.Create(base.Handle, 0xA1, new IntPtr(2), IntPtr.Zero);
-				WndProc(ref message);
-			});
-			menuStrip.Renderer = new ToolStripProfessionalRenderer(new MenuStripRenderer());
-		}
-
-		internal class MenuStripRenderer : ProfessionalColorTable
-        {
-			public MenuStripRenderer()
-            {
-
-            }
-
-            public override Color MenuItemSelected
-            {
-				get { return Color.FromArgb(223, 74, 22); }
-			}
-
-            public override Color MenuBorder
-			{
-				get { return Color.FromArgb(52, 52, 52); }
-			}
-
-            public override Color MenuItemBorder
-            {
-				get { return Color.FromArgb(52, 52, 52); }
-            }
-
-            public override Color MenuItemSelectedGradientBegin
-			{
-				get { return Color.FromArgb(223, 74, 22); }
-			}
-
-            public override Color MenuItemSelectedGradientEnd
-			{
-				get { return Color.FromArgb(223, 74, 22); }
-			}
-
-            public override Color MenuItemPressedGradientBegin
-			{
-				get { return Color.FromArgb(223, 74, 22); }
-			}
-
-            public override Color MenuItemPressedGradientEnd
-			{
-				get { return Color.FromArgb(223, 74, 22); }
-			}
-
-            public override Color ToolStripDropDownBackground
-			{
-				get { return Color.FromArgb(52, 52, 52); }
-			}
-
-            public override Color ImageMarginGradientBegin
-			{
-				get { return Color.FromArgb(52, 52, 52); }
-			}
-
-			public override Color ImageMarginGradientEnd
-			{
-				get { return Color.FromArgb(52, 52, 52); }
-			}
 		}
 	}
 }
