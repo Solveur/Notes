@@ -98,7 +98,7 @@ namespace NotesLib
 			this.UserAvatar.Location = new System.Drawing.Point(1, 1);
 			this.UserAvatar.Name = "UserAvatar";
 			this.UserAvatar.Size = new System.Drawing.Size(56, 56);
-			this.UserAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.UserAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.UserAvatar.TabIndex = 0;
 			this.UserAvatar.TabStop = false;
 			// 

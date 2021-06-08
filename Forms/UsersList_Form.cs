@@ -1,13 +1,13 @@
-﻿	using System;
-	using System.Collections.Generic;
-	using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
-	using NotesLib;
+using NotesLib;
 
 namespace Notes.Forms
 {
 
-	public partial class UsersList_Form: Form
+	public partial class UsersList_Form : Form
 	{
 		public UsersList_Form()
 		{

@@ -1,5 +1,5 @@
 ﻿
-namespace Notes.Forms
+namespace NotesLib
 {
 	partial class EditUser_Form
 	{
@@ -41,6 +41,7 @@ namespace Notes.Forms
 			// pictureBoxUserAvatar
 			// 
 			this.pictureBoxUserAvatar.BackColor = System.Drawing.Color.Transparent;
+			this.pictureBoxUserAvatar.Image = global::NotesLib.Properties.Resources.NoImage;
 			this.pictureBoxUserAvatar.Location = new System.Drawing.Point(9, 9);
 			this.pictureBoxUserAvatar.Margin = new System.Windows.Forms.Padding(0);
 			this.pictureBoxUserAvatar.Name = "pictureBoxUserAvatar";
@@ -49,6 +50,8 @@ namespace Notes.Forms
 			this.pictureBoxUserAvatar.TabIndex = 7;
 			this.pictureBoxUserAvatar.TabStop = false;
 			this.pictureBoxUserAvatar.Click += new System.EventHandler(this.pictureBoxUserAvatar_Click);
+			this.pictureBoxUserAvatar.MouseEnter += new System.EventHandler(this.pictureBoxUserAvatar_MouseEnter);
+			this.pictureBoxUserAvatar.MouseLeave += new System.EventHandler(this.pictureBoxUserAvatar_MouseLeave);
 			// 
 			// buttonCancel
 			// 
@@ -103,6 +106,7 @@ namespace Notes.Forms
 			this.buttonDelete.TabIndex = 11;
 			this.buttonDelete.Text = "Delete";
 			this.buttonDelete.UseVisualStyleBackColor = false;
+			this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
 			// 
 			// textBoxDescription
 			// 
@@ -127,10 +131,10 @@ namespace Notes.Forms
 			this.textBoxLogin.Location = new System.Drawing.Point(71, 9);
 			this.textBoxLogin.Margin = new System.Windows.Forms.Padding(6, 0, 3, 3);
 			this.textBoxLogin.Name = "textBoxLogin";
-			this.textBoxLogin.Placeholder = "Login";
+			this.textBoxLogin.Placeholder = "Username";
 			this.textBoxLogin.Size = new System.Drawing.Size(161, 25);
 			this.textBoxLogin.TabIndex = 6;
-			this.textBoxLogin.Text = "Login";
+			this.textBoxLogin.Text = "Username";
 			// 
 			// EditUser_Form
 			// 

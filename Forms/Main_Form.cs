@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Notes
@@ -70,8 +73,8 @@ namespace Notes
 		{
 			Note note = new Note()
 			{
-				login = CurrentUser.Login,
-				dateOfCreation = DateTime.Now
+				Owner = CurrentUser,
+				DateOfCreation = DateTime.Now
 			};
 			note.Click += new EventHandler(SelectNote);
 			Notes.Add(note);
@@ -92,7 +95,7 @@ namespace Notes
 			{
 				try
 				{
-					command.CommandText = $"DELETE from Notes WHERE rowid = '{SelectedNote.rowid}'";
+					command.CommandText = $"DELETE from Notes WHERE rowid = '{SelectedNote.Rowid}'";
 					command.ExecuteNonQuery();
 				}
 				catch (Exception ex)
@@ -157,6 +160,7 @@ namespace Notes
 		private void Main_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			SaveNotes(Notes);
+			SaveUsers(Users);
 		}
 
 		private void AddNotesToFlowPanel(List<Note> notes)
@@ -168,7 +172,7 @@ namespace Notes
 			}
 		}
 
-		public void SaveNotes(List<Note> notes)
+		private void SaveNotes(List<Note> notes)
 		{
 			SQLiteConnection con = new SQLiteConnection(strCon);
 			con.Open();
@@ -179,19 +183,56 @@ namespace Notes
 				{
 					foreach (var note in notes)
 					{
-						if (note.rowid == 0)
+						if (note.Rowid == 0)
 						{
-							command.CommandText = $"INSERT INTO Notes(login, note, dateOfCreate) VALUES('{note.login}', '{note.RTF}', '{note.dateOfCreation:yyyy-MM-dd hh:mm:ss}')";
+							command.CommandText = $"INSERT INTO Notes(owner, note, dateOfCreate) VALUES('{note.Owner.Rowid}', '{note.RTF}', '{note.DateOfCreation:yyyy-MM-dd hh:mm:ss}')";
 							command.ExecuteNonQuery();
 						}
 						else
 						{
-							command.CommandText = $"UPDATE Notes SET note = '{note.RTF}' WHERE rowid = '{note.rowid}'";
+							command.CommandText = $"UPDATE Notes SET note = '{note.RTF}' WHERE rowid = '{note.Rowid}'";
 							command.ExecuteNonQuery();
 						}
 					}
 				}
 				catch (Exception ex)
+				{
+					MessageBox.Show(ex.ToString());
+				}
+			}
+			con.Close();
+		}
+
+		private void SaveUsers(List<User> users)
+		{
+			SQLiteConnection con = new SQLiteConnection(strCon);
+			con.Open();
+
+			using(SQLiteCommand command = con.CreateCommand())
+			{
+				try
+				{
+					foreach(var user in users)
+					{
+						SQLiteParameter param = new SQLiteParameter("@0", System.Data.DbType.Binary)
+						{
+							Value = ImageToByte(user.Image, user.Image.RawFormat)
+						};
+						command.Parameters.Add(param);
+
+						if(user.Rowid == 0)
+						{
+							command.CommandText = $"INSERT INTO Users (login, description, avatar) VALUES('{user.Login}', '{user.Description}', @0)";
+							command.ExecuteNonQuery();
+						}
+						else
+						{
+							command.CommandText = $"UPDATE Users SET login = '{user.Login}', description = '{user.Description}', avatar = @0 WHERE rowid = '{user.Rowid}'";
+							command.ExecuteNonQuery();
+						}
+					}
+				}
+				catch(Exception ex)
 				{
 					MessageBox.Show(ex.ToString());
 				}
@@ -209,17 +250,26 @@ namespace Notes
 			{
 				try
 				{
-					command.CommandText = $"SELECT login, note, rowid, dateOfCreate FROM Notes WHERE login = '{user.Login}'";
+					command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes WHERE login = '{user.Login}'";
 					SQLiteDataReader r = command.ExecuteReader();
 
 					while (r.Read())
 					{
+						User owner = new User();
+						foreach(var userTemp in Users)
+						{
+							if(userTemp.Rowid == Convert.ToInt32(r["owner"]))
+							{
+								owner = userTemp;
+								break;
+							}
+						}
 						Note note = new Note()
 						{
-							login = r["login"].ToString(),
+							Owner = owner,
 							RTF = r["note"].ToString(),
-							rowid = Convert.ToInt32(r["rowid"]),
-							dateOfCreation = Convert.ToDateTime(r["dateOfCreate"])
+							Rowid = Convert.ToInt32(r["rowid"]),
+							DateOfCreation = Convert.ToDateTime(r["dateOfCreate"])
 						};
 						richTextBox_NoteText.Rtf = note.RTF;
 						notes.Add(note);
@@ -247,17 +297,26 @@ namespace Notes
 			{
 				try
 				{
-					command.CommandText = $"SELECT login, note, rowid, dateOfCreate FROM Notes";
+					command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes";
 					SQLiteDataReader r = command.ExecuteReader();
 
 					while (r.Read())
 					{
+						User owner = new User();
+						foreach(var userTemp in Users)
+						{
+							if(userTemp.Rowid == Convert.ToInt32(r["owner"]))
+							{
+								owner = userTemp;
+								break;
+							}
+						}
 						Note note = new Note()
 						{
-							login = r["login"].ToString(),
+							Owner = owner,
 							RTF = r["note"].ToString(),
-							rowid = Convert.ToInt32(r["rowid"]),
-							dateOfCreation = Convert.ToDateTime(r["dateOfCreate"].ToString())
+							Rowid = Convert.ToInt32(r["rowid"]),
+							DateOfCreation = Convert.ToDateTime(r["dateOfCreate"].ToString())
 						};
 						richTextBox_NoteText.Rtf = note.RTF;
 						notes.Add(note);
@@ -284,14 +343,17 @@ namespace Notes
 			{
 				try
 				{
-					command.CommandText = $"SELECT login FROM Users";
+					command.CommandText = $"SELECT rowid, login, description, avatar FROM Users";
 					SQLiteDataReader r = command.ExecuteReader();
 
 					while (r.Read())
 					{
 						User newUser = new User()
 						{
+							Rowid = Convert.ToInt32(r["_rowid_"]),
 							Login = r["login"].ToString(),
+							Description = r["description"].ToString(),
+							Image = ByteToImage((byte[])r["avatar"])
 						};
 						users.Add(newUser);
 					}
@@ -326,6 +388,25 @@ namespace Notes
 		void ColorMenuStrip()
 		{
 			menuStrip.Renderer = new ToolStripProfessionalRenderer(new MenuStripRenderer());
+		}
+
+		public byte[] ImageToByte(Image image, ImageFormat format)
+		{
+			using(MemoryStream ms = new MemoryStream())
+			{
+				// Convert Image to byte[]
+				image.Save(ms, format);
+				byte[] imageBytes = ms.ToArray();
+				return imageBytes;
+			}
+		}
+		//public Image Base64ToImage(string base64String)
+		public Image ByteToImage(byte[] imageBytes)
+		{
+			// Convert byte[] to Image
+			MemoryStream ms = new MemoryStream(imageBytes);
+			Image image = new Bitmap(ms);
+			return image;
 		}
 
 		private void buttonExit_Click(object sender, EventArgs e)

@@ -6,9 +6,9 @@ namespace NotesLib
 {
 	public partial class Note : UserControl
 	{
-		public string login { get; set; }
-		public int rowid = 0;
-		public DateTime dateOfCreation = new DateTime();
+		public User Owner { get; set; }
+		public int Rowid = 0;
+		public DateTime DateOfCreation = new DateTime();
 		private RichTextBox _RTB_Note = new RichTextBox();
 		public RichTextBox RTB_Note
 		{

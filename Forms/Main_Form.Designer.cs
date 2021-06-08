@@ -32,14 +32,13 @@ namespace Notes
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
 			this.panelNote = new System.Windows.Forms.Panel();
 			this.richTextBox_NoteText = new System.Windows.Forms.RichTextBox();
+			this.labelNoteDoesNotSelected = new System.Windows.Forms.Label();
 			this.panelNotesList = new System.Windows.Forms.Panel();
 			this.notesFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
 			this.button_AddNote = new System.Windows.Forms.Button();
 			this.splitContainer = new System.Windows.Forms.SplitContainer();
 			this.menuStrip = new System.Windows.Forms.MenuStrip();
 			this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.addUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.removeUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showUsersControlPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.buttonExit = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
@@ -57,6 +56,7 @@ namespace Notes
 			// 
 			this.panelNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
 			this.panelNote.Controls.Add(this.richTextBox_NoteText);
+			this.panelNote.Controls.Add(this.labelNoteDoesNotSelected);
 			this.panelNote.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelNote.Location = new System.Drawing.Point(0, 0);
 			this.panelNote.Margin = new System.Windows.Forms.Padding(0);
@@ -77,7 +77,20 @@ namespace Notes
 			this.richTextBox_NoteText.Size = new System.Drawing.Size(454, 357);
 			this.richTextBox_NoteText.TabIndex = 0;
 			this.richTextBox_NoteText.Text = "";
+			this.richTextBox_NoteText.Visible = false;
 			this.richTextBox_NoteText.TextChanged += new System.EventHandler(this.RichTextBox_NoteText_TextChanged);
+			// 
+			// labelNoteDoesNotSelected
+			// 
+			this.labelNoteDoesNotSelected.AutoSize = true;
+			this.labelNoteDoesNotSelected.Font = new System.Drawing.Font("Cambria", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.labelNoteDoesNotSelected.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+			this.labelNoteDoesNotSelected.Location = new System.Drawing.Point(62, 141);
+			this.labelNoteDoesNotSelected.Margin = new System.Windows.Forms.Padding(62, 141, 63, 141);
+			this.labelNoteDoesNotSelected.Name = "labelNoteDoesNotSelected";
+			this.labelNoteDoesNotSelected.Size = new System.Drawing.Size(329, 75);
+			this.labelNoteDoesNotSelected.TabIndex = 1;
+			this.labelNoteDoesNotSelected.Text = "Select note";
 			// 
 			// panelNotesList
 			// 
@@ -165,32 +178,12 @@ namespace Notes
 			this.usersToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
 			this.usersToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.usersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addUserToolStripMenuItem,
-            this.removeUserToolStripMenuItem,
             this.showUsersControlPanelToolStripMenuItem});
 			this.usersToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
 			this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
 			this.usersToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0);
 			this.usersToolStripMenuItem.Size = new System.Drawing.Size(39, 24);
 			this.usersToolStripMenuItem.Text = "Users";
-			// 
-			// addUserToolStripMenuItem
-			// 
-			this.addUserToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-			this.addUserToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.addUserToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
-			this.addUserToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-			this.addUserToolStripMenuItem.Text = "Add user";
-			// 
-			// removeUserToolStripMenuItem
-			// 
-			this.removeUserToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-			this.removeUserToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.removeUserToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
-			this.removeUserToolStripMenuItem.Name = "removeUserToolStripMenuItem";
-			this.removeUserToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-			this.removeUserToolStripMenuItem.Text = "Remove user";
 			// 
 			// showUsersControlPanelToolStripMenuItem
 			// 
@@ -267,6 +260,7 @@ namespace Notes
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
 			this.Load += new System.EventHandler(this.Form_Main_Load);
 			this.panelNote.ResumeLayout(false);
+			this.panelNote.PerformLayout();
 			this.panelNotesList.ResumeLayout(false);
 			this.splitContainer.Panel1.ResumeLayout(false);
 			this.splitContainer.Panel2.ResumeLayout(false);
@@ -289,12 +283,11 @@ namespace Notes
 		private System.Windows.Forms.SplitContainer splitContainer;
 		private System.Windows.Forms.MenuStrip menuStrip;
 		private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem addUserToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem removeUserToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showUsersControlPanelToolStripMenuItem;
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Label labelNoteDoesNotSelected;
 	}
 }
 

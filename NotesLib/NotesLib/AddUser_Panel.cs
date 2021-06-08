@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -37,6 +38,11 @@ namespace NotesLib
 			Parent.Controls.InsertInBeginning(userPanel);
 			Parent.Controls.InsertInBeginning(new ButtonAddUser());
 			Dispose();
+		}
+
+		void GetUsers()
+		{
+			List<User> users = new List<User>();
 		}
 
 		private void buttonCancel_Click(object sender, EventArgs e)

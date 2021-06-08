@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
-using NotesLib;
-
-namespace Notes.Forms
+namespace NotesLib
 {
 	public partial class EditUser_Form: Form
 	{
@@ -45,6 +44,12 @@ namespace Notes.Forms
 			Close();
 		}
 
+		private void buttonDelete_Click(object sender, EventArgs e)
+		{
+			User_Panel.Dispose();
+			Close();
+		}
+
 		private void EditUser_Form_MouseDown(object sender, MouseEventArgs e)
 		{
 			Capture = false;
@@ -54,12 +59,23 @@ namespace Notes.Forms
 
 		private void pictureBoxUserAvatar_Click(object sender, EventArgs e)
 		{
-			User_Panel user_Panel = ((Button)sender).Parent as User_Panel;
-			using(EditUser_Form user_Editor = new EditUser_Form())
+			using(OpenFileDialog fileDialog = new OpenFileDialog())
 			{
-				user_Editor.User_Panel = user_Panel;
-				user_Editor.ShowDialog();
+				fileDialog.Filter = "png files(*.png)|*.png|jpg files(*.jpg)|*.jpg|jpeg files(*.jpeg)|*.jpeg|ico files(*.ico)|*.ico|all files(*.*)|*.*";
+				if(fileDialog.ShowDialog() != DialogResult.OK)
+					return;
+				((PictureBox)sender).Image = Image.FromFile(fileDialog.FileName);
 			}
+		}
+
+		private void pictureBoxUserAvatar_MouseEnter(object sender, EventArgs e)
+		{
+			((PictureBox)sender).BackColor = Color.DarkGray;
+		}
+
+		private void pictureBoxUserAvatar_MouseLeave(object sender, EventArgs e)
+		{
+			((PictureBox)sender).BackColor = Color.Transparent;
 		}
 	}
 }
