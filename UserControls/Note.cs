@@ -3,7 +3,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace NotesLib
+namespace Notes
 {
 	public partial class Note : UserControl
 	{

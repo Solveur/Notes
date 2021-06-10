@@ -88,6 +88,7 @@ namespace Notes.Forms
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "UsersList_Form";
 			this.Text = "UsersList_Form";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UsersList_Form_FormClosing);
 			this.ResumeLayout(false);
 
         }

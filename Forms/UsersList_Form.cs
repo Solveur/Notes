@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-using NotesLib;
-
 namespace Notes.Forms
 {
 
@@ -52,7 +50,6 @@ namespace Notes.Forms
 
 		private void buttonExit_Click(object sender, EventArgs e)
 		{
-			UpdateList();
 			Close();
 		}
 
@@ -61,6 +58,11 @@ namespace Notes.Forms
 			Capture = false;
 			Message message = Message.Create(Handle, 0xA1, new IntPtr(2), IntPtr.Zero);
 			WndProc(ref message);
+		}
+
+		private void UsersList_Form_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			UpdateList();
 		}
 	}
 }

@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 
-namespace NotesLib
+namespace Notes
 {
 	public partial class AddUser_Panel: UserControl
 	{
@@ -29,6 +29,7 @@ namespace NotesLib
 
 		private void buttonApply_Click(object sender, EventArgs e)
 		{
+			// TODO: Максимальный rowid не сохраняется, новые создаются с 0
 			user.Login = textBoxLogin.Text;
 			user.Description = textBoxDescription.Text;
 			user.Image = pictureBoxUserAvatar.Image;

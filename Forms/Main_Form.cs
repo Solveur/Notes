@@ -1,67 +1,63 @@
 ﻿using Notes.Forms;
-using NotesLib;
+
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Notes
 {
-	public partial class Main : Form
+	public partial class Main_Form : Form
 	{
-		public string strCon = "Data Source =  Notes.db; Version = 3";
+		string strCon = "Data Source =  Notes.db; Version = 3";
 
-		public List<Note> Notes = new List<Note>();
-		public Note SelectedNote = null;
+		List<Note> Notes = new List<Note>();
+		Note SelectedNote = null;
 
 		//TODO: Change user select
-		public List<User> Users = new List<User>();
-		public User CurrentUser = new User();
+		List<User> Users = new List<User>();
+		private User CurrentUser = null;
 
-
-		public Main()
+		public Main_Form()
 		{
 			InitializeComponent();
 			Users = GetUsers();
+			Notes = GetAllNotes();
+			ConnectNotesAndUsers(Users);
 			SetTooltips();
 			DragWindowByMenuStrip();
 			ColorMenuStrip();
-			if (SelectedNote == null)
-			{
-				richTextBox_NoteText.Visible = false;
-			}
+			richTextBox_NoteText.Visible = !(SelectedNote is null);
+			button_AddNote.Enabled = !(CurrentUser is null);
 		}
 
-		public void SelectNote(object sender, EventArgs e)
+		void Note_Click(object sender, EventArgs e)
+		{
+			SelectNote(sender);
+		}
+
+		void SelectNote(object sender)
 		{
 			//TODO: Polymorphism
-			if (sender is Note note)
+			if(sender is Note note)
 			{
-				if (SelectedNote != null)
-				{
-					//selectedNote.BorderStyle = BorderStyle.FixedSingle;
+				if(SelectedNote != null)
 					SelectedNote.BackColor = Color.Transparent;
-				}
 				SelectedNote = note;
-				//selectedNote.BorderStyle = BorderStyle.Fixed3D;
 				SelectedNote.BackColor = Color.FromArgb(224, 114, 76);
 				richTextBox_NoteText.Visible = true;
 				richTextBox_NoteText.Rtf = note.RTF;
 				richTextBox_NoteText.Focus();
 			}
-			else if (sender is Label label)
+			else if(sender is Label label)
 			{
-				if (SelectedNote != null)
-				{
-					//selectedNote.BorderStyle = BorderStyle.FixedSingle;
+				if(SelectedNote != null)
 					SelectedNote.BackColor = Color.Transparent;
-				}
 				SelectedNote = label.Parent as Note;
-				//selectedNote.BorderStyle = BorderStyle.Fixed3D;
 				SelectedNote.BackColor = Color.FromArgb(223, 74, 22);
 				richTextBox_NoteText.Visible = true;
 				richTextBox_NoteText.Rtf = (label.Parent as Note).RTF;
@@ -69,113 +65,72 @@ namespace Notes
 			}
 		}
 
-		private void Button_AddNote_Click(object sender, EventArgs e)
+		void Button_AddNote_Click(object sender, EventArgs e)
 		{
 			Note note = new Note()
 			{
 				Owner = CurrentUser,
 				DateOfCreation = DateTime.Now
 			};
-			note.Click += new EventHandler(SelectNote);
+			note.Click += new EventHandler(Note_Click);
 			Notes.Add(note);
-			notesFlowPanel.Controls.Add(note);
+			flowLayoutPanel_Notes.Controls.Add(note);
+			CurrentUser.Notes.Add(note);
 		}
 
-		private void Button_DeleteNote_Click(object sender, EventArgs e)
-		{
-			if (Notes.Count <= 0)
-				return;
-			if (MessageBox.Show("Do you want to delete this note?", "Deleting confirmation", MessageBoxButtons.OKCancel) != DialogResult.OK)
-				return;
-			SQLiteConnection con;
-			con = new SQLiteConnection(strCon);
-			con.Open();
-
-			using (SQLiteCommand command = con.CreateCommand())
-			{
-				try
-				{
-					command.CommandText = $"DELETE from Notes WHERE rowid = '{SelectedNote.Rowid}'";
-					command.ExecuteNonQuery();
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show(ex.ToString());
-				}
-			}
-			con.Close();
-
-			try
-			{
-				Notes.Remove(SelectedNote);
-				notesFlowPanel.Controls.Remove(SelectedNote);
-				SelectNote(Notes[0], e);
-			}
-			catch
-			{
-				richTextBox_NoteText.Visible = false;
-			}
-
-		}
-
-		private void RichTextBox_NoteText_TextChanged(object sender, EventArgs e)
+		void RichTextBox_NoteText_TextChanged(object sender, EventArgs e)
 		{
 			if (SelectedNote != null)
-			{
 				SelectedNote.RTF = richTextBox_NoteText.Rtf;
-			}
 		}
 
-		private void СomboBox_User_SelectionChangeCommitted(object sender, EventArgs e)
+		void СomboBox_User_SelectionChangeCommitted(object sender, EventArgs e)
 		{
 			User newUser = (sender as ComboBox).SelectedItem as User;
 			if (newUser.Login == CurrentUser.Login)
 				return;
-			notesFlowPanel.Controls.Clear();
+			flowLayoutPanel_Notes.Controls.Clear();
 			CurrentUser = newUser;
 			List<Note> notesForUser = GetNotesForUser(CurrentUser);
 			AddNotesToFlowPanel(notesForUser);
 		}
 
-		private void Form_Main_Load(object sender, EventArgs e)
-		{
-			Notes = GetAllNotes();
-		}
-
-		private void showUsersControlPanelToolStripMenuItem_Click(object sender, EventArgs e)
+		void showUsersControlPanelToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			using(UsersList_Form usersList = new UsersList_Form())
 			{
 				usersList.Users = Users;
+				usersList.Owner = this;
 				usersList.UpdateList();
 				usersList.ShowDialog();
 			}
 		}
 
-		private void Main_FormClosed(object sender, FormClosedEventArgs e)
+		void Main_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			Application.Exit();
 		}
 
-		private void Main_FormClosing(object sender, FormClosingEventArgs e)
+		void Main_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			SaveNotes(Notes);
 			SaveUsers(Users);
 		}
 
-		private void AddNotesToFlowPanel(List<Note> notes)
+		void AddNotesToFlowPanel(List<Note> notes)
 		{
 			foreach (var note in notes)
 			{
-				notesFlowPanel.Controls.Add(note);
-				note.Click += SelectNote;
+				flowLayoutPanel_Notes.Controls.Add(note);
+				note.Click += Note_Click;
 			}
 		}
 
-		private void SaveNotes(List<Note> notes)
+		void SaveNotes(List<Note> notes)
 		{
 			SQLiteConnection con = new SQLiteConnection(strCon);
-			con.Open();
+			if(con.State == ConnectionState.Closed)
+				con.Open();
 
 			using (SQLiteCommand command = con.CreateCommand())
 			{
@@ -203,34 +158,35 @@ namespace Notes
 			con.Close();
 		}
 
-		private void SaveUsers(List<User> users)
+		void SaveUsers(List<User> users)
 		{
 			SQLiteConnection con = new SQLiteConnection(strCon);
 			con.Open();
 
 			using(SQLiteCommand command = con.CreateCommand())
 			{
+				foreach(var user in users)
+				{
+					SQLiteParameter avatar = new SQLiteParameter("@avatar", DbType.Binary)
+					{
+						Value = ImageToByte(user.Image, user.Image.RawFormat)
+					};
+					command.Parameters.Add(avatar);
+					command.Parameters.AddWithValue("@login", user.Login);
+					command.Parameters.AddWithValue("@description", user.Description);
+					command.Parameters.AddWithValue("@rowid", user.Rowid);
+					if(user.Rowid == 0)
+					{
+						command.CommandText = "INSERT INTO Users(login, description, avatar) VALUES(@login, @description, @avatar)";
+					}
+					else
+					{
+						command.CommandText = "UPDATE Users SET login=@login, description=@description, avatar=@avatar WHERE rowid=@rowid";
+					}
+				}
 				try
 				{
-					foreach(var user in users)
-					{
-						SQLiteParameter param = new SQLiteParameter("@0", System.Data.DbType.Binary)
-						{
-							Value = ImageToByte(user.Image, user.Image.RawFormat)
-						};
-						command.Parameters.Add(param);
-
-						if(user.Rowid == 0)
-						{
-							command.CommandText = $"INSERT INTO Users (login, description, avatar) VALUES('{user.Login}', '{user.Description}', @0)";
-							command.ExecuteNonQuery();
-						}
-						else
-						{
-							command.CommandText = $"UPDATE Users SET login = '{user.Login}', description = '{user.Description}', avatar = @0 WHERE rowid = '{user.Rowid}'";
-							command.ExecuteNonQuery();
-						}
-					}
+					command.ExecuteNonQuery();
 				}
 				catch(Exception ex)
 				{
@@ -240,45 +196,46 @@ namespace Notes
 			con.Close();
 		}
 
-		private List<Note> GetNotesForUser(User user)
+		List<Note> GetNotesForUser(User user)
 		{
 			SQLiteConnection con = new SQLiteConnection(strCon);
-			con.Open();
+			if(con.State == ConnectionState.Closed)
+				con.Open();
 			List<Note> notes = new List<Note>();
 
-			using (SQLiteCommand command = con.CreateCommand())
+			using(SQLiteCommand command = con.CreateCommand())
 			{
+				command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes WHERE owner = '{user.Rowid}'";
+				SQLiteDataReader r = command.ExecuteReader();
+
+				while(r.Read())
+				{
+					User owner = new User();
+					foreach(var targetUser in Users)
+					{
+						if(targetUser.Rowid == Convert.ToInt32(r["owner"]))
+						{
+							owner = targetUser;
+							break;
+						}
+					}
+					Note note = new Note()
+					{
+						Owner = owner,
+						RTF = r["note"].ToString(),
+						Rowid = Convert.ToInt32(r["rowid"]),
+						DateOfCreation = Convert.ToDateTime(r["dateOfCreate"])
+					};
+					richTextBox_NoteText.Rtf = note.RTF;
+					notes.Add(note);
+				}
+				r.Close();
+				richTextBox_NoteText.Text = "";
 				try
 				{
-					command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes WHERE login = '{user.Login}'";
-					SQLiteDataReader r = command.ExecuteReader();
-
-					while (r.Read())
-					{
-						User owner = new User();
-						foreach(var userTemp in Users)
-						{
-							if(userTemp.Rowid == Convert.ToInt32(r["owner"]))
-							{
-								owner = userTemp;
-								break;
-							}
-						}
-						Note note = new Note()
-						{
-							Owner = owner,
-							RTF = r["note"].ToString(),
-							Rowid = Convert.ToInt32(r["rowid"]),
-							DateOfCreation = Convert.ToDateTime(r["dateOfCreate"])
-						};
-						richTextBox_NoteText.Rtf = note.RTF;
-						notes.Add(note);
-					}
-					r.Close();
-					richTextBox_NoteText.Text = "";
 					command.ExecuteNonQuery();
 				}
-				catch (Exception ex)
+				catch(Exception ex)
 				{
 					MessageBox.Show(ex.ToString());
 				}
@@ -287,45 +244,46 @@ namespace Notes
 			return notes;
 		}
 
-		private List<Note> GetAllNotes()
+		List<Note> GetAllNotes()
 		{
 			SQLiteConnection con = new SQLiteConnection(strCon);
-			con.Open();
+			if(con.State == ConnectionState.Closed)
+				con.Open();
 			List<Note> notes = new List<Note>();
 
-			using (SQLiteCommand command = con.CreateCommand())
+			using(SQLiteCommand command = con.CreateCommand())
 			{
+				command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes";
+				SQLiteDataReader r = command.ExecuteReader();
+
+				while(r.Read())
+				{
+					User owner = new User();
+					foreach(var targetUser in Users)
+					{
+						if(targetUser.Rowid == Convert.ToInt32(r["owner"]))
+						{
+							owner = targetUser;
+							break;
+						}
+					}
+					Note note = new Note()
+					{
+						Owner = owner,
+						RTF = r["note"].ToString(),
+						Rowid = Convert.ToInt32(r["rowid"]),
+						DateOfCreation = Convert.ToDateTime(r["dateOfCreate"].ToString())
+					};
+					richTextBox_NoteText.Rtf = note.RTF;
+					notes.Add(note);
+				}
+				r.Close();
+				richTextBox_NoteText.Text = "";
 				try
 				{
-					command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes";
-					SQLiteDataReader r = command.ExecuteReader();
-
-					while (r.Read())
-					{
-						User owner = new User();
-						foreach(var userTemp in Users)
-						{
-							if(userTemp.Rowid == Convert.ToInt32(r["owner"]))
-							{
-								owner = userTemp;
-								break;
-							}
-						}
-						Note note = new Note()
-						{
-							Owner = owner,
-							RTF = r["note"].ToString(),
-							Rowid = Convert.ToInt32(r["rowid"]),
-							DateOfCreation = Convert.ToDateTime(r["dateOfCreate"].ToString())
-						};
-						richTextBox_NoteText.Rtf = note.RTF;
-						notes.Add(note);
-					}
-					r.Close();
-					richTextBox_NoteText.Text = "";
 					command.ExecuteNonQuery();
 				}
-				catch (Exception ex)
+				catch(Exception ex)
 				{
 					MessageBox.Show(ex.ToString());
 				}
@@ -334,32 +292,34 @@ namespace Notes
 			return notes;
 		}
 
-		private List<User> GetUsers()
+		List<User> GetUsers()
 		{
 			SQLiteConnection con = new SQLiteConnection(strCon);
-			con.Open();
+			if(con.State == ConnectionState.Closed)
+				con.Open();
 			List<User> users = new List<User>();
-			using (SQLiteCommand command = con.CreateCommand())
+			using(SQLiteCommand command = con.CreateCommand())
 			{
+				command.CommandText = $"SELECT rowid, login, description, avatar FROM Users";
 				try
 				{
-					command.CommandText = $"SELECT rowid, login, description, avatar FROM Users";
 					SQLiteDataReader r = command.ExecuteReader();
 
-					while (r.Read())
+					while(r.Read())
 					{
 						User newUser = new User()
 						{
-							Rowid = Convert.ToInt32(r["_rowid_"]),
+							Rowid = Convert.ToInt32(r["rowid"]),
 							Login = r["login"].ToString(),
 							Description = r["description"].ToString(),
-							Image = ByteToImage((byte[])r["avatar"])
+							Image = ByteToImage((byte[])r["avatar"]),
 						};
+						newUser.Notes = GetNotesForUser(newUser);
 						users.Add(newUser);
 					}
 					r.Close();
 				}
-				catch (Exception ex)
+				catch(Exception ex)
 				{
 					MessageBox.Show(ex.ToString());
 				}
@@ -368,7 +328,7 @@ namespace Notes
 			return users;
 		}
 
-		private void SetTooltips()
+		void SetTooltips()
 		{
 			//Add tooltips to Form_main buttons
 			ToolTip tip = new ToolTip();
@@ -390,7 +350,7 @@ namespace Notes
 			menuStrip.Renderer = new ToolStripProfessionalRenderer(new MenuStripRenderer());
 		}
 
-		public byte[] ImageToByte(Image image, ImageFormat format)
+		private byte[] ImageToByte(Image image, ImageFormat format)
 		{
 			using(MemoryStream ms = new MemoryStream())
 			{
@@ -401,7 +361,7 @@ namespace Notes
 			}
 		}
 		//public Image Base64ToImage(string base64String)
-		public Image ByteToImage(byte[] imageBytes)
+		Image ByteToImage(byte[] imageBytes)
 		{
 			// Convert byte[] to Image
 			MemoryStream ms = new MemoryStream(imageBytes);
@@ -409,9 +369,40 @@ namespace Notes
 			return image;
 		}
 
-		private void buttonExit_Click(object sender, EventArgs e)
+		void buttonExit_Click(object sender, EventArgs e)
 		{
 			Application.Exit();
+		}
+
+		public void ChangeCurrentUser(User user) //Do not delete
+		{
+			if(CurrentUser == user)
+				return;
+
+			CurrentUser = user;
+			richTextBox_NoteText.Visible = false;
+			flowLayoutPanel_Notes.Controls.Clear();
+			flowLayoutPanel_Notes.Controls.AddRange(CurrentUser.Notes.ToArray());
+			SetLabelUser(user);
+			button_AddNote.Enabled = !(CurrentUser is null);
+		}
+
+		void ConnectNotesAndUsers(List<User> users)
+		{
+			foreach(var user in users)
+			{
+				user.Notes = GetNotesForUser(user);
+			}
+		}
+
+		void SetLabelUser(User user)
+		{
+			labelCurrentUser.Text = $"Current user: {user.Login}";
+		}
+
+		private void button3_Click(object sender, EventArgs e)
+		{
+			SaveUsers(Users);
 		}
 	}
 }

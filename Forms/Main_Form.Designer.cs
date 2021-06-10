@@ -1,7 +1,7 @@
 ﻿
 namespace Notes
 {
-	partial class Main
+	partial class Main_Form
 	{
 		/// <summary>
 		/// Обязательная переменная конструктора.
@@ -29,12 +29,12 @@ namespace Notes
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
 			this.panelNote = new System.Windows.Forms.Panel();
 			this.richTextBox_NoteText = new System.Windows.Forms.RichTextBox();
 			this.labelNoteDoesNotSelected = new System.Windows.Forms.Label();
 			this.panelNotesList = new System.Windows.Forms.Panel();
-			this.notesFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+			this.flowLayoutPanel_Notes = new System.Windows.Forms.FlowLayoutPanel();
 			this.button_AddNote = new System.Windows.Forms.Button();
 			this.splitContainer = new System.Windows.Forms.SplitContainer();
 			this.menuStrip = new System.Windows.Forms.MenuStrip();
@@ -43,6 +43,8 @@ namespace Notes
 			this.buttonExit = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
+			this.labelCurrentUser = new System.Windows.Forms.Label();
+			this.button3 = new System.Windows.Forms.Button();
 			this.panelNote.SuspendLayout();
 			this.panelNotesList.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -55,6 +57,7 @@ namespace Notes
 			// panelNote
 			// 
 			this.panelNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
+			this.panelNote.Controls.Add(this.button3);
 			this.panelNote.Controls.Add(this.richTextBox_NoteText);
 			this.panelNote.Controls.Add(this.labelNoteDoesNotSelected);
 			this.panelNote.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -95,7 +98,7 @@ namespace Notes
 			// panelNotesList
 			// 
 			this.panelNotesList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-			this.panelNotesList.Controls.Add(this.notesFlowPanel);
+			this.panelNotesList.Controls.Add(this.flowLayoutPanel_Notes);
 			this.panelNotesList.Controls.Add(this.button_AddNote);
 			this.panelNotesList.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelNotesList.Location = new System.Drawing.Point(0, 0);
@@ -106,17 +109,17 @@ namespace Notes
 			this.panelNotesList.Size = new System.Drawing.Size(170, 357);
 			this.panelNotesList.TabIndex = 7;
 			// 
-			// notesFlowPanel
+			// flowLayoutPanel_Notes
 			// 
-			this.notesFlowPanel.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
-			this.notesFlowPanel.AutoScroll = true;
-			this.notesFlowPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-			this.notesFlowPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.notesFlowPanel.Location = new System.Drawing.Point(0, 33);
-			this.notesFlowPanel.Margin = new System.Windows.Forms.Padding(0);
-			this.notesFlowPanel.Name = "notesFlowPanel";
-			this.notesFlowPanel.Size = new System.Drawing.Size(170, 324);
-			this.notesFlowPanel.TabIndex = 0;
+			this.flowLayoutPanel_Notes.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
+			this.flowLayoutPanel_Notes.AutoScroll = true;
+			this.flowLayoutPanel_Notes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+			this.flowLayoutPanel_Notes.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.flowLayoutPanel_Notes.Location = new System.Drawing.Point(0, 33);
+			this.flowLayoutPanel_Notes.Margin = new System.Windows.Forms.Padding(0);
+			this.flowLayoutPanel_Notes.Name = "flowLayoutPanel_Notes";
+			this.flowLayoutPanel_Notes.Size = new System.Drawing.Size(170, 324);
+			this.flowLayoutPanel_Notes.TabIndex = 0;
 			// 
 			// button_AddNote
 			// 
@@ -240,12 +243,34 @@ namespace Notes
 			this.button2.TabIndex = 8;
 			this.button2.UseVisualStyleBackColor = false;
 			// 
-			// Main
+			// labelCurrentUser
+			// 
+			this.labelCurrentUser.AutoSize = true;
+			this.labelCurrentUser.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.labelCurrentUser.ForeColor = System.Drawing.SystemColors.ControlLight;
+			this.labelCurrentUser.Location = new System.Drawing.Point(44, 2);
+			this.labelCurrentUser.Name = "labelCurrentUser";
+			this.labelCurrentUser.Size = new System.Drawing.Size(102, 19);
+			this.labelCurrentUser.TabIndex = 9;
+			this.labelCurrentUser.Text = "Current user:";
+			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(208, 66);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(75, 23);
+			this.button3.TabIndex = 2;
+			this.button3.Text = "button3";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
+			// Main_Form
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(48)))), ((int)(((byte)(52)))));
 			this.ClientSize = new System.Drawing.Size(625, 381);
+			this.Controls.Add(this.labelCurrentUser);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.buttonExit);
@@ -254,11 +279,10 @@ namespace Notes
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(590, 381);
-			this.Name = "Main";
+			this.Name = "Main_Form";
 			this.Text = "Notes";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
-			this.Load += new System.EventHandler(this.Form_Main_Load);
 			this.panelNote.ResumeLayout(false);
 			this.panelNote.PerformLayout();
 			this.panelNotesList.ResumeLayout(false);
@@ -278,7 +302,7 @@ namespace Notes
 		private System.Windows.Forms.Panel panelNote;
 		private System.Windows.Forms.RichTextBox richTextBox_NoteText;
 		private System.Windows.Forms.Panel panelNotesList;
-		private System.Windows.Forms.FlowLayoutPanel notesFlowPanel;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_Notes;
 		private System.Windows.Forms.Button button_AddNote;
 		private System.Windows.Forms.SplitContainer splitContainer;
 		private System.Windows.Forms.MenuStrip menuStrip;
@@ -288,6 +312,8 @@ namespace Notes
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Label labelNoteDoesNotSelected;
+		private System.Windows.Forms.Label labelCurrentUser;
+		private System.Windows.Forms.Button button3;
 	}
 }
 

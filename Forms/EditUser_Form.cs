@@ -3,9 +3,9 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace NotesLib
+namespace Notes
 {
-	public partial class EditUser_Form: Form
+	public partial class EditUser_Form : Form
 	{
 		private User newUser = new User();
 		private User_Panel _user_Panel = new User_Panel();

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Notes.Forms;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace NotesLib
+namespace Notes
 {
 	public partial class User_Panel : UserControl
 	{
@@ -54,7 +55,10 @@ namespace NotesLib
 
 		private void buttonSelectUser_Click(object sender, EventArgs e)
 		{
-			
+			UsersList_Form parent = (UsersList_Form)Parent.Parent;
+			Main_Form main = (Main_Form)parent.Owner;
+			main.ChangeCurrentUser(User);
+			parent.Close();
 		}
 	}
 }
