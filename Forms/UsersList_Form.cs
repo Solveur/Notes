@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-namespace Notes.Forms
+﻿namespace Notes.Forms
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Windows.Forms;
 
 	public partial class UsersList_Form : Form
 	{

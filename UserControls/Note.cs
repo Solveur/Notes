@@ -1,12 +1,13 @@
-﻿using System;
-using System.Data.SQLite;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace Notes
+﻿namespace Notes
 {
+	using System;
+	using System.Data.SQLite;
+	using System.Drawing;
+	using System.Windows.Forms;
+
 	public partial class Note : UserControl
 	{
+		public bool IsNew = true;
 		public User Owner { get; set; }
 		public int Rowid = 0;
 		public DateTime DateOfCreation = new DateTime();

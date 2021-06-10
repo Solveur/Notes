@@ -1,19 +1,20 @@
-﻿using Notes.Forms;
-
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Windows.Forms;
-
-namespace Notes
+﻿namespace Notes
 {
-	public partial class Main_Form : Form
+	using Notes.Forms;
+	using System;
+	using System.Collections.Generic;
+	using System.Data;
+	using System.Data.SQLite;
+	using System.Drawing;
+	using System.Drawing.Imaging;
+	using System.IO;
+	using System.Windows.Forms;
+
+	public partial class Main_Form: Form
 	{
-		string strCon = "Data Source =  Notes.db; Version = 3";
+		// TODO: при загрузке заметок, не удаляется фон
+		static string strCon = "Data Source =  Notes.db; Version = 3";
+		SQLiteConnection con = new SQLiteConnection(strCon);
 
 		List<Note> Notes = new List<Note>();
 		Note SelectedNote = null;
@@ -80,14 +81,14 @@ namespace Notes
 
 		void RichTextBox_NoteText_TextChanged(object sender, EventArgs e)
 		{
-			if (SelectedNote != null)
+			if(SelectedNote != null)
 				SelectedNote.RTF = richTextBox_NoteText.Rtf;
 		}
 
 		void СomboBox_User_SelectionChangeCommitted(object sender, EventArgs e)
 		{
 			User newUser = (sender as ComboBox).SelectedItem as User;
-			if (newUser.Login == CurrentUser.Login)
+			if(newUser.Login == CurrentUser.Login)
 				return;
 			flowLayoutPanel_Notes.Controls.Clear();
 			CurrentUser = newUser;
@@ -114,12 +115,12 @@ namespace Notes
 		void Main_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			SaveNotes(Notes);
-			SaveUsers(Users);
+			//SaveUsers(Users);
 		}
 
 		void AddNotesToFlowPanel(List<Note> notes)
 		{
-			foreach (var note in notes)
+			foreach(var note in notes)
 			{
 				flowLayoutPanel_Notes.Controls.Add(note);
 				note.Click += Note_Click;
@@ -128,69 +129,35 @@ namespace Notes
 
 		void SaveNotes(List<Note> notes)
 		{
-			SQLiteConnection con = new SQLiteConnection(strCon);
 			if(con.State == ConnectionState.Closed)
 				con.Open();
 
-			using (SQLiteCommand command = con.CreateCommand())
-			{
-				try
-				{
-					foreach (var note in notes)
-					{
-						if (note.Rowid == 0)
-						{
-							command.CommandText = $"INSERT INTO Notes(owner, note, dateOfCreate) VALUES('{note.Owner.Rowid}', '{note.RTF}', '{note.DateOfCreation:yyyy-MM-dd hh:mm:ss}')";
-							command.ExecuteNonQuery();
-						}
-						else
-						{
-							command.CommandText = $"UPDATE Notes SET note = '{note.RTF}' WHERE rowid = '{note.Rowid}'";
-							command.ExecuteNonQuery();
-						}
-					}
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show(ex.ToString());
-				}
-			}
-			con.Close();
-		}
-
-		void SaveUsers(List<User> users)
-		{
-			SQLiteConnection con = new SQLiteConnection(strCon);
-			con.Open();
-
 			using(SQLiteCommand command = con.CreateCommand())
 			{
-				foreach(var user in users)
+				foreach(var note in notes)
 				{
-					SQLiteParameter avatar = new SQLiteParameter("@avatar", DbType.Binary)
+					command.Parameters.AddWithValue("@rowid", note.Rowid);
+					command.Parameters.AddWithValue("@owner", note.Owner.Rowid);
+					command.Parameters.AddWithValue("@note", note.RTF);
+					command.Parameters.AddWithValue("@dateOfCreate", note.DateOfCreation);
+
+					if(note.IsNew)
 					{
-						Value = ImageToByte(user.Image, user.Image.RawFormat)
-					};
-					command.Parameters.Add(avatar);
-					command.Parameters.AddWithValue("@login", user.Login);
-					command.Parameters.AddWithValue("@description", user.Description);
-					command.Parameters.AddWithValue("@rowid", user.Rowid);
-					if(user.Rowid == 0)
-					{
-						command.CommandText = "INSERT INTO Users(login, description, avatar) VALUES(@login, @description, @avatar)";
+						command.CommandText = "INSERT INTO Notes(owner, note, dateOfCreate) VALUES(@owner, @note, @dateOfCreate)";
 					}
 					else
 					{
-						command.CommandText = "UPDATE Users SET login=@login, description=@description, avatar=@avatar WHERE rowid=@rowid";
+						command.CommandText = "UPDATE Notes SET note=@note, owner=@owner WHERE rowid=@rowid";
 					}
-				}
-				try
-				{
-					command.ExecuteNonQuery();
-				}
-				catch(Exception ex)
-				{
-					MessageBox.Show(ex.ToString());
+
+					try
+					{
+						command.ExecuteNonQuery();
+					}
+					catch(Exception ex)
+					{
+						MessageBox.Show(ex.ToString());
+					}
 				}
 			}
 			con.Close();
@@ -198,42 +165,42 @@ namespace Notes
 
 		List<Note> GetNotesForUser(User user)
 		{
-			SQLiteConnection con = new SQLiteConnection(strCon);
 			if(con.State == ConnectionState.Closed)
 				con.Open();
 			List<Note> notes = new List<Note>();
 
 			using(SQLiteCommand command = con.CreateCommand())
 			{
-				command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes WHERE owner = '{user.Rowid}'";
-				SQLiteDataReader r = command.ExecuteReader();
-
-				while(r.Read())
-				{
-					User owner = new User();
-					foreach(var targetUser in Users)
-					{
-						if(targetUser.Rowid == Convert.ToInt32(r["owner"]))
-						{
-							owner = targetUser;
-							break;
-						}
-					}
-					Note note = new Note()
-					{
-						Owner = owner,
-						RTF = r["note"].ToString(),
-						Rowid = Convert.ToInt32(r["rowid"]),
-						DateOfCreation = Convert.ToDateTime(r["dateOfCreate"])
-					};
-					richTextBox_NoteText.Rtf = note.RTF;
-					notes.Add(note);
-				}
-				r.Close();
-				richTextBox_NoteText.Text = "";
+				command.Parameters.AddWithValue("@owner", user.Rowid);
+				command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes WHERE owner=@owner";
 				try
 				{
-					command.ExecuteNonQuery();
+					SQLiteDataReader r = command.ExecuteReader();
+
+					while(r.Read())
+					{
+						User owner = new User();
+						foreach(var targetUser in Users)
+						{
+							if(targetUser.Rowid == Convert.ToInt32(r["owner"]))
+							{
+								owner = targetUser;
+								break;
+							}
+						}
+						Note note = new Note()
+						{
+							Owner = owner,
+							RTF = r["note"].ToString(),
+							Rowid = Convert.ToInt32(r["rowid"]),
+							DateOfCreation = Convert.ToDateTime(r["dateOfCreate"]),
+							IsNew = false,
+						};
+						richTextBox_NoteText.Rtf = note.RTF;
+						notes.Add(note);
+					}
+					r.Close();
+					richTextBox_NoteText.Text = "";
 				}
 				catch(Exception ex)
 				{
@@ -246,47 +213,46 @@ namespace Notes
 
 		List<Note> GetAllNotes()
 		{
-			SQLiteConnection con = new SQLiteConnection(strCon);
 			if(con.State == ConnectionState.Closed)
 				con.Open();
-			List<Note> notes = new List<Note>();
 
+			List<Note> notes = new List<Note>();
 			using(SQLiteCommand command = con.CreateCommand())
 			{
 				command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes";
-				SQLiteDataReader r = command.ExecuteReader();
-
-				while(r.Read())
-				{
-					User owner = new User();
-					foreach(var targetUser in Users)
-					{
-						if(targetUser.Rowid == Convert.ToInt32(r["owner"]))
-						{
-							owner = targetUser;
-							break;
-						}
-					}
-					Note note = new Note()
-					{
-						Owner = owner,
-						RTF = r["note"].ToString(),
-						Rowid = Convert.ToInt32(r["rowid"]),
-						DateOfCreation = Convert.ToDateTime(r["dateOfCreate"].ToString())
-					};
-					richTextBox_NoteText.Rtf = note.RTF;
-					notes.Add(note);
-				}
-				r.Close();
-				richTextBox_NoteText.Text = "";
 				try
 				{
-					command.ExecuteNonQuery();
+					SQLiteDataReader r = command.ExecuteReader();
+
+					while(r.Read())
+					{
+						User owner = new User();
+						foreach(var targetUser in Users)
+						{
+							if(targetUser.Rowid == Convert.ToInt32(r["owner"]))
+							{
+								owner = targetUser;
+								break;
+							}
+						}
+						Note note = new Note()
+						{
+							Owner = owner,
+							RTF = r["note"].ToString(),
+							Rowid = Convert.ToInt32(r["rowid"]),
+							DateOfCreation = Convert.ToDateTime(r["dateOfCreate"].ToString()),
+							IsNew = false,
+						};
+						richTextBox_NoteText.Rtf = note.RTF;
+						notes.Add(note);
+					}
+					r.Close();
 				}
 				catch(Exception ex)
 				{
 					MessageBox.Show(ex.ToString());
 				}
+				richTextBox_NoteText.Text = "";
 			}
 			con.Close();
 			return notes;
@@ -294,9 +260,9 @@ namespace Notes
 
 		List<User> GetUsers()
 		{
-			SQLiteConnection con = new SQLiteConnection(strCon);
 			if(con.State == ConnectionState.Closed)
 				con.Open();
+
 			List<User> users = new List<User>();
 			using(SQLiteCommand command = con.CreateCommand())
 			{
@@ -313,8 +279,8 @@ namespace Notes
 							Login = r["login"].ToString(),
 							Description = r["description"].ToString(),
 							Image = ByteToImage((byte[])r["avatar"]),
+							IsNew = false,
 						};
-						newUser.Notes = GetNotesForUser(newUser);
 						users.Add(newUser);
 					}
 					r.Close();
@@ -360,7 +326,7 @@ namespace Notes
 				return imageBytes;
 			}
 		}
-		//public Image Base64ToImage(string base64String)
+
 		Image ByteToImage(byte[] imageBytes)
 		{
 			// Convert byte[] to Image
@@ -398,11 +364,6 @@ namespace Notes
 		void SetLabelUser(User user)
 		{
 			labelCurrentUser.Text = $"Current user: {user.Login}";
-		}
-
-		private void button3_Click(object sender, EventArgs e)
-		{
-			SaveUsers(Users);
 		}
 	}
 }

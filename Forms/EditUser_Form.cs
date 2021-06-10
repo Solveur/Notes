@@ -1,12 +1,17 @@
-﻿using System;
-using System.Data.SQLite;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace Notes
+﻿namespace Notes
 {
-	public partial class EditUser_Form : Form
+	using System;
+	using System.Data;
+	using System.Data.SQLite;
+	using System.Drawing;
+	using System.Drawing.Imaging;
+	using System.IO;
+	using System.Windows.Forms;
+
+	public partial class EditUser_Form: Form
 	{
+		private static string strCon = "Data Source =  Notes.db; Version = 3";
+		private SQLiteConnection con = new SQLiteConnection(strCon);
 		private User newUser = new User();
 		private User_Panel _user_Panel = new User_Panel();
 		public User_Panel User_Panel
@@ -36,15 +41,9 @@ namespace Notes
 			newUser.Description = textBoxDescription.Text;
 			newUser.Image = pictureBoxUserAvatar.Image;
 			User_Panel.User = newUser;
+			UpdateUserInDB(User_Panel.User);
 			Close();
 		}
-
-		private void buttonCancel_Click(object sender, EventArgs e)
-		{
-			Dispose();
-			Close();
-		}
-
 		private void buttonDelete_Click(object sender, EventArgs e)
 		{
 			DeleteUserFromDB(User_Panel.User);
@@ -52,19 +51,24 @@ namespace Notes
 			Close();
 		}
 
+		private void buttonCancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+
 		private void DeleteUserFromDB(User user)
 		{
-			string strCon = "Data Source =  Notes.db; Version = 3";
-			SQLiteConnection con;
 			con = new SQLiteConnection(strCon);
-			if(con.State == System.Data.ConnectionState.Closed)
+			if(con.State == ConnectionState.Closed)
 				con.Open();
 
 			using(SQLiteCommand command = con.CreateCommand())
 			{
+				command.Parameters.AddWithValue("@rowid", user.Rowid);
+				command.CommandText = "DELETE FROM Users WHERE rowid=@rowid";
 				try
 				{
-					command.CommandText = $"DELETE from Users WHERE rowid = '{user.Rowid}'";
 					command.ExecuteNonQuery();
 				}
 				catch(Exception ex)
@@ -73,6 +77,42 @@ namespace Notes
 				}
 			}
 			con.Close();
+		}
+
+		void UpdateUserInDB(User user)
+		{
+			if(con.State == ConnectionState.Closed)
+				con.Open();
+
+			using(SQLiteCommand command = con.CreateCommand())
+			{
+				command.Parameters.AddWithValue("@rowid", user.Rowid);
+				command.Parameters.AddWithValue("@login", user.Login);
+				command.Parameters.AddWithValue("@description", user.Description);
+				command.Parameters.AddWithValue("@avatar", ImageToByte(user.Image, user.Image.RawFormat));
+				command.CommandText = "UPDATE Users SET login=@login, description=@description, avatar=@avatar WHERE rowid=@rowid";
+
+				try
+				{
+					command.ExecuteNonQuery();
+				}
+				catch(Exception ex)
+				{
+					MessageBox.Show(ex.ToString());
+				}
+			}
+			con.Close();
+		}
+
+		private byte[] ImageToByte(Image image, ImageFormat format)
+		{
+			using(MemoryStream ms = new MemoryStream())
+			{
+				// Convert Image to byte[]
+				image.Save(ms, format);
+				byte[] imageBytes = ms.ToArray();
+				return imageBytes;
+			}
 		}
 
 		private void EditUser_Form_MouseDown(object sender, MouseEventArgs e)

@@ -1,10 +1,10 @@
-﻿using Notes.Forms;
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace Notes
+﻿namespace Notes
 {
+	using Notes.Forms;
+	using System;
+	using System.Drawing;
+	using System.Windows.Forms;
+
 	public partial class User_Panel : UserControl
 	{
 		private User _user = new User();

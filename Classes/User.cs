@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-
-namespace Notes
+﻿namespace Notes
 {
+	using System.Collections.Generic;
+	using System.Drawing;
+
 	public class User
 	{
+		public bool IsNew = true;
 		public int Rowid { get; set; } = 0;
 		public string Login { get; set; } = string.Empty;
 		public string Description { get; set; } = string.Empty;
