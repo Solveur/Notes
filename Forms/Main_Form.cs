@@ -10,7 +10,7 @@
 	using System.IO;
 	using System.Windows.Forms;
 
-	public partial class Main_Form: Form
+	public partial class Main_Form : Form
 	{
 		// TODO: при загрузке заметок, не удаляется фон
 		static string strCon = "Data Source =  Notes.db; Version = 3";
@@ -296,7 +296,6 @@
 
 		void SetTooltips()
 		{
-			//Add tooltips to Form_main buttons
 			ToolTip tip = new ToolTip();
 			tip.SetToolTip(button_AddNote, "Add note");
 		}
@@ -316,17 +315,6 @@
 			menuStrip.Renderer = new ToolStripProfessionalRenderer(new MenuStripRenderer());
 		}
 
-		private byte[] ImageToByte(Image image, ImageFormat format)
-		{
-			using(MemoryStream ms = new MemoryStream())
-			{
-				// Convert Image to byte[]
-				image.Save(ms, format);
-				byte[] imageBytes = ms.ToArray();
-				return imageBytes;
-			}
-		}
-
 		Image ByteToImage(byte[] imageBytes)
 		{
 			// Convert byte[] to Image
@@ -340,7 +328,7 @@
 			Application.Exit();
 		}
 
-		public void ChangeCurrentUser(User user) //Do not delete
+		public void SetCurrentUser(User user)
 		{
 			if(CurrentUser == user)
 				return;

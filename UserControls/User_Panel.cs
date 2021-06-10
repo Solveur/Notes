@@ -57,7 +57,7 @@
 		{
 			UsersList_Form parent = (UsersList_Form)Parent.Parent;
 			Main_Form main = (Main_Form)parent.Owner;
-			main.ChangeCurrentUser(User);
+			main.SetCurrentUser(User);
 			parent.Close();
 		}
 	}
