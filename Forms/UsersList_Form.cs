@@ -42,7 +42,8 @@
 			{
 				if(User_Panel.GetType() == new User_Panel().GetType())
 				{
-					Users.Add(((User_Panel)User_Panel).User);
+					User user = ((User_Panel)User_Panel).User;
+					Users.Add(user);
 				}
 			}
 		}

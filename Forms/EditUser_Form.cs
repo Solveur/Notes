@@ -1,5 +1,6 @@
 ﻿namespace Notes
 {
+	using Notes.Forms;
 	using System;
 	using System.Data;
 	using System.Data.SQLite;
@@ -8,9 +9,9 @@
 	using System.IO;
 	using System.Windows.Forms;
 
-	public partial class EditUser_Form: Form
+	public partial class EditUser_Form : Form
 	{
-		private static string strCon = "Data Source =  Notes.db; Version = 3";
+		private static string strCon = "Data Source = Notes.db; Version = 3";
 		private SQLiteConnection con = new SQLiteConnection(strCon);
 		private User newUser = new User();
 		private User_Panel _user_Panel = new User_Panel();
@@ -41,13 +42,18 @@
 			newUser.Description = textBoxDescription.Text;
 			newUser.Image = pictureBoxUserAvatar.Image;
 			User_Panel.User = newUser;
+
 			UpdateUserInDB(User_Panel.User);
 			Close();
 		}
 		private void buttonDelete_Click(object sender, EventArgs e)
 		{
+			UsersList_Form parent = (UsersList_Form)Owner;
+			Main_Form main = (Main_Form)parent.Owner;
+
 			DeleteUserFromDB(User_Panel.User);
 			User_Panel.Dispose();
+			main.SetCurrentUser(null);
 			Close();
 		}
 
@@ -66,7 +72,7 @@
 			using(SQLiteCommand command = con.CreateCommand())
 			{
 				command.Parameters.AddWithValue("@rowid", user.Rowid);
-				command.CommandText = "DELETE FROM Users WHERE rowid=@rowid";
+				command.CommandText = "DELETE FROM Users WHERE id=@rowid";
 				try
 				{
 					command.ExecuteNonQuery();
@@ -90,7 +96,7 @@
 				command.Parameters.AddWithValue("@login", user.Login);
 				command.Parameters.AddWithValue("@description", user.Description);
 				command.Parameters.AddWithValue("@avatar", ImageToByte(user.Image, user.Image.RawFormat));
-				command.CommandText = "UPDATE Users SET login=@login, description=@description, avatar=@avatar WHERE rowid=@rowid";
+				command.CommandText = "UPDATE Users SET login=@login, description=@description, avatar=@avatar WHERE id=@rowid";
 
 				try
 				{

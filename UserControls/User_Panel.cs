@@ -49,13 +49,14 @@
 			using(EditUser_Form user_Editor = new EditUser_Form())
 			{
 				user_Editor.User_Panel = user_Panel;
+				user_Editor.Owner = ParentForm;
 				user_Editor.ShowDialog();
 			}
 		}
 
 		private void buttonSelectUser_Click(object sender, EventArgs e)
 		{
-			UsersList_Form parent = (UsersList_Form)Parent.Parent;
+			UsersList_Form parent = (UsersList_Form)ParentForm;
 			Main_Form main = (Main_Form)parent.Owner;
 			main.SetCurrentUser(User);
 			parent.Close();

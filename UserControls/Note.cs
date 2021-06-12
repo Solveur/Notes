@@ -72,6 +72,7 @@
 		public Note()
 		{
 			InitializeComponent();
+			DateOfCreation = DateTime.Now;
 		}
 
 		Color tempColorClick;

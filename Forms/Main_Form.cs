@@ -21,7 +21,7 @@
 
 		//TODO: Change user select
 		List<User> Users = new List<User>();
-		private User CurrentUser = null;
+		User CurrentUser = null;
 
 		public Main_Form()
 		{
@@ -34,11 +34,6 @@
 			ColorMenuStrip();
 			richTextBox_NoteText.Visible = !(SelectedNote is null);
 			button_AddNote.Enabled = !(CurrentUser is null);
-		}
-
-		void Note_Click(object sender, EventArgs e)
-		{
-			SelectNote(sender);
 		}
 
 		void SelectNote(object sender)
@@ -66,34 +61,27 @@
 			}
 		}
 
+		void Note_Click(object sender, EventArgs e)
+		{
+			SelectNote(sender);
+		}
+
 		void Button_AddNote_Click(object sender, EventArgs e)
 		{
-			Note note = new Note()
+			Note note = new Note
 			{
-				Owner = CurrentUser,
-				DateOfCreation = DateTime.Now
+				Owner = CurrentUser
 			};
 			note.Click += new EventHandler(Note_Click);
 			Notes.Add(note);
-			flowLayoutPanel_Notes.Controls.Add(note);
 			CurrentUser.Notes.Add(note);
+			flowLayoutPanel_Notes.Controls.Add(note);
 		}
 
 		void RichTextBox_NoteText_TextChanged(object sender, EventArgs e)
 		{
-			if(SelectedNote != null)
-				SelectedNote.RTF = richTextBox_NoteText.Rtf;
-		}
-
-		void СomboBox_User_SelectionChangeCommitted(object sender, EventArgs e)
-		{
-			User newUser = (sender as ComboBox).SelectedItem as User;
-			if(newUser.Login == CurrentUser.Login)
-				return;
-			flowLayoutPanel_Notes.Controls.Clear();
-			CurrentUser = newUser;
-			List<Note> notesForUser = GetNotesForUser(CurrentUser);
-			AddNotesToFlowPanel(notesForUser);
+			 SelectedNote.RTF =
+				SelectedNote is null ? string.Empty : richTextBox_NoteText.Rtf;
 		}
 
 		void showUsersControlPanelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -115,16 +103,6 @@
 		void Main_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			SaveNotes(Notes);
-			//SaveUsers(Users);
-		}
-
-		void AddNotesToFlowPanel(List<Note> notes)
-		{
-			foreach(var note in notes)
-			{
-				flowLayoutPanel_Notes.Controls.Add(note);
-				note.Click += Note_Click;
-			}
 		}
 
 		void SaveNotes(List<Note> notes)
@@ -147,7 +125,7 @@
 					}
 					else
 					{
-						command.CommandText = "UPDATE Notes SET note=@note, owner=@owner WHERE rowid=@rowid";
+						command.CommandText = "UPDATE Notes SET note=@note, owner=@owner WHERE id=@rowid";
 					}
 
 					try
@@ -165,50 +143,13 @@
 
 		List<Note> GetNotesForUser(User user)
 		{
-			if(con.State == ConnectionState.Closed)
-				con.Open();
-			List<Note> notes = new List<Note>();
-
-			using(SQLiteCommand command = con.CreateCommand())
+			List<Note> asd = new List<Note>();
+			foreach(var note in Notes)
 			{
-				command.Parameters.AddWithValue("@owner", user.Rowid);
-				command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes WHERE owner=@owner";
-				try
-				{
-					SQLiteDataReader r = command.ExecuteReader();
-
-					while(r.Read())
-					{
-						User owner = new User();
-						foreach(var targetUser in Users)
-						{
-							if(targetUser.Rowid == Convert.ToInt32(r["owner"]))
-							{
-								owner = targetUser;
-								break;
-							}
-						}
-						Note note = new Note()
-						{
-							Owner = owner,
-							RTF = r["note"].ToString(),
-							Rowid = Convert.ToInt32(r["rowid"]),
-							DateOfCreation = Convert.ToDateTime(r["dateOfCreate"]),
-							IsNew = false,
-						};
-						richTextBox_NoteText.Rtf = note.RTF;
-						notes.Add(note);
-					}
-					r.Close();
-					richTextBox_NoteText.Text = "";
-				}
-				catch(Exception ex)
-				{
-					MessageBox.Show(ex.ToString());
-				}
+				if(note.Owner.Rowid == user.Rowid)
+					asd.Add(note);
 			}
-			con.Close();
-			return notes;
+			return asd;
 		}
 
 		List<Note> GetAllNotes()
@@ -219,7 +160,7 @@
 			List<Note> notes = new List<Note>();
 			using(SQLiteCommand command = con.CreateCommand())
 			{
-				command.CommandText = $"SELECT owner, note, rowid, dateOfCreate FROM Notes";
+				command.CommandText = $"SELECT id, owner, note, dateOfCreate FROM Notes";
 				try
 				{
 					SQLiteDataReader r = command.ExecuteReader();
@@ -239,11 +180,11 @@
 						{
 							Owner = owner,
 							RTF = r["note"].ToString(),
-							Rowid = Convert.ToInt32(r["rowid"]),
+							Rowid = Convert.ToInt32(r["id"]),
 							DateOfCreation = Convert.ToDateTime(r["dateOfCreate"].ToString()),
 							IsNew = false,
 						};
-						richTextBox_NoteText.Rtf = note.RTF;
+						note.Click += new EventHandler(Note_Click);
 						notes.Add(note);
 					}
 					r.Close();
@@ -252,7 +193,6 @@
 				{
 					MessageBox.Show(ex.ToString());
 				}
-				richTextBox_NoteText.Text = "";
 			}
 			con.Close();
 			return notes;
@@ -266,7 +206,7 @@
 			List<User> users = new List<User>();
 			using(SQLiteCommand command = con.CreateCommand())
 			{
-				command.CommandText = $"SELECT rowid, login, description, avatar FROM Users";
+				command.CommandText = $"SELECT id, login, description, avatar FROM Users";
 				try
 				{
 					SQLiteDataReader r = command.ExecuteReader();
@@ -275,7 +215,7 @@
 					{
 						User newUser = new User()
 						{
-							Rowid = Convert.ToInt32(r["rowid"]),
+							Rowid = Convert.ToInt32(r["id"]),
 							Login = r["login"].ToString(),
 							Description = r["description"].ToString(),
 							Image = ByteToImage((byte[])r["avatar"]),
@@ -334,9 +274,11 @@
 				return;
 
 			CurrentUser = user;
+			List<Note> notesForUser = new List<Note>();
+			notesForUser = CurrentUser is null ? notesForUser : CurrentUser.Notes;
 			richTextBox_NoteText.Visible = false;
 			flowLayoutPanel_Notes.Controls.Clear();
-			flowLayoutPanel_Notes.Controls.AddRange(CurrentUser.Notes.ToArray());
+			flowLayoutPanel_Notes.Controls.AddRange(notesForUser.ToArray());
 			SetLabelUser(user);
 			button_AddNote.Enabled = !(CurrentUser is null);
 		}
@@ -344,13 +286,16 @@
 		void ConnectNotesAndUsers(List<User> users)
 		{
 			foreach(var user in users)
-			{
 				user.Notes = GetNotesForUser(user);
-			}
 		}
 
 		void SetLabelUser(User user)
 		{
+			if(user is null)
+			{
+				labelCurrentUser.Text = "Current user: ";
+				return;
+			}
 			labelCurrentUser.Text = $"Current user: {user.Login}";
 		}
 	}

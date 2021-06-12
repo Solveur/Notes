@@ -18,7 +18,7 @@ namespace Notes
 			AddUser_Panel newUser_Panel = new AddUser_Panel();
 			User newUser = new User();
 
-			newUser_Panel.user = newUser;
+			newUser_Panel.User = newUser;
 			Parent.Controls.Add(newUser_Panel);
 			Parent.Controls.SetChildIndex(Parent.Controls[Parent.Controls.Count - 1], 0); // Put last UserControl in beginning
 			((Button)sender).Dispose();

@@ -8,9 +8,9 @@
 	using System.IO;
 	using System.Windows.Forms;
 
-	public partial class AddUser_Panel: UserControl
+	public partial class AddUser_Panel : UserControl
 	{
-		public User user = new User();
+		public User User = new User();
 		private User_Panel userPanel = new User_Panel();
 		private static string strCon = "Data Source =  Notes.db; Version = 3";
 		private SQLiteConnection con = new SQLiteConnection(strCon);
@@ -31,17 +31,16 @@
 			}
 		}
 
-		// TODO: Максимальный rowid не сохраняется, новые создаются с 0
 		private void buttonApply_Click(object sender, EventArgs e)
 		{
-			user.Login = textBoxLogin.Text;
-			user.Description = textBoxDescription.Text;
-			user.Image = pictureBoxUserAvatar.Image;
-			user.IsNew = false;
-			user.Rowid = GetMaxRowid() + 1;
+			User.Login = textBoxLogin.Text;
+			User.Description = textBoxDescription.Text;
+			User.Image = pictureBoxUserAvatar.Image;
+			User.IsNew = false;
+			User.Rowid = GetMaxRowid() + 1;
 
-			userPanel.User = user;
-			SaveUserToDB(user);
+			userPanel.User = User;
+			SaveUserToDB(User);
 
 			Parent.Controls.InsertInBeginning(userPanel);
 			Parent.Controls.InsertInBeginning(new ButtonAddUser());
@@ -80,13 +79,13 @@
 
 			using(SQLiteCommand command = con.CreateCommand())
 			{
-				command.CommandText = "SELECT rowid FROM Users ORDER BY rowid DESC";
+				command.CommandText = $"SELECT seq FROM SQLITE_SEQUENCE WHERE name='Users'";
 
 				try
 				{
 					SQLiteDataReader r = command.ExecuteReader();
 					if(r.Read())
-						maxRowid = Convert.ToInt32(r["rowid"]);
+						maxRowid = Convert.ToInt32(r["seq"]);
 					r.Close();
 				}
 				catch(Exception ex)
