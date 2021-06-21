@@ -5,9 +5,9 @@ using Notes.Properties;
 
 namespace Notes
 {
-
 	public class ButtonAddUser : Button
 	{
+
 		public ButtonAddUser()
 		{
 			Design();

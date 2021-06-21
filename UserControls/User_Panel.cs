@@ -17,8 +17,8 @@
 			set
 			{
 				_user = value;
-				if (_user.Image != null)
-					UserAvatar.Image = _user.Image;
+				if (_user.Avatar != null)
+					UserAvatar.Image = _user.Avatar;
 				else
 					UserAvatar.Image = Properties.Resources.NoImage;
 				labelUserLogin.Text = _user.Login;
@@ -39,7 +39,7 @@
 				if (fileDialog.ShowDialog() != DialogResult.OK)
 					return;
 				((PictureBox)sender).Image = Image.FromFile(fileDialog.FileName);
-				User.Image = Image.FromFile(fileDialog.FileName);
+				User.Avatar = Image.FromFile(fileDialog.FileName);
 			}
 		}
 

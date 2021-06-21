@@ -43,7 +43,7 @@ namespace Notes.Forms
 			this.users_FlowPanel.Location = new System.Drawing.Point(0, 25);
 			this.users_FlowPanel.Margin = new System.Windows.Forms.Padding(0);
 			this.users_FlowPanel.Name = "users_FlowPanel";
-			this.users_FlowPanel.Size = new System.Drawing.Size(290, 436);
+			this.users_FlowPanel.Size = new System.Drawing.Size(294, 436);
 			this.users_FlowPanel.TabIndex = 0;
 			// 
 			// buttonExit
@@ -72,7 +72,7 @@ namespace Notes.Forms
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Padding = new System.Windows.Forms.Padding(0);
-			this.menuStrip1.Size = new System.Drawing.Size(290, 25);
+			this.menuStrip1.Size = new System.Drawing.Size(294, 25);
 			this.menuStrip1.TabIndex = 2;
 			this.menuStrip1.Text = "menuStrip";
 			this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip_MouseDown);
@@ -81,12 +81,13 @@ namespace Notes.Forms
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(290, 461);
+			this.ClientSize = new System.Drawing.Size(294, 461);
 			this.Controls.Add(this.buttonExit);
 			this.Controls.Add(this.menuStrip1);
 			this.Controls.Add(this.users_FlowPanel);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "UsersList_Form";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "UsersList_Form";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UsersList_Form_FormClosing);
 			this.ResumeLayout(false);

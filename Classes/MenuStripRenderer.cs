@@ -11,7 +11,7 @@ namespace Notes
 		Color menuItemSelected = Color.FromArgb(223, 74, 22);
 		Color menuItemPressed = Color.FromArgb(223, 74, 22);
 		Color toolStripDropDownBackground = Color.FromArgb(52, 52, 52);
-		Color imageMarginGradientBegin = Color.FromArgb(52, 52, 52);
+		Color imageMargin = Color.FromArgb(52, 52, 52);
 
 		public MenuStripRenderer()
 		{
@@ -60,12 +60,12 @@ namespace Notes
 
 		public override Color ImageMarginGradientBegin
 		{
-			get { return imageMarginGradientBegin; }
+			get { return imageMargin; }
 		}
 
 		public override Color ImageMarginGradientEnd
 		{
-			get { return imageMarginGradientBegin; }
+			get { return imageMargin; }
 		}
 	}
 }

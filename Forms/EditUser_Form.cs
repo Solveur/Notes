@@ -27,7 +27,7 @@
 				newUser = _user_Panel.User;
 				textBoxLogin.Text = newUser.Login;
 				textBoxDescription.Text = newUser.Description;
-				pictureBoxUserAvatar.Image = newUser.Image;
+				pictureBoxUserAvatar.Image = newUser.Avatar;
 			}
 		}
 
@@ -40,7 +40,7 @@
 		{
 			newUser.Login = textBoxLogin.Text;
 			newUser.Description = textBoxDescription.Text;
-			newUser.Image = pictureBoxUserAvatar.Image;
+			newUser.Avatar = pictureBoxUserAvatar.Image;
 			User_Panel.User = newUser;
 
 			UpdateUserInDB(User_Panel.User);
@@ -95,7 +95,7 @@
 				command.Parameters.AddWithValue("@rowid", user.Rowid);
 				command.Parameters.AddWithValue("@login", user.Login);
 				command.Parameters.AddWithValue("@description", user.Description);
-				command.Parameters.AddWithValue("@avatar", ImageToByte(user.Image, user.Image.RawFormat));
+				command.Parameters.AddWithValue("@avatar", ImageToByte(user.Avatar, user.Avatar.RawFormat));
 				command.CommandText = "UPDATE Users SET login=@login, description=@description, avatar=@avatar WHERE id=@rowid";
 
 				try

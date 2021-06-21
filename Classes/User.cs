@@ -9,12 +9,9 @@
 		public int Rowid { get; set; } = 0;
 		public string Login { get; set; } = string.Empty;
 		public string Description { get; set; } = string.Empty;
-		public Image Image { get; set; } = null;
+		public Image Avatar { get; set; } = null;
 		public List<Note> Notes = new List<Note>();
 
-		public User()
-		{
-
-		}
+		public User() { }
 	}
 }

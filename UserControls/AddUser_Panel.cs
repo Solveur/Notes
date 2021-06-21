@@ -35,7 +35,7 @@
 		{
 			User.Login = textBoxLogin.Text;
 			User.Description = textBoxDescription.Text;
-			User.Image = pictureBoxUserAvatar.Image;
+			User.Avatar = pictureBoxUserAvatar.Image;
 			User.IsNew = false;
 			User.Rowid = GetMaxRowid() + 1;
 
@@ -56,7 +56,7 @@
 			{
 				command.Parameters.AddWithValue("@login", user.Login);
 				command.Parameters.AddWithValue("@description", user.Description);
-				command.Parameters.AddWithValue("@avatar", ImageToByte(user.Image, user.Image.RawFormat));
+				command.Parameters.AddWithValue("@avatar", ImageToByte(user.Avatar, user.Avatar.RawFormat));
 				command.CommandText = "INSERT INTO Users(login, description, avatar) VALUES(@login, @description, @avatar)";
 
 				try

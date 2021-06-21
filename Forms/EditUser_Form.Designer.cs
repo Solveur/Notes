@@ -150,6 +150,7 @@ namespace Notes
 			this.Controls.Add(this.textBoxLogin);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "EditUser_Form";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "EditUser_Form";
 			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.EditUser_Form_MouseDown);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserAvatar)).EndInit();

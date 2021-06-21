@@ -13,21 +13,21 @@ namespace Notes
 			ForeColor = Color.Gray;
 		}
 
-        protected override void OnCreateControl()
-        {
-            base.OnCreateControl();
+		protected override void OnCreateControl()
+		{
+			base.OnCreateControl();
 
-			if (Text.Equals(string.Empty))
+			if(Text.Equals(string.Empty))
 				Text = Placeholder;
 		}
 
-        protected override void OnLostFocus(EventArgs e)
+		protected override void OnLostFocus(EventArgs e)
 		{
 			base.OnLostFocus(e);
 
 			if(Text.Equals(string.Empty))
 			{
-                Text = Placeholder;
+				Text = Placeholder;
 				ForeColor = Color.Gray;
 			}
 		}

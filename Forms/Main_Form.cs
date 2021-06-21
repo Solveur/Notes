@@ -6,26 +6,25 @@
 	using System.Data;
 	using System.Data.SQLite;
 	using System.Drawing;
-	using System.Drawing.Imaging;
 	using System.IO;
 	using System.Windows.Forms;
 
-	public partial class Main_Form : Form
+	public partial class Main_Form: Form
 	{
-		// TODO: при загрузке заметок, не удаляется фон
+		// TODO: не убирается фон после смены пользователя
 		static string strCon = "Data Source =  Notes.db; Version = 3";
 		SQLiteConnection con = new SQLiteConnection(strCon);
 
 		List<Note> Notes = new List<Note>();
 		Note SelectedNote = null;
 
-		//TODO: Change user select
 		List<User> Users = new List<User>();
 		User CurrentUser = null;
 
 		public Main_Form()
 		{
 			InitializeComponent();
+			CreateTablesIfNotExist();
 			Users = GetUsers();
 			Notes = GetAllNotes();
 			ConnectNotesAndUsers(Users);
@@ -80,8 +79,8 @@
 
 		void RichTextBox_NoteText_TextChanged(object sender, EventArgs e)
 		{
-			 SelectedNote.RTF =
-				SelectedNote is null ? string.Empty : richTextBox_NoteText.Rtf;
+			SelectedNote.RTF =
+			 SelectedNote is null ? string.Empty : richTextBox_NoteText.Rtf;
 		}
 
 		void showUsersControlPanelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -97,7 +96,7 @@
 
 		void Main_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			Application.Exit();
+			System.Windows.Forms.Application.Exit();
 		}
 
 		void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -218,7 +217,7 @@
 							Rowid = Convert.ToInt32(r["id"]),
 							Login = r["login"].ToString(),
 							Description = r["description"].ToString(),
-							Image = ByteToImage((byte[])r["avatar"]),
+							Avatar = ByteToImage((byte[])r["avatar"]),
 							IsNew = false,
 						};
 						users.Add(newUser);
@@ -242,7 +241,7 @@
 
 		void DragWindowByMenuStrip()
 		{
-			menuStrip.MouseDown += new MouseEventHandler((sender, e) =>
+			menuStrip.MouseDown += new System.Windows.Forms.MouseEventHandler((sender, e) =>
 			{
 				Capture = false;
 				Message message = Message.Create(Handle, 0xA1, new IntPtr(2), IntPtr.Zero);
@@ -259,7 +258,7 @@
 		{
 			// Convert byte[] to Image
 			MemoryStream ms = new MemoryStream(imageBytes);
-			Image image = new Bitmap(ms);
+			System.Drawing.Image image = new Bitmap(ms);
 			return image;
 		}
 
@@ -297,6 +296,28 @@
 				return;
 			}
 			labelCurrentUser.Text = $"Current user: {user.Login}";
+		}
+
+		void CreateTablesIfNotExist()
+		{
+			if(con.State == ConnectionState.Closed)
+				con.Open();
+
+			using(SQLiteCommand command = con.CreateCommand())
+			{
+				command.CommandText = "CREATE TABLE IF NOT EXISTS [Users](" +
+					"[id] INTEGER PRIMARY KEY ASC ON CONFLICT ROLLBACK AUTOINCREMENT NOT NULL ON CONFLICT ROLLBACK UNIQUE ON CONFLICT ROLLBACK," +
+					"[login] TEXT NOT NULL ON CONFLICT ROLLBACK," +
+					"[description] TEXT," +
+					"[avatar] BINARY);" +
+
+					"CREATE TABLE IF NOT EXISTS [Notes](" +
+					"[id] INTEGER PRIMARY KEY ASC ON CONFLICT ROLLBACK AUTOINCREMENT NOT NULL ON CONFLICT ROLLBACK UNIQUE ON CONFLICT ROLLBACK," +
+					"[owner] INT NOT NULL ON CONFLICT ROLLBACK REFERENCES[Users]([id]) ON DELETE CASCADE ON UPDATE CASCADE," +
+					"[note] TEXT," +
+					"[dateOfCreate] DATETIME NOT NULL ON CONFLICT ROLLBACK);";
+				command.ExecuteNonQuery();
+			}
 		}
 	}
 }

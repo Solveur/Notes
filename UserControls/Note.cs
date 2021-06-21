@@ -41,13 +41,13 @@
 			}
 		}
 
-		private string _Text;
+		private string _text;
 		new public string Text
 		{
-			get { return _Text; }
+			get { return _text; }
 			set
 			{
-				_Text = value;
+				_text = value;
 				try
 				{
 					if(_RTB_Note.Lines.Length > 1)
