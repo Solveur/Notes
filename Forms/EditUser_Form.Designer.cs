@@ -163,7 +163,7 @@ namespace Notes
 
 		private Notes.TextBoxWithPlaceholder textBoxDescription;
 		private System.Windows.Forms.PictureBox pictureBoxUserAvatar;
-		private Notes.TextBoxWithPlaceholder textBoxLogin;
+		private Notes.TextBoxWithPlaceholder textBoxLogin = new TextBoxWithPlaceholder();
 		private System.Windows.Forms.Button buttonCancel;
 		private System.Windows.Forms.Button buttonApply;
 		private System.Windows.Forms.Button buttonDelete;
