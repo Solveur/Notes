@@ -1,33 +1,33 @@
-﻿namespace NotesLib
+﻿namespace Notes
 {
-    partial class Note
-    {
-        /// <summary>
-        /// Обязательная переменная конструктора.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class Note
+	{
+		/// <summary>
+		/// Обязательная переменная конструктора.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Освободить все используемые ресурсы.
-        /// </summary>
-        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Освободить все используемые ресурсы.
+		/// </summary>
+		/// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if(disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Код, автоматически созданный конструктором компонентов
+		#region Код, автоматически созданный конструктором компонентов
 
-        /// <summary>
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary>
+		/// Требуемый метод для поддержки конструктора — не изменяйте 
+		/// содержимое этого метода с помощью редактора кода.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			this.components = new System.ComponentModel.Container();
 			this.lbl_Header = new System.Windows.Forms.Label();
 			this.lbl_Content = new System.Windows.Forms.Label();
@@ -58,7 +58,7 @@
 			// contextMenuStrip_NoteRMB
 			// 
 			this.contextMenuStrip_NoteRMB.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteToolStripMenuItem});
+			this.deleteToolStripMenuItem});
 			this.contextMenuStrip_NoteRMB.Name = "contextMenuStrip_NoteRMB";
 			this.contextMenuStrip_NoteRMB.Size = new System.Drawing.Size(181, 48);
 			// 
@@ -88,12 +88,12 @@
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.Label lbl_Header;
-        private System.Windows.Forms.Label lbl_Content;
+		private System.Windows.Forms.Label lbl_Header;
+		private System.Windows.Forms.Label lbl_Content;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip_NoteRMB;
 		private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
 	}

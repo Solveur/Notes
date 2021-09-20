@@ -1,12 +1,13 @@
-﻿using System;
-using System.Data.SQLite;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace NotesLib
+﻿namespace Notes
 {
-	public partial class Note : UserControl
+	using System;
+	using System.Data.SQLite;
+	using System.Drawing;
+	using System.Windows.Forms;
+
+	public partial class Note: UserControl
 	{
+		public bool IsNew = true;
 		public User Owner { get; set; }
 		public int Rowid = 0;
 		public DateTime DateOfCreation = new DateTime();
@@ -40,23 +41,23 @@ namespace NotesLib
 			}
 		}
 
-		private string _Text;
+		private string _text;
 		new public string Text
 		{
-			get { return _Text; }
+			get { return _text; }
 			set
 			{
-				_Text = value;
+				_text = value;
 				try
 				{
-					if (_RTB_Note.Lines.Length > 1)
+					if(_RTB_Note.Lines.Length > 1)
 						lbl_Content.Text = _RTB_Note.Lines[1];
 				}
 				catch { }
 
 				try
 				{
-					if (_RTB_Note.Lines.Length != 0)
+					if(_RTB_Note.Lines.Length != 0)
 						lbl_Header.Text = _RTB_Note.Lines[0];
 					else
 					{
@@ -71,31 +72,32 @@ namespace NotesLib
 		public Note()
 		{
 			InitializeComponent();
+			DateOfCreation = DateTime.Now;
 		}
 
 		Color tempColorClick;
 		Color tempColorMove;
 
 		private void Note_MouseEnter(object sender, EventArgs e)
-        {
+		{
 			tempColorMove = BackColor;
 			BackColor = Color.FromArgb(223, 74, 22);
-        }
+		}
 
-        private void Note_MouseLeave(object sender, EventArgs e)
-        {
+		private void Note_MouseLeave(object sender, EventArgs e)
+		{
 			BackColor = tempColorMove;
-        }
+		}
 
-        private void Note_MouseDown(object sender, MouseEventArgs e)
-        {
+		private void Note_MouseDown(object sender, MouseEventArgs e)
+		{
 			tempColorClick = BackColor;
 			tempColorMove = BackColor;
 			BackColor = Color.FromArgb(224, 114, 76);
 		}
 
-        private void Note_MouseUp(object sender, MouseEventArgs e)
-        {
+		private void Note_MouseUp(object sender, MouseEventArgs e)
+		{
 			BackColor = tempColorClick;
 		}
 

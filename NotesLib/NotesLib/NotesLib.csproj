@@ -30,8 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\bin\Debug\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6">
+      <HintPath>..\..\bin\Debug\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq">
+      <HintPath>..\..\bin\Debug\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +52,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddUser_Panel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AddUser_Panel.Designer.cs">
+      <DependentUpon>AddUser_Panel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\ButtonAddUser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\Extensions.cs" />
+    <Compile Include="NotesLib.Forms\EditUser_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NotesLib.Forms\EditUser_Form.Designer.cs">
+      <DependentUpon>EditUser_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Note.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -49,13 +75,47 @@
       <DependentUpon>Note.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\TextBoxWithPlaceholder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\User.cs" />
+    <Compile Include="User_Panel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User_Panel.Designer.cs">
+      <DependentUpon>User_Panel.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddUser_Panel.resx">
+      <DependentUpon>AddUser_Panel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotesLib.Forms\EditUser_Form.resx">
+      <DependentUpon>EditUser_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Note.resx">
       <DependentUpon>Note.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User_Panel.resx">
+      <DependentUpon>User_Panel.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NoImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlusSign.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
