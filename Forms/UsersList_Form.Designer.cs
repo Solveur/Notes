@@ -75,7 +75,7 @@ namespace Notes.Forms
 			this.menuStrip1.Size = new System.Drawing.Size(294, 25);
 			this.menuStrip1.TabIndex = 2;
 			this.menuStrip1.Text = "menuStrip";
-			this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip_MouseDown);
+			this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuStrip_MouseDown);
 			// 
 			// UsersList_Form
 			// 

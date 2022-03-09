@@ -53,7 +53,7 @@
 			Close();
 		}
 
-		private void menuStrip_MouseDown(object sender, MouseEventArgs e)
+		private void MenuStrip_MouseDown(object sender, MouseEventArgs e)
 		{
 			Capture = false;
 			Message message = Message.Create(Handle, 0xA1, new IntPtr(2), IntPtr.Zero);

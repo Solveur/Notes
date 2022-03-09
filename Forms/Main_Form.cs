@@ -11,14 +11,15 @@
 
 	public partial class Main_Form: Form
 	{
-		// TODO: не убирается фон после смены пользователя
-		static string strCon = "Data Source =  Notes.db; Version = 3";
-		SQLiteConnection con = new SQLiteConnection(strCon);
+		// TODO: Не убирается фон после смены пользователя
+		// TODO: Поиск
+		static readonly string strCon = "Data Source =  Notes.db; Version = 3";
+    readonly SQLiteConnection con = new SQLiteConnection(strCon);
 
-		List<Note> Notes = new List<Note>();
+    readonly List<Note> Notes = new List<Note>();
 		Note SelectedNote = null;
 
-		List<User> Users = new List<User>();
+    readonly List<User> Users = new List<User>();
 		User CurrentUser = null;
 
 		public Main_Form()
@@ -37,7 +38,8 @@
 
 		void SelectNote(object sender)
 		{
-			//TODO: Polymorphism
+			//TODO: Polymorphism?
+
 			if(sender is Note note)
 			{
 				if(SelectedNote != null)
