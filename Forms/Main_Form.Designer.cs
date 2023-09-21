@@ -32,7 +32,7 @@ namespace Notes
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
 			this.panelNote = new System.Windows.Forms.Panel();
 			this.richTextBox_NoteText = new System.Windows.Forms.RichTextBox();
-			this.labelNoteDoesNotSelected = new System.Windows.Forms.Label();
+			this.labelNoteNotSelected = new System.Windows.Forms.Label();
 			this.panelNotesList = new System.Windows.Forms.Panel();
 			this.flowLayoutPanel_Notes = new System.Windows.Forms.FlowLayoutPanel();
 			this.button_AddNote = new System.Windows.Forms.Button();
@@ -41,8 +41,8 @@ namespace Notes
 			this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showUsersControlPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.buttonExit = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
+			this.buttonMinimize = new System.Windows.Forms.Button();
+			this.buttonMaximize = new System.Windows.Forms.Button();
 			this.labelCurrentUser = new System.Windows.Forms.Label();
 			this.panelNote.SuspendLayout();
 			this.panelNotesList.SuspendLayout();
@@ -57,7 +57,7 @@ namespace Notes
 			// 
 			this.panelNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(62)))), ((int)(((byte)(62)))));
 			this.panelNote.Controls.Add(this.richTextBox_NoteText);
-			this.panelNote.Controls.Add(this.labelNoteDoesNotSelected);
+			this.panelNote.Controls.Add(this.labelNoteNotSelected);
 			this.panelNote.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelNote.Location = new System.Drawing.Point(0, 0);
 			this.panelNote.Margin = new System.Windows.Forms.Padding(0);
@@ -81,17 +81,20 @@ namespace Notes
 			this.richTextBox_NoteText.Visible = false;
 			this.richTextBox_NoteText.TextChanged += new System.EventHandler(this.RichTextBox_NoteText_TextChanged);
 			// 
-			// labelNoteDoesNotSelected
+			// labelNoteNotSelected
 			// 
-			this.labelNoteDoesNotSelected.AutoSize = true;
-			this.labelNoteDoesNotSelected.Font = new System.Drawing.Font("Cambria", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.labelNoteDoesNotSelected.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-			this.labelNoteDoesNotSelected.Location = new System.Drawing.Point(62, 141);
-			this.labelNoteDoesNotSelected.Margin = new System.Windows.Forms.Padding(62, 141, 63, 141);
-			this.labelNoteDoesNotSelected.Name = "labelNoteDoesNotSelected";
-			this.labelNoteDoesNotSelected.Size = new System.Drawing.Size(329, 75);
-			this.labelNoteDoesNotSelected.TabIndex = 1;
-			this.labelNoteDoesNotSelected.Text = "Select note";
+			this.labelNoteNotSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.labelNoteNotSelected.AutoSize = true;
+			this.labelNoteNotSelected.Font = new System.Drawing.Font("Cambria", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.labelNoteNotSelected.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+			this.labelNoteNotSelected.Location = new System.Drawing.Point(62, 141);
+			this.labelNoteNotSelected.Margin = new System.Windows.Forms.Padding(62, 141, 63, 141);
+			this.labelNoteNotSelected.Name = "labelNoteNotSelected";
+			this.labelNoteNotSelected.Size = new System.Drawing.Size(329, 75);
+			this.labelNoteNotSelected.TabIndex = 1;
+			this.labelNoteNotSelected.Text = "Select note";
 			// 
 			// panelNotesList
 			// 
@@ -198,48 +201,58 @@ namespace Notes
 			// 
 			// buttonExit
 			// 
+			this.buttonExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-			this.buttonExit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonExit.BackgroundImage")));
 			this.buttonExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
 			this.buttonExit.FlatAppearance.BorderSize = 0;
 			this.buttonExit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(17)))), ((int)(((byte)(35)))));
 			this.buttonExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(17)))), ((int)(((byte)(35)))));
 			this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonExit.ForeColor = System.Drawing.SystemColors.Control;
 			this.buttonExit.Location = new System.Drawing.Point(600, 1);
 			this.buttonExit.Margin = new System.Windows.Forms.Padding(1);
 			this.buttonExit.Name = "buttonExit";
 			this.buttonExit.Size = new System.Drawing.Size(22, 22);
 			this.buttonExit.TabIndex = 2;
+			this.buttonExit.Text = "✖";
 			this.buttonExit.UseVisualStyleBackColor = false;
 			this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
 			// 
-			// button1
+			// buttonMinimize
 			// 
-			this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-			this.button1.FlatAppearance.BorderSize = 0;
-			this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-			this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1.Location = new System.Drawing.Point(554, 1);
-			this.button1.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(22, 22);
-			this.button1.TabIndex = 3;
-			this.button1.UseVisualStyleBackColor = false;
+			this.buttonMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonMinimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+			this.buttonMinimize.FlatAppearance.BorderSize = 0;
+			this.buttonMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+			this.buttonMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+			this.buttonMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonMinimize.ForeColor = System.Drawing.SystemColors.Control;
+			this.buttonMinimize.Location = new System.Drawing.Point(554, 1);
+			this.buttonMinimize.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+			this.buttonMinimize.Name = "buttonMinimize";
+			this.buttonMinimize.Size = new System.Drawing.Size(22, 22);
+			this.buttonMinimize.TabIndex = 3;
+			this.buttonMinimize.Text = "🗕";
+			this.buttonMinimize.UseVisualStyleBackColor = false;
+			this.buttonMinimize.Click += new System.EventHandler(this.buttonMinimize_Click);
 			// 
-			// button2
+			// buttonMaximize
 			// 
-			this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-			this.button2.FlatAppearance.BorderSize = 0;
-			this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-			this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button2.Location = new System.Drawing.Point(577, 1);
-			this.button2.Margin = new System.Windows.Forms.Padding(1, 1, 0, 1);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(22, 22);
-			this.button2.TabIndex = 8;
-			this.button2.UseVisualStyleBackColor = false;
+			this.buttonMaximize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonMaximize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+			this.buttonMaximize.FlatAppearance.BorderSize = 0;
+			this.buttonMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+			this.buttonMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+			this.buttonMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonMaximize.ForeColor = System.Drawing.SystemColors.Control;
+			this.buttonMaximize.Location = new System.Drawing.Point(577, 1);
+			this.buttonMaximize.Margin = new System.Windows.Forms.Padding(1, 1, 0, 1);
+			this.buttonMaximize.Name = "buttonMaximize";
+			this.buttonMaximize.Size = new System.Drawing.Size(22, 22);
+			this.buttonMaximize.TabIndex = 8;
+			this.buttonMaximize.Text = "🗖";
+			this.buttonMaximize.UseVisualStyleBackColor = false;
+			this.buttonMaximize.Click += new System.EventHandler(this.buttonMaximize_Click);
 			// 
 			// labelCurrentUser
 			// 
@@ -259,8 +272,8 @@ namespace Notes
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(48)))), ((int)(((byte)(52)))));
 			this.ClientSize = new System.Drawing.Size(625, 381);
 			this.Controls.Add(this.labelCurrentUser);
-			this.Controls.Add(this.button1);
-			this.Controls.Add(this.button2);
+			this.Controls.Add(this.buttonMinimize);
+			this.Controls.Add(this.buttonMaximize);
 			this.Controls.Add(this.buttonExit);
 			this.Controls.Add(this.splitContainer);
 			this.Controls.Add(this.menuStrip);
@@ -298,9 +311,9 @@ namespace Notes
 		private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showUsersControlPanelToolStripMenuItem;
         private System.Windows.Forms.Button buttonExit;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Label labelNoteDoesNotSelected;
+        private System.Windows.Forms.Button buttonMinimize;
+        private System.Windows.Forms.Button buttonMaximize;
+		private System.Windows.Forms.Label labelNoteNotSelected;
 		private System.Windows.Forms.Label labelCurrentUser;
 	}
 }

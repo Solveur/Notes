@@ -1,6 +1,5 @@
 ﻿namespace Notes
 {
-	using Notes.Forms;
 	using System;
 	using System.Collections.Generic;
 	using System.Data;
@@ -8,19 +7,22 @@
 	using System.Drawing;
 	using System.IO;
 	using System.Windows.Forms;
+	using Notes.Forms;
 
-	public partial class Main_Form: Form
+	public partial class Main_Form : Form
 	{
 		// TODO: Не убирается фон после смены пользователя
 		// TODO: Поиск
 		static readonly string strCon = "Data Source =  Notes.db; Version = 3";
-    readonly SQLiteConnection con = new SQLiteConnection(strCon);
+		readonly SQLiteConnection con = new SQLiteConnection(strCon);
 
-    readonly List<Note> Notes = new List<Note>();
+		readonly List<Note> Notes = new List<Note>();
 		Note SelectedNote = null;
 
-    readonly List<User> Users = new List<User>();
+		readonly List<User> Users = new List<User>();
 		User CurrentUser = null;
+
+		
 
 		public Main_Form()
 		{
@@ -40,9 +42,9 @@
 		{
 			//TODO: Polymorphism?
 
-			if(sender is Note note)
+			if (sender is Note note)
 			{
-				if(SelectedNote != null)
+				if (SelectedNote != null)
 					SelectedNote.BackColor = Color.Transparent;
 				SelectedNote = note;
 				SelectedNote.BackColor = Color.FromArgb(224, 114, 76);
@@ -50,9 +52,9 @@
 				richTextBox_NoteText.Rtf = note.RTF;
 				richTextBox_NoteText.Focus();
 			}
-			else if(sender is Label label)
+			else if (sender is Label label)
 			{
-				if(SelectedNote != null)
+				if (SelectedNote != null)
 					SelectedNote.BackColor = Color.Transparent;
 				SelectedNote = label.Parent as Note;
 				SelectedNote.BackColor = Color.FromArgb(223, 74, 22);
@@ -87,7 +89,7 @@
 
 		void showUsersControlPanelToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			using(UsersList_Form usersList = new UsersList_Form())
+			using (UsersList_Form usersList = new UsersList_Form())
 			{
 				usersList.Users = Users;
 				usersList.Owner = this;
@@ -98,7 +100,7 @@
 
 		void Main_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			System.Windows.Forms.Application.Exit();
+			Application.Exit();
 		}
 
 		void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -108,19 +110,19 @@
 
 		void SaveNotes(List<Note> notes)
 		{
-			if(con.State == ConnectionState.Closed)
+			if (con.State == ConnectionState.Closed)
 				con.Open();
 
-			using(SQLiteCommand command = con.CreateCommand())
+			using (SQLiteCommand command = con.CreateCommand())
 			{
-				foreach(var note in notes)
+				foreach (var note in notes)
 				{
 					command.Parameters.AddWithValue("@rowid", note.Rowid);
 					command.Parameters.AddWithValue("@owner", note.Owner.Rowid);
 					command.Parameters.AddWithValue("@note", note.RTF);
 					command.Parameters.AddWithValue("@dateOfCreate", note.DateOfCreation);
 
-					if(note.IsNew)
+					if (note.IsNew)
 					{
 						command.CommandText = "INSERT INTO Notes(owner, note, dateOfCreate) VALUES(@owner, @note, @dateOfCreate)";
 					}
@@ -133,7 +135,7 @@
 					{
 						command.ExecuteNonQuery();
 					}
-					catch(Exception ex)
+					catch (Exception ex)
 					{
 						MessageBox.Show(ex.ToString());
 					}
@@ -145,9 +147,9 @@
 		List<Note> GetNotesForUser(User user)
 		{
 			List<Note> asd = new List<Note>();
-			foreach(var note in Notes)
+			foreach (var note in Notes)
 			{
-				if(note.Owner.Rowid == user.Rowid)
+				if (note.Owner.Rowid == user.Rowid)
 					asd.Add(note);
 			}
 			return asd;
@@ -155,23 +157,23 @@
 
 		List<Note> GetAllNotes()
 		{
-			if(con.State == ConnectionState.Closed)
+			if (con.State == ConnectionState.Closed)
 				con.Open();
 
 			List<Note> notes = new List<Note>();
-			using(SQLiteCommand command = con.CreateCommand())
+			using (SQLiteCommand command = con.CreateCommand())
 			{
 				command.CommandText = $"SELECT id, owner, note, dateOfCreate FROM Notes";
 				try
 				{
 					SQLiteDataReader r = command.ExecuteReader();
 
-					while(r.Read())
+					while (r.Read())
 					{
 						User owner = new User();
-						foreach(var targetUser in Users)
+						foreach (var targetUser in Users)
 						{
-							if(targetUser.Rowid == Convert.ToInt32(r["owner"]))
+							if (targetUser.Rowid == Convert.ToInt32(r["owner"]))
 							{
 								owner = targetUser;
 								break;
@@ -190,7 +192,7 @@
 					}
 					r.Close();
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					MessageBox.Show(ex.ToString());
 				}
@@ -201,18 +203,18 @@
 
 		List<User> GetUsers()
 		{
-			if(con.State == ConnectionState.Closed)
+			if (con.State == ConnectionState.Closed)
 				con.Open();
 
 			List<User> users = new List<User>();
-			using(SQLiteCommand command = con.CreateCommand())
+			using (SQLiteCommand command = con.CreateCommand())
 			{
 				command.CommandText = $"SELECT id, login, description, avatar FROM Users";
 				try
 				{
 					SQLiteDataReader r = command.ExecuteReader();
 
-					while(r.Read())
+					while (r.Read())
 					{
 						User newUser = new User()
 						{
@@ -226,7 +228,7 @@
 					}
 					r.Close();
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					MessageBox.Show(ex.ToString());
 				}
@@ -243,7 +245,7 @@
 
 		void DragWindowByMenuStrip()
 		{
-			menuStrip.MouseDown += new System.Windows.Forms.MouseEventHandler((sender, e) =>
+			menuStrip.MouseDown += new MouseEventHandler((sender, e) =>
 			{
 				Capture = false;
 				Message message = Message.Create(Handle, 0xA1, new IntPtr(2), IntPtr.Zero);
@@ -260,7 +262,7 @@
 		{
 			// Convert byte[] to Image
 			MemoryStream ms = new MemoryStream(imageBytes);
-			System.Drawing.Image image = new Bitmap(ms);
+			Image image = new Bitmap(ms);
 			return image;
 		}
 
@@ -271,7 +273,7 @@
 
 		public void SetCurrentUser(User user)
 		{
-			if(CurrentUser == user)
+			if (CurrentUser == user)
 				return;
 
 			CurrentUser = user;
@@ -286,13 +288,13 @@
 
 		void ConnectNotesAndUsers(List<User> users)
 		{
-			foreach(var user in users)
+			foreach (var user in users)
 				user.Notes = GetNotesForUser(user);
 		}
 
 		void SetLabelUser(User user)
 		{
-			if(user is null)
+			if (user is null)
 			{
 				labelCurrentUser.Text = "Current user: ";
 				return;
@@ -302,12 +304,13 @@
 
 		void CreateTablesIfNotExist()
 		{
-			if(con.State == ConnectionState.Closed)
+			if (con.State == ConnectionState.Closed)
 				con.Open();
 
-			using(SQLiteCommand command = con.CreateCommand())
+			using (SQLiteCommand command = con.CreateCommand())
 			{
-				command.CommandText = "CREATE TABLE IF NOT EXISTS [Users](" +
+				command.CommandText = 
+					"CREATE TABLE IF NOT EXISTS [Users](" +
 					"[id] INTEGER PRIMARY KEY ASC ON CONFLICT ROLLBACK AUTOINCREMENT NOT NULL ON CONFLICT ROLLBACK UNIQUE ON CONFLICT ROLLBACK," +
 					"[login] TEXT NOT NULL ON CONFLICT ROLLBACK," +
 					"[description] TEXT," +
@@ -320,6 +323,19 @@
 					"[dateOfCreate] DATETIME NOT NULL ON CONFLICT ROLLBACK);";
 				command.ExecuteNonQuery();
 			}
+		}
+
+		private void buttonMaximize_Click(object sender, EventArgs e)
+		{
+			if (WindowState != FormWindowState.Maximized)
+				this.WindowState = FormWindowState.Maximized;
+			else
+				this.WindowState = FormWindowState.Normal;
+		}
+
+		private void buttonMinimize_Click(object sender, EventArgs e)
+		{
+			this.WindowState = FormWindowState.Minimized;
 		}
 	}
 }
